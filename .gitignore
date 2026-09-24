@@ -1,0 +1,14 @@
+# 生成文件（由 scripts/sync.mjs 同步生成，不入库）
+data/
+assets/data.js
+assets/details.js
+
+# 本地资源（logo 已内嵌进 index.html）
+assets/fanke-logo.png
+
+# 系统文件
+.DS_Store
+Thumbs.db
+edgeone.json
+.node_modules/
+node_modules/
