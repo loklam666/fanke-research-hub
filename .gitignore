@@ -12,3 +12,8 @@ Thumbs.db
 edgeone.json
 .node_modules/
 node_modules/
+.edgeone/
+.env
+_d*.png
+_cred*.txt
+*.pyc
