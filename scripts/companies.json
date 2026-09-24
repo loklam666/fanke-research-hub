@@ -1,0 +1,678 @@
+{
+  "note": "实习/求职资源板块公司清单。source 可选字段: 'simpleicons:slug'(走 Simple Icons CDN) 或 直接给 logoUrl；否则自动抓官网图标。新增公司后运行 node scripts/fetch-logos.mjs 即可。",
+  "companies": [
+    {
+      "slug": "tencent",
+      "name": "Tencent",
+      "nameZh": "腾讯",
+      "domain": "tencent.com",
+      "industry": "互联网"
+    },
+    {
+      "slug": "alibaba",
+      "name": "Alibaba Group",
+      "nameZh": "阿里巴巴",
+      "domain": "alibaba.com",
+      "industry": "互联网"
+    },
+    {
+      "slug": "bytedance",
+      "name": "ByteDance",
+      "nameZh": "字节跳动",
+      "domain": "bytedance.com",
+      "industry": "互联网"
+    },
+    {
+      "slug": "baidu",
+      "name": "Baidu",
+      "nameZh": "百度",
+      "domain": "baidu.com",
+      "industry": "互联网"
+    },
+    {
+      "slug": "huawei",
+      "name": "Huawei",
+      "nameZh": "华为",
+      "domain": "huawei.com",
+      "industry": "硬件与通信"
+    },
+    {
+      "slug": "meituan",
+      "name": "Meituan",
+      "nameZh": "美团",
+      "domain": "meituan.com",
+      "industry": "互联网"
+    },
+    {
+      "slug": "jd",
+      "name": "JD.com",
+      "nameZh": "京东",
+      "domain": "jd.com",
+      "industry": "互联网"
+    },
+    {
+      "slug": "pinduoduo",
+      "name": "PDD Holdings",
+      "nameZh": "拼多多",
+      "domain": "pinduoduo.com",
+      "industry": "互联网"
+    },
+    {
+      "slug": "netease",
+      "name": "NetEase",
+      "nameZh": "网易",
+      "domain": "netease.com",
+      "industry": "互联网",
+      "source": "url:https://static.ws.126.net/www/logo/logo-ipad-icon.png"
+    },
+    {
+      "slug": "xiaohongshu",
+      "name": "REDnote",
+      "nameZh": "小红书",
+      "domain": "xiaohongshu.com",
+      "industry": "互联网"
+    },
+    {
+      "slug": "bilibili",
+      "name": "bilibili",
+      "nameZh": "哔哩哔哩",
+      "domain": "bilibili.com",
+      "industry": "互联网"
+    },
+    {
+      "slug": "didi",
+      "name": "DiDi",
+      "nameZh": "滴滴",
+      "domain": "didiglobal.com",
+      "industry": "互联网"
+    },
+    {
+      "slug": "kuaishou",
+      "name": "Kuaishou",
+      "nameZh": "快手",
+      "domain": "kuaishou.com",
+      "industry": "互联网"
+    },
+    {
+      "slug": "antgroup",
+      "name": "Ant Group",
+      "nameZh": "蚂蚁集团",
+      "domain": "antgroup.com",
+      "industry": "金融科技",
+      "source": "url:https://i.alipayobjects.com/common/favicon/favicon.ico"
+    },
+    {
+      "slug": "weibo",
+      "name": "Weibo",
+      "nameZh": "微博",
+      "domain": "weibo.com",
+      "industry": "互联网"
+    },
+    {
+      "slug": "iqiyi",
+      "name": "iQIYI",
+      "nameZh": "爱奇艺",
+      "domain": "iqiyi.com",
+      "industry": "互联网"
+    },
+    {
+      "slug": "trip",
+      "name": "Trip.com Group",
+      "nameZh": "携程集团",
+      "domain": "trip.com",
+      "industry": "互联网"
+    },
+    {
+      "slug": "iflytek",
+      "name": "iFLYTEK",
+      "nameZh": "科大讯飞",
+      "domain": "iflytek.com",
+      "industry": "人工智能",
+      "skip": true,
+      "note": "官网反爬无法自动抓取，前端用文字徽标占位，可后续手工补充 source"
+    },
+    {
+      "slug": "hikvision",
+      "name": "Hikvision",
+      "nameZh": "海康威视",
+      "domain": "hikvision.com",
+      "industry": "硬件与通信"
+    },
+    {
+      "slug": "dji",
+      "name": "DJI",
+      "nameZh": "大疆创新",
+      "domain": "dji.com",
+      "industry": "硬件与通信"
+    },
+    {
+      "slug": "zhipu",
+      "name": "Zhipu AI",
+      "nameZh": "智谱AI",
+      "domain": "zhipuai.cn",
+      "industry": "人工智能"
+    },
+    {
+      "slug": "moonshot",
+      "name": "Moonshot AI",
+      "nameZh": "月之暗面",
+      "domain": "moonshot.cn",
+      "industry": "人工智能"
+    },
+    {
+      "slug": "sensetime",
+      "name": "SenseTime",
+      "nameZh": "商汤科技",
+      "domain": "sensetime.com",
+      "industry": "人工智能"
+    },
+    {
+      "slug": "mihoyo",
+      "name": "miHoYo",
+      "nameZh": "米哈游",
+      "domain": "mihoyo.com",
+      "industry": "游戏"
+    },
+    {
+      "slug": "perfectworld",
+      "name": "Perfect World",
+      "nameZh": "完美世界",
+      "domain": "perfectworld.com",
+      "industry": "游戏"
+    },
+    {
+      "slug": "xiaomi",
+      "name": "Xiaomi",
+      "nameZh": "小米",
+      "domain": "mi.com",
+      "industry": "硬件与通信"
+    },
+    {
+      "slug": "oppo",
+      "name": "OPPO",
+      "nameZh": "OPPO",
+      "domain": "oppo.com",
+      "industry": "硬件与通信"
+    },
+    {
+      "slug": "vivo",
+      "name": "vivo",
+      "nameZh": "vivo",
+      "domain": "vivo.com",
+      "industry": "硬件与通信"
+    },
+    {
+      "slug": "lenovo",
+      "name": "Lenovo",
+      "nameZh": "联想",
+      "domain": "lenovo.com",
+      "industry": "硬件与通信"
+    },
+    {
+      "slug": "catl",
+      "name": "CATL",
+      "nameZh": "宁德时代",
+      "domain": "catl.com",
+      "industry": "新能源与汽车"
+    },
+    {
+      "slug": "byd",
+      "name": "BYD",
+      "nameZh": "比亚迪",
+      "domain": "byd.com",
+      "industry": "新能源与汽车"
+    },
+    {
+      "slug": "nio",
+      "name": "NIO",
+      "nameZh": "蔚来",
+      "domain": "nio.com",
+      "industry": "新能源与汽车"
+    },
+    {
+      "slug": "lixiang",
+      "name": "Li Auto",
+      "nameZh": "理想汽车",
+      "domain": "lixiang.com",
+      "industry": "新能源与汽车"
+    },
+    {
+      "slug": "xiaopeng",
+      "name": "XPENG",
+      "nameZh": "小鹏汽车",
+      "domain": "xiaopeng.com",
+      "industry": "新能源与汽车"
+    },
+    {
+      "slug": "google",
+      "name": "Google",
+      "nameZh": "谷歌",
+      "domain": "google.com",
+      "industry": "国际科技",
+      "source": "simpleicons:google"
+    },
+    {
+      "slug": "microsoft",
+      "name": "Microsoft",
+      "nameZh": "微软",
+      "domain": "microsoft.com",
+      "industry": "国际科技"
+    },
+    {
+      "slug": "apple",
+      "name": "Apple",
+      "nameZh": "苹果",
+      "domain": "apple.com",
+      "industry": "国际科技"
+    },
+    {
+      "slug": "amazon",
+      "name": "Amazon",
+      "nameZh": "亚马逊",
+      "domain": "amazon.com",
+      "industry": "国际科技"
+    },
+    {
+      "slug": "nvidia",
+      "name": "NVIDIA",
+      "nameZh": "英伟达",
+      "domain": "nvidia.com",
+      "industry": "国际科技"
+    },
+    {
+      "slug": "openai",
+      "name": "OpenAI",
+      "nameZh": "OpenAI",
+      "domain": "openai.com",
+      "industry": "人工智能",
+      "skip": true,
+      "note": "官网反爬无法自动抓取，前端用文字徽标占位，可后续手工补充 source"
+    },
+    {
+      "slug": "meta",
+      "name": "Meta",
+      "nameZh": "Meta",
+      "domain": "meta.com",
+      "industry": "国际科技",
+      "source": "simpleicons:meta"
+    },
+    {
+      "slug": "tesla",
+      "name": "Tesla",
+      "nameZh": "特斯拉",
+      "domain": "tesla.com",
+      "industry": "新能源与汽车"
+    },
+    {
+      "slug": "adobe",
+      "name": "Adobe",
+      "nameZh": "Adobe",
+      "domain": "adobe.com",
+      "industry": "国际科技"
+    },
+    {
+      "slug": "oracle",
+      "name": "Oracle",
+      "nameZh": "甲骨文",
+      "domain": "oracle.com",
+      "industry": "国际科技"
+    },
+    {
+      "slug": "ibm",
+      "name": "IBM",
+      "nameZh": "IBM",
+      "domain": "ibm.com",
+      "industry": "国际科技"
+    },
+    {
+      "slug": "intel",
+      "name": "Intel",
+      "nameZh": "英特尔",
+      "domain": "intel.com",
+      "industry": "国际科技"
+    },
+    {
+      "slug": "qualcomm",
+      "name": "Qualcomm",
+      "nameZh": "高通",
+      "domain": "qualcomm.com",
+      "industry": "国际科技"
+    },
+    {
+      "slug": "uber",
+      "name": "Uber",
+      "nameZh": "Uber",
+      "domain": "uber.com",
+      "industry": "国际科技"
+    },
+    {
+      "slug": "airbnb",
+      "name": "Airbnb",
+      "nameZh": "爱彼迎",
+      "domain": "airbnb.com",
+      "industry": "国际科技"
+    },
+    {
+      "slug": "goldman-sachs",
+      "name": "Goldman Sachs",
+      "nameZh": "高盛",
+      "domain": "gs.com",
+      "industry": "金融"
+    },
+    {
+      "slug": "morgan-stanley",
+      "name": "Morgan Stanley",
+      "nameZh": "摩根士丹利",
+      "domain": "morganstanley.com",
+      "industry": "金融"
+    },
+    {
+      "slug": "jp-morgan",
+      "name": "J.P.Morgan",
+      "nameZh": "摩根大通",
+      "domain": "jpmorganchase.com",
+      "industry": "金融"
+    },
+    {
+      "slug": "cicc",
+      "name": "CICC",
+      "nameZh": "中金公司",
+      "domain": "cicc.com",
+      "industry": "金融",
+      "skip": true,
+      "note": "官网反爬无法自动抓取，前端用文字徽标占位，可后续手工补充 source"
+    },
+    {
+      "slug": "citic-securities",
+      "name": "CITIC Securities",
+      "nameZh": "中信证券",
+      "domain": "citics.com",
+      "industry": "金融"
+    },
+    {
+      "slug": "csc",
+      "name": "CSC Financial",
+      "nameZh": "中信建投证券",
+      "domain": "csc108.com",
+      "industry": "金融"
+    },
+    {
+      "slug": "guotai-junan",
+      "name": "Guotai Junan",
+      "nameZh": "国泰君安证券",
+      "domain": "gtja.com",
+      "industry": "金融",
+      "source": "url:https://www.gtja.com/favicon.ico"
+    },
+    {
+      "slug": "huatai",
+      "name": "Huatai Securities",
+      "nameZh": "华泰证券",
+      "domain": "htsc.com.cn",
+      "industry": "金融"
+    },
+    {
+      "slug": "cms-china",
+      "name": "China Merchants Securities",
+      "nameZh": "招商证券",
+      "domain": "newone.com.cn",
+      "industry": "金融"
+    },
+    {
+      "slug": "gf-securities",
+      "name": "GF Securities",
+      "nameZh": "广发证券",
+      "domain": "gf.com.cn",
+      "industry": "金融"
+    },
+    {
+      "slug": "cmb",
+      "name": "China Merchants Bank",
+      "nameZh": "招商银行",
+      "domain": "cmbchina.com",
+      "industry": "金融"
+    },
+    {
+      "slug": "icbc",
+      "name": "ICBC",
+      "nameZh": "工商银行",
+      "domain": "icbc.com.cn",
+      "industry": "金融"
+    },
+    {
+      "slug": "ccb",
+      "name": "CCB",
+      "nameZh": "建设银行",
+      "domain": "ccb.com",
+      "industry": "金融",
+      "source": "url:https://www2.ccb.com/favicon.ico"
+    },
+    {
+      "slug": "boc",
+      "name": "Bank of China",
+      "nameZh": "中国银行",
+      "domain": "boc.cn",
+      "industry": "金融"
+    },
+    {
+      "slug": "abc",
+      "name": "Agricultural Bank of China",
+      "nameZh": "农业银行",
+      "domain": "abchina.com",
+      "industry": "金融"
+    },
+    {
+      "slug": "bankcomm",
+      "name": "Bank of Communications",
+      "nameZh": "交通银行",
+      "domain": "bankcomm.com",
+      "industry": "金融",
+      "source": "url:https://www.bankcomm.com/favicon.ico"
+    },
+    {
+      "slug": "pingan",
+      "name": "Ping An",
+      "nameZh": "中国平安",
+      "domain": "pingan.com",
+      "industry": "金融"
+    },
+    {
+      "slug": "hsbc",
+      "name": "HSBC",
+      "nameZh": "汇丰银行",
+      "domain": "hsbc.com",
+      "industry": "金融"
+    },
+    {
+      "slug": "citi",
+      "name": "Citi",
+      "nameZh": "花旗银行",
+      "domain": "citigroup.com",
+      "industry": "金融"
+    },
+    {
+      "slug": "standardchartered",
+      "name": "Standard Chartered",
+      "nameZh": "渣打银行",
+      "domain": "sc.com",
+      "industry": "金融"
+    },
+    {
+      "slug": "efunds",
+      "name": "E Fund",
+      "nameZh": "易方达基金",
+      "domain": "efunds.com.cn",
+      "industry": "金融"
+    },
+    {
+      "slug": "huitianfu",
+      "name": "China Universal Asset Management",
+      "nameZh": "汇添富基金",
+      "domain": "99fund.com",
+      "industry": "金融"
+    },
+    {
+      "slug": "zofund",
+      "name": "China Europe Fund",
+      "nameZh": "中欧基金",
+      "domain": "zofund.com",
+      "industry": "金融"
+    },
+    {
+      "slug": "mckinsey",
+      "name": "McKinsey & Company",
+      "nameZh": "麦肯锡",
+      "domain": "mckinsey.com",
+      "industry": "咨询",
+      "source": "url:https://www.mckinsey.com.cn/favicon.ico"
+    },
+    {
+      "slug": "bcg",
+      "name": "Boston Consulting Group",
+      "nameZh": "波士顿咨询",
+      "domain": "bcg.com",
+      "industry": "咨询"
+    },
+    {
+      "slug": "bain",
+      "name": "Bain & Company",
+      "nameZh": "贝恩咨询",
+      "domain": "bain.com",
+      "industry": "咨询",
+      "source": "url:https://www.bain.cn/favicon.png"
+    },
+    {
+      "slug": "accenture",
+      "name": "Accenture",
+      "nameZh": "埃森哲",
+      "domain": "accenture.com",
+      "industry": "咨询"
+    },
+    {
+      "slug": "rolandberger",
+      "name": "Roland Berger",
+      "nameZh": "罗兰贝格",
+      "domain": "rolandberger.com",
+      "industry": "咨询"
+    },
+    {
+      "slug": "pwc",
+      "name": "PwC",
+      "nameZh": "普华永道",
+      "domain": "pwc.com",
+      "industry": "咨询"
+    },
+    {
+      "slug": "deloitte",
+      "name": "Deloitte",
+      "nameZh": "德勤",
+      "domain": "deloitte.com",
+      "industry": "咨询"
+    },
+    {
+      "slug": "ey",
+      "name": "EY",
+      "nameZh": "安永",
+      "domain": "ey.com",
+      "industry": "咨询"
+    },
+    {
+      "slug": "kpmg",
+      "name": "KPMG",
+      "nameZh": "毕马威",
+      "domain": "kpmg.com",
+      "industry": "咨询"
+    },
+    {
+      "slug": "pg",
+      "name": "Procter & Gamble",
+      "nameZh": "宝洁",
+      "domain": "pg.com",
+      "industry": "快消与零售"
+    },
+    {
+      "slug": "unilever",
+      "name": "Unilever",
+      "nameZh": "联合利华",
+      "domain": "unilever.com",
+      "industry": "快消与零售"
+    },
+    {
+      "slug": "loreal",
+      "name": "L'Oréal",
+      "nameZh": "欧莱雅",
+      "domain": "loreal.com",
+      "industry": "快消与零售"
+    },
+    {
+      "slug": "mars",
+      "name": "Mars",
+      "nameZh": "玛氏",
+      "domain": "mars.com",
+      "industry": "快消与零售"
+    },
+    {
+      "slug": "cocacola",
+      "name": "Coca-Cola",
+      "nameZh": "可口可乐",
+      "domain": "coca-cola.com",
+      "industry": "快消与零售"
+    },
+    {
+      "slug": "pepsico",
+      "name": "PepsiCo",
+      "nameZh": "百事",
+      "domain": "pepsico.com",
+      "industry": "快消与零售"
+    },
+    {
+      "slug": "pfizer",
+      "name": "Pfizer",
+      "nameZh": "辉瑞",
+      "domain": "pfizer.com",
+      "industry": "医药与健康"
+    },
+    {
+      "slug": "astrazeneca",
+      "name": "AstraZeneca",
+      "nameZh": "阿斯利康",
+      "domain": "astrazeneca.com",
+      "industry": "医药与健康"
+    },
+    {
+      "slug": "novartis",
+      "name": "Novartis",
+      "nameZh": "诺华",
+      "domain": "novartis.com",
+      "industry": "医药与健康"
+    },
+    {
+      "slug": "roche",
+      "name": "Roche",
+      "nameZh": "罗氏",
+      "domain": "roche.com",
+      "industry": "医药与健康"
+    },
+    {
+      "slug": "jnj",
+      "name": "Johnson & Johnson",
+      "nameZh": "强生",
+      "domain": "jnj.com",
+      "industry": "医药与健康"
+    },
+    {
+      "slug": "wuxi-apptec",
+      "name": "WuXi AppTec",
+      "nameZh": "药明康德",
+      "domain": "wuxiapptec.com",
+      "industry": "医药与健康"
+    },
+    {
+      "slug": "hengrui",
+      "name": "Hengrui Pharma",
+      "nameZh": "恒瑞医药",
+      "domain": "hengrui.com",
+      "industry": "医药与健康"
+    }
+  ]
+}

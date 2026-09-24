@@ -7,12 +7,16 @@
 ```
 fanke-research-hub/
 ├── index.html              # 网站入口（泛柯品牌 UI，单文件应用）
+├── logos.html              # 公司 Logo 素材库预览页（实习/求职板块筹备）
 ├── assets/
-│   ├── fanke-logo.png      # 泛柯 logo
+│   ├── fanke-logo.png      # 泛柯 logo（已内嵌进 index.html，此文件仅本地留存）
 │   ├── data.js             # 前端列表数据包（sync 脚本自动生成，勿手改）
-│   └── details.js          # 前端详情数据包（弹窗首次打开时懒加载）
+│   ├── details.js          # 前端详情数据包（弹窗首次打开时懒加载）
+│   └── logos/              # 公司 Logo 素材库（94 家，为实习/求职板块准备）
 ├── scripts/
-│   └── sync.mjs            # 数据同步脚本
+│   ├── sync.mjs            # 科研项目数据同步脚本
+│   ├── fetch-logos.mjs     # 公司 Logo 采集脚本
+│   └── companies.json      # 公司清单（编辑后重跑 fetch-logos 即可扩充）
 └── data/
     ├── projects.json       # 全部项目列表（规范化后的主数据）
     ├── details.json        # 全部项目详情（周期/产出/背景/介绍/导师/附件）
@@ -80,6 +84,16 @@ cd fanke-research-hub && python -m http.server 8080
 ## 图片清晰度说明
 
 源站提供的封面小图仅 450px 宽（高分屏下会模糊）。网站前端已做优化：利用阿里云 OSS 的实时图片处理（`x-oss-process`），卡片封面改用每个项目的 1500px 高清详情长图按需缩放到 800px + 顶部裁切，弹窗长图 1200px，汇总长图缩略图 480px——按需生成、无需预先下载，流量与清晰度兼顾。该逻辑仅对 `aliyuncs.com` 域名的图片生效，其他图源原样加载。
+
+## 公司 Logo 素材库（实习/求职板块筹备）
+
+`logos.html` 可预览已采集的 94 家公司标识（覆盖互联网、人工智能、游戏、硬件、新能源、国际科技、金融、咨询、四大、快消、医药等校招热门行业）。
+
+- 采集来源：公司官网图标（自动解析 apple-touch-icon / favicon，取最大尺寸）为主，Simple Icons CDN 与手工指定地址兜底
+- 扩充方式：编辑 `scripts/companies.json` 增加公司（slug/name/nameZh/domain/industry）→ `node scripts/fetch-logos.mjs`
+- 产出：`assets/logos/{slug}.{png|svg|ico}` + `assets/logos/index.json` + `assets/logos.js`
+- 官网反爬无法自动抓取的公司（科大讯飞、OpenAI、中金公司）暂用文字徽标占位，后续可手工补充 logo 文件到 `assets/logos/{slug}.png` 并去掉 companies.json 中的 `"skip": true`
+- 版权说明：各公司 Logo 版权归其所有者，仅用于站内资源识别展示
 
 ## 发布上线
 
