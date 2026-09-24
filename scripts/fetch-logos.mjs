@@ -200,6 +200,7 @@ async function main() {
         }
       } catch (e) {
         failed.push({ ...c, reason: e.message });
+        results.push({ ...c, file: null, monogram: true }); // 失败也进索引，前端文字徽标占位
       }
       if (++done % 15 === 0) console.log(`  进度 ${done}/${companies.length}`);
     }
@@ -207,7 +208,7 @@ async function main() {
   await Promise.all(Array.from({ length: 6 }, worker));
 
   // 排序：按行业分组内按名称
-  const order = ['互联网', '人工智能', '游戏', '硬件与通信', '新能源与汽车', '国际科技', '金融科技', '金融', '咨询', '快消与零售', '医药与健康'];
+  const order = ['互联网','人工智能','游戏','硬件与通信','新能源与汽车','交通与物流','建筑与基建','能源与化工','国际科技','金融科技','金融','咨询','快消与零售','医药与健康'];
   results.sort((a, b) => (order.indexOf(a.industry) - order.indexOf(b.industry)) || a.nameZh.localeCompare(b.nameZh, 'zh'));
 
   const index = results.map(({ slug, name, nameZh, domain, industry, file, bytes, skipped }) => ({ slug, name, nameZh, domain, industry, file, bytes: bytes ?? null, cached: !!skipped }));

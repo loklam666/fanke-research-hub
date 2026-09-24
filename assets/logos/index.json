@@ -1,5 +1,315 @@
 [
   {
+    "slug": "exxonmobil",
+    "name": "ExxonMobil",
+    "nameZh": "埃克森美孚",
+    "domain": "exxonmobil.com",
+    "industry": "能源与化工",
+    "file": "assets/logos/exxonmobil.png",
+    "bytes": null,
+    "cached": true
+  },
+  {
+    "slug": "china-cdt",
+    "name": "China Datang",
+    "nameZh": "大唐集团",
+    "domain": "china-cdt.com",
+    "industry": "能源与化工",
+    "file": "assets/logos/china-cdt.ico",
+    "bytes": null,
+    "cached": true
+  },
+  {
+    "slug": "dhl",
+    "name": "DHL Group",
+    "nameZh": "德国邮政DHL",
+    "domain": "dhl.com",
+    "industry": "交通与物流",
+    "file": "assets/logos/dhl.jpg",
+    "bytes": null,
+    "cached": true
+  },
+  {
+    "slug": "ceair",
+    "name": "China Eastern",
+    "nameZh": "东方航空",
+    "domain": "ceair.com",
+    "industry": "交通与物流",
+    "file": "assets/logos/ceair.ico",
+    "bytes": null,
+    "cached": true
+  },
+  {
+    "slug": "spic",
+    "name": "SPIC",
+    "nameZh": "国家电投",
+    "domain": "spic.com.cn",
+    "industry": "能源与化工",
+    "file": "assets/logos/spic.ico",
+    "bytes": null,
+    "cached": true
+  },
+  {
+    "slug": "sgcc",
+    "name": "State Grid",
+    "nameZh": "国家电网",
+    "domain": "sgcc.com.cn",
+    "industry": "能源与化工",
+    "file": "assets/logos/sgcc.ico",
+    "bytes": null,
+    "cached": true
+  },
+  {
+    "slug": "chnenergy",
+    "name": "CHN Energy",
+    "nameZh": "国家能源集团",
+    "domain": "chnenergy.com.cn",
+    "industry": "能源与化工",
+    "file": "assets/logos/chnenergy.png",
+    "bytes": null,
+    "cached": true
+  },
+  {
+    "slug": "chd",
+    "name": "China Huadian",
+    "nameZh": "华电集团",
+    "domain": "chd.com.cn",
+    "industry": "能源与化工",
+    "file": null,
+    "bytes": null,
+    "cached": false
+  },
+  {
+    "slug": "chng",
+    "name": "China Huaneng",
+    "nameZh": "华能集团",
+    "domain": "chng.com.cn",
+    "industry": "能源与化工",
+    "file": "assets/logos/chng.png",
+    "bytes": null,
+    "cached": true
+  },
+  {
+    "slug": "shell",
+    "name": "Shell",
+    "nameZh": "壳牌",
+    "domain": "shell.com",
+    "industry": "能源与化工",
+    "file": "assets/logos/shell.png",
+    "bytes": null,
+    "cached": true
+  },
+  {
+    "slug": "fedex",
+    "name": "FedEx",
+    "nameZh": "联邦快递",
+    "domain": "fedex.com",
+    "industry": "交通与物流",
+    "file": "assets/logos/fedex.ico",
+    "bytes": null,
+    "cached": true
+  },
+  {
+    "slug": "ups",
+    "name": "UPS",
+    "nameZh": "联合包裹",
+    "domain": "ups.com",
+    "industry": "交通与物流",
+    "file": "assets/logos/ups.jpg",
+    "bytes": null,
+    "cached": true
+  },
+  {
+    "slug": "maersk",
+    "name": "A.P. Moller-Maersk",
+    "nameZh": "马士基",
+    "domain": "maersk.com",
+    "industry": "交通与物流",
+    "file": "assets/logos/maersk.ico",
+    "bytes": null,
+    "cached": true
+  },
+  {
+    "slug": "csg",
+    "name": "China Southern Power Grid",
+    "nameZh": "南方电网",
+    "domain": "csg.cn",
+    "industry": "能源与化工",
+    "file": "assets/logos/csg.ico",
+    "bytes": null,
+    "cached": true
+  },
+  {
+    "slug": "csair",
+    "name": "China Southern Airlines",
+    "nameZh": "南方航空",
+    "domain": "csair.com",
+    "industry": "交通与物流",
+    "file": "assets/logos/csair.ico",
+    "bytes": null,
+    "cached": true
+  },
+  {
+    "slug": "sf-express",
+    "name": "SF Express",
+    "nameZh": "顺丰速运",
+    "domain": "sf-express.com",
+    "industry": "交通与物流",
+    "file": "assets/logos/sf-express.ico",
+    "bytes": null,
+    "cached": true
+  },
+  {
+    "slug": "whchem",
+    "name": "Wanhua Chemical",
+    "nameZh": "万华化学",
+    "domain": "whchem.com",
+    "industry": "能源与化工",
+    "file": "assets/logos/whchem.ico",
+    "bytes": null,
+    "cached": true
+  },
+  {
+    "slug": "bp",
+    "name": "bp",
+    "nameZh": "英国石油",
+    "domain": "bp.com",
+    "industry": "能源与化工",
+    "file": "assets/logos/bp.ico",
+    "bytes": null,
+    "cached": true
+  },
+  {
+    "slug": "powerchina",
+    "name": "PowerChina",
+    "nameZh": "中国电建",
+    "domain": "powerchina.cn",
+    "industry": "建筑与基建",
+    "file": "assets/logos/powerchina.png",
+    "bytes": null,
+    "cached": true
+  },
+  {
+    "slug": "airchina",
+    "name": "Air China",
+    "nameZh": "中国国航",
+    "domain": "airchina.com.cn",
+    "industry": "交通与物流",
+    "file": "assets/logos/airchina.png",
+    "bytes": null,
+    "cached": true
+  },
+  {
+    "slug": "cnooc",
+    "name": "CNOOC",
+    "nameZh": "中国海油",
+    "domain": "cnooc.com.cn",
+    "industry": "能源与化工",
+    "file": "assets/logos/cnooc.ico",
+    "bytes": null,
+    "cached": true
+  },
+  {
+    "slug": "cscec",
+    "name": "CSCEC",
+    "nameZh": "中国建筑",
+    "domain": "cscec.com",
+    "industry": "建筑与基建",
+    "file": "assets/logos/cscec.png",
+    "bytes": null,
+    "cached": true
+  },
+  {
+    "slug": "sinopec",
+    "name": "Sinopec",
+    "nameZh": "中国石化",
+    "domain": "sinopec.com",
+    "industry": "能源与化工",
+    "file": "assets/logos/sinopec.ico",
+    "bytes": null,
+    "cached": true
+  },
+  {
+    "slug": "cnpc",
+    "name": "CNPC",
+    "nameZh": "中国石油",
+    "domain": "cnpc.com.cn",
+    "industry": "能源与化工",
+    "file": "assets/logos/cnpc.ico",
+    "bytes": null,
+    "cached": true
+  },
+  {
+    "slug": "crcc",
+    "name": "CRCC",
+    "nameZh": "中国铁建",
+    "domain": "crcc.cn",
+    "industry": "建筑与基建",
+    "file": "assets/logos/crcc.png",
+    "bytes": null,
+    "cached": true
+  },
+  {
+    "slug": "sinochem",
+    "name": "Sinochem",
+    "nameZh": "中国中化",
+    "domain": "sinochem.com",
+    "industry": "能源与化工",
+    "file": "assets/logos/sinochem.ico",
+    "bytes": null,
+    "cached": true
+  },
+  {
+    "slug": "ccccltd",
+    "name": "CCCC",
+    "nameZh": "中交集团",
+    "domain": "ccccltd.cn",
+    "industry": "建筑与基建",
+    "file": null,
+    "bytes": null,
+    "cached": false
+  },
+  {
+    "slug": "zto",
+    "name": "ZTO Express",
+    "nameZh": "中通快递",
+    "domain": "zto.com",
+    "industry": "交通与物流",
+    "file": "assets/logos/zto.ico",
+    "bytes": null,
+    "cached": true
+  },
+  {
+    "slug": "mcc",
+    "name": "MCC",
+    "nameZh": "中冶集团",
+    "domain": "mcc.com.cn",
+    "industry": "建筑与基建",
+    "file": null,
+    "bytes": null,
+    "cached": false
+  },
+  {
+    "slug": "coscoshipping",
+    "name": "COSCO Shipping",
+    "nameZh": "中远海运",
+    "domain": "coscoshipping.com",
+    "industry": "交通与物流",
+    "file": null,
+    "bytes": null,
+    "cached": false
+  },
+  {
+    "slug": "58",
+    "name": "58.com",
+    "nameZh": "58同城",
+    "domain": "58.com",
+    "industry": "互联网",
+    "file": "assets/logos/58.ico",
+    "bytes": null,
+    "cached": true
+  },
+  {
     "slug": "alibaba",
     "name": "Alibaba Group",
     "nameZh": "阿里巴巴",
@@ -90,6 +400,16 @@
     "cached": true
   },
   {
+    "slug": "suning",
+    "name": "Suning",
+    "nameZh": "苏宁易购",
+    "domain": "suning.com",
+    "industry": "互联网",
+    "file": "assets/logos/suning.ico",
+    "bytes": null,
+    "cached": true
+  },
+  {
     "slug": "tencent",
     "name": "Tencent",
     "nameZh": "腾讯",
@@ -116,6 +436,16 @@
     "domain": "weibo.com",
     "industry": "互联网",
     "file": "assets/logos/weibo.ico",
+    "bytes": null,
+    "cached": true
+  },
+  {
+    "slug": "vip",
+    "name": "Vipshop",
+    "nameZh": "唯品会",
+    "domain": "vip.com",
+    "industry": "互联网",
+    "file": "assets/logos/vip.ico",
     "bytes": null,
     "cached": true
   },
@@ -220,12 +550,42 @@
     "cached": true
   },
   {
+    "slug": "ericsson",
+    "name": "Ericsson",
+    "nameZh": "爱立信",
+    "domain": "ericsson.com",
+    "industry": "硬件与通信",
+    "file": "assets/logos/ericsson.svg",
+    "bytes": null,
+    "cached": true
+  },
+  {
     "slug": "dji",
     "name": "DJI",
     "nameZh": "大疆创新",
     "domain": "dji.com",
     "industry": "硬件与通信",
     "file": "assets/logos/dji.png",
+    "bytes": null,
+    "cached": true
+  },
+  {
+    "slug": "gree",
+    "name": "Gree",
+    "nameZh": "格力电器",
+    "domain": "gree.com",
+    "industry": "硬件与通信",
+    "file": "assets/logos/gree.ico",
+    "bytes": null,
+    "cached": true
+  },
+  {
+    "slug": "haier",
+    "name": "Haier",
+    "nameZh": "海尔",
+    "domain": "haier.com",
+    "industry": "硬件与通信",
+    "file": "assets/logos/haier.ico",
     "bytes": null,
     "cached": true
   },
@@ -240,12 +600,62 @@
     "cached": true
   },
   {
+    "slug": "hisense",
+    "name": "Hisense",
+    "nameZh": "海信集团",
+    "domain": "hisense.com",
+    "industry": "硬件与通信",
+    "file": "assets/logos/hisense.jpg",
+    "bytes": null,
+    "cached": true
+  },
+  {
     "slug": "huawei",
     "name": "Huawei",
     "nameZh": "华为",
     "domain": "huawei.com",
     "industry": "硬件与通信",
     "file": "assets/logos/huawei.png",
+    "bytes": null,
+    "cached": true
+  },
+  {
+    "slug": "boe",
+    "name": "BOE",
+    "nameZh": "京东方",
+    "domain": "boe.com",
+    "industry": "硬件与通信",
+    "file": "assets/logos/boe.ico",
+    "bytes": null,
+    "cached": true
+  },
+  {
+    "slug": "inspur",
+    "name": "Inspur",
+    "nameZh": "浪潮集团",
+    "domain": "inspur.com",
+    "industry": "硬件与通信",
+    "file": "assets/logos/inspur.ico",
+    "bytes": null,
+    "cached": true
+  },
+  {
+    "slug": "luxshare",
+    "name": "Luxshare",
+    "nameZh": "立讯精密",
+    "domain": "luxshare-ict.com",
+    "industry": "硬件与通信",
+    "file": "assets/logos/luxshare.png",
+    "bytes": null,
+    "cached": true
+  },
+  {
+    "slug": "mediatek",
+    "name": "MediaTek",
+    "nameZh": "联发科",
+    "domain": "mediatek.com",
+    "industry": "硬件与通信",
+    "file": "assets/logos/mediatek.jpg",
     "bytes": null,
     "cached": true
   },
@@ -260,12 +670,92 @@
     "cached": true
   },
   {
+    "slug": "midea",
+    "name": "Midea",
+    "nameZh": "美的集团",
+    "domain": "midea.com",
+    "industry": "硬件与通信",
+    "file": "assets/logos/midea.png",
+    "bytes": null,
+    "cached": true
+  },
+  {
+    "slug": "nokia",
+    "name": "Nokia",
+    "nameZh": "诺基亚",
+    "domain": "nokia.com",
+    "industry": "硬件与通信",
+    "file": "assets/logos/nokia.png",
+    "bytes": null,
+    "cached": true
+  },
+  {
+    "slug": "tsmc",
+    "name": "TSMC",
+    "nameZh": "台积电",
+    "domain": "tsmc.com",
+    "industry": "硬件与通信",
+    "file": null,
+    "bytes": null,
+    "cached": false
+  },
+  {
     "slug": "xiaomi",
     "name": "Xiaomi",
     "nameZh": "小米",
     "domain": "mi.com",
     "industry": "硬件与通信",
     "file": "assets/logos/xiaomi.ico",
+    "bytes": null,
+    "cached": true
+  },
+  {
+    "slug": "chinatelecom",
+    "name": "China Telecom",
+    "nameZh": "中国电信",
+    "domain": "chinatelecom.com.cn",
+    "industry": "硬件与通信",
+    "file": "assets/logos/chinatelecom.ico",
+    "bytes": null,
+    "cached": true
+  },
+  {
+    "slug": "chinaunicom",
+    "name": "China Unicom",
+    "nameZh": "中国联通",
+    "domain": "chinaunicom.com",
+    "industry": "硬件与通信",
+    "file": "assets/logos/chinaunicom.png",
+    "bytes": null,
+    "cached": true
+  },
+  {
+    "slug": "chinamobile",
+    "name": "China Mobile",
+    "nameZh": "中国移动",
+    "domain": "chinamobile.com",
+    "industry": "硬件与通信",
+    "file": "assets/logos/chinamobile.ico",
+    "bytes": null,
+    "cached": true
+  },
+  {
+    "slug": "crrc",
+    "name": "CRRC",
+    "nameZh": "中国中车",
+    "domain": "crrc.cn",
+    "industry": "硬件与通信",
+    "file": null,
+    "bytes": null,
+    "cached": false
+  },
+  {
+    "slug": "zte",
+    "name": "ZTE",
+    "nameZh": "中兴通讯",
+    "domain": "zte.com.cn",
+    "industry": "硬件与通信",
+    "file": "assets/logos/zte.jpg",
     "bytes": null,
     "cached": true
   },
@@ -280,12 +770,32 @@
     "cached": true
   },
   {
+    "slug": "tcl",
+    "name": "TCL",
+    "nameZh": "TCL科技",
+    "domain": "tcl.com",
+    "industry": "硬件与通信",
+    "file": "assets/logos/tcl.ico",
+    "bytes": null,
+    "cached": true
+  },
+  {
     "slug": "vivo",
     "name": "vivo",
     "nameZh": "vivo",
     "domain": "vivo.com",
     "industry": "硬件与通信",
     "file": "assets/logos/vivo.png",
+    "bytes": null,
+    "cached": true
+  },
+  {
+    "slug": "bmw",
+    "name": "BMW Group",
+    "nameZh": "宝马集团",
+    "domain": "bmwgroup.com",
+    "industry": "新能源与汽车",
+    "file": "assets/logos/bmw.ico",
     "bytes": null,
     "cached": true
   },
@@ -300,12 +810,72 @@
     "cached": true
   },
   {
+    "slug": "volkswagen",
+    "name": "Volkswagen Group",
+    "nameZh": "大众集团",
+    "domain": "volkswagenag.com",
+    "industry": "新能源与汽车",
+    "file": "assets/logos/volkswagen.ico",
+    "bytes": null,
+    "cached": true
+  },
+  {
+    "slug": "dfmc",
+    "name": "Dongfeng Motor",
+    "nameZh": "东风汽车",
+    "domain": "dfmc.com.cn",
+    "industry": "新能源与汽车",
+    "file": "assets/logos/dfmc.ico",
+    "bytes": null,
+    "cached": true
+  },
+  {
+    "slug": "toyota",
+    "name": "Toyota",
+    "nameZh": "丰田",
+    "domain": "toyota.com",
+    "industry": "新能源与汽车",
+    "file": "assets/logos/toyota.png",
+    "bytes": null,
+    "cached": true
+  },
+  {
+    "slug": "ford",
+    "name": "Ford",
+    "nameZh": "福特汽车",
+    "domain": "ford.com",
+    "industry": "新能源与汽车",
+    "file": "assets/logos/ford.jpg",
+    "bytes": null,
+    "cached": true
+  },
+  {
+    "slug": "geely",
+    "name": "Geely",
+    "nameZh": "吉利汽车",
+    "domain": "geely.com",
+    "industry": "新能源与汽车",
+    "file": "assets/logos/geely.ico",
+    "bytes": null,
+    "cached": true
+  },
+  {
     "slug": "lixiang",
     "name": "Li Auto",
     "nameZh": "理想汽车",
     "domain": "lixiang.com",
     "industry": "新能源与汽车",
     "file": "assets/logos/lixiang.ico",
+    "bytes": null,
+    "cached": true
+  },
+  {
+    "slug": "mercedes-benz",
+    "name": "Mercedes-Benz Group",
+    "nameZh": "梅赛德斯-奔驰",
+    "domain": "group.mercedes-benz.com",
+    "industry": "新能源与汽车",
+    "file": "assets/logos/mercedes-benz.png",
     "bytes": null,
     "cached": true
   },
@@ -320,12 +890,32 @@
     "cached": true
   },
   {
+    "slug": "saic",
+    "name": "SAIC Motor",
+    "nameZh": "上汽集团",
+    "domain": "saicmotor.com",
+    "industry": "新能源与汽车",
+    "file": "assets/logos/saic.ico",
+    "bytes": null,
+    "cached": true
+  },
+  {
     "slug": "tesla",
     "name": "Tesla",
     "nameZh": "特斯拉",
     "domain": "tesla.com",
     "industry": "新能源与汽车",
     "file": "assets/logos/tesla.ico",
+    "bytes": null,
+    "cached": true
+  },
+  {
+    "slug": "gm",
+    "name": "General Motors",
+    "nameZh": "通用汽车",
+    "domain": "gm.com",
+    "industry": "新能源与汽车",
+    "file": "assets/logos/gm.png",
     "bytes": null,
     "cached": true
   },
@@ -350,12 +940,62 @@
     "cached": true
   },
   {
+    "slug": "faw",
+    "name": "FAW Group",
+    "nameZh": "一汽集团",
+    "domain": "faw.com.cn",
+    "industry": "新能源与汽车",
+    "file": "assets/logos/faw.ico",
+    "bytes": null,
+    "cached": true
+  },
+  {
+    "slug": "gwm",
+    "name": "Great Wall Motors",
+    "nameZh": "长城汽车",
+    "domain": "gwm.com.cn",
+    "industry": "新能源与汽车",
+    "file": "assets/logos/gwm.ico",
+    "bytes": null,
+    "cached": true
+  },
+  {
+    "slug": "asml",
+    "name": "ASML",
+    "nameZh": "阿斯麦",
+    "domain": "asml.com",
+    "industry": "国际科技",
+    "file": "assets/logos/asml.jpg",
+    "bytes": null,
+    "cached": true
+  },
+  {
     "slug": "airbnb",
     "name": "Airbnb",
     "nameZh": "爱彼迎",
     "domain": "airbnb.com",
     "industry": "国际科技",
     "file": "assets/logos/airbnb.png",
+    "bytes": null,
+    "cached": true
+  },
+  {
+    "slug": "boeing",
+    "name": "Boeing",
+    "nameZh": "波音",
+    "domain": "boeing.com",
+    "industry": "国际科技",
+    "file": "assets/logos/boeing.ico",
+    "bytes": null,
+    "cached": true
+  },
+  {
+    "slug": "dell",
+    "name": "Dell",
+    "nameZh": "戴尔",
+    "domain": "dell.com",
+    "industry": "国际科技",
+    "file": "assets/logos/dell.png",
     "bytes": null,
     "cached": true
   },
@@ -380,12 +1020,32 @@
     "cached": true
   },
   {
+    "slug": "hp",
+    "name": "HP",
+    "nameZh": "惠普",
+    "domain": "hp.com",
+    "industry": "国际科技",
+    "file": "assets/logos/hp.png",
+    "bytes": null,
+    "cached": true
+  },
+  {
     "slug": "oracle",
     "name": "Oracle",
     "nameZh": "甲骨文",
     "domain": "oracle.com",
     "industry": "国际科技",
     "file": "assets/logos/oracle.ico",
+    "bytes": null,
+    "cached": true
+  },
+  {
+    "slug": "airbus",
+    "name": "Airbus",
+    "nameZh": "空中客车",
+    "domain": "airbus.com",
+    "industry": "国际科技",
+    "file": "assets/logos/airbus.svg",
     "bytes": null,
     "cached": true
   },
@@ -400,12 +1060,72 @@
     "cached": true
   },
   {
+    "slug": "samsung",
+    "name": "Samsung",
+    "nameZh": "三星",
+    "domain": "samsung.com",
+    "industry": "国际科技",
+    "file": "assets/logos/samsung.png",
+    "bytes": null,
+    "cached": true
+  },
+  {
+    "slug": "cisco",
+    "name": "Cisco",
+    "nameZh": "思科",
+    "domain": "cisco.com",
+    "industry": "国际科技",
+    "file": "assets/logos/cisco.jpg",
+    "bytes": null,
+    "cached": true
+  },
+  {
+    "slug": "panasonic",
+    "name": "Panasonic",
+    "nameZh": "松下电器",
+    "domain": "panasonic.com",
+    "industry": "国际科技",
+    "file": "assets/logos/panasonic.jpg",
+    "bytes": null,
+    "cached": true
+  },
+  {
+    "slug": "sony",
+    "name": "Sony",
+    "nameZh": "索尼",
+    "domain": "sony.com",
+    "industry": "国际科技",
+    "file": "assets/logos/sony.ico",
+    "bytes": null,
+    "cached": true
+  },
+  {
+    "slug": "ge",
+    "name": "GE Aerospace",
+    "nameZh": "通用电气",
+    "domain": "ge.com",
+    "industry": "国际科技",
+    "file": "assets/logos/ge.png",
+    "bytes": null,
+    "cached": true
+  },
+  {
     "slug": "microsoft",
     "name": "Microsoft",
     "nameZh": "微软",
     "domain": "microsoft.com",
     "industry": "国际科技",
     "file": "assets/logos/microsoft.ico",
+    "bytes": null,
+    "cached": true
+  },
+  {
+    "slug": "siemens",
+    "name": "Siemens",
+    "nameZh": "西门子",
+    "domain": "siemens.com",
+    "industry": "国际科技",
+    "file": "assets/logos/siemens.jpg",
     "bytes": null,
     "cached": true
   },
@@ -460,12 +1180,42 @@
     "cached": true
   },
   {
+    "slug": "lg",
+    "name": "LG Group",
+    "nameZh": "LG集团",
+    "domain": "lg.com",
+    "industry": "国际科技",
+    "file": "assets/logos/lg.png",
+    "bytes": null,
+    "cached": true
+  },
+  {
     "slug": "meta",
     "name": "Meta",
     "nameZh": "Meta",
     "domain": "meta.com",
     "industry": "国际科技",
     "file": "assets/logos/meta.svg",
+    "bytes": null,
+    "cached": true
+  },
+  {
+    "slug": "salesforce",
+    "name": "Salesforce",
+    "nameZh": "Salesforce",
+    "domain": "salesforce.com",
+    "industry": "国际科技",
+    "file": "assets/logos/salesforce.jpg",
+    "bytes": null,
+    "cached": true
+  },
+  {
+    "slug": "sap",
+    "name": "SAP",
+    "nameZh": "SAP",
+    "domain": "sap.com",
+    "industry": "国际科技",
+    "file": "assets/logos/sap.png",
     "bytes": null,
     "cached": true
   },
@@ -490,6 +1240,36 @@
     "cached": true
   },
   {
+    "slug": "paypal",
+    "name": "PayPal",
+    "nameZh": "PayPal",
+    "domain": "paypal.com",
+    "industry": "金融科技",
+    "file": "assets/logos/paypal.png",
+    "bytes": null,
+    "cached": true
+  },
+  {
+    "slug": "allianz",
+    "name": "Allianz",
+    "nameZh": "安联保险",
+    "domain": "allianz.com",
+    "industry": "金融",
+    "file": null,
+    "bytes": null,
+    "cached": false
+  },
+  {
+    "slug": "axa",
+    "name": "AXA",
+    "nameZh": "安盛保险",
+    "domain": "axa.com",
+    "industry": "金融",
+    "file": "assets/logos/axa.ico",
+    "bytes": null,
+    "cached": true
+  },
+  {
     "slug": "goldman-sachs",
     "name": "Goldman Sachs",
     "nameZh": "高盛",
@@ -510,6 +1290,26 @@
     "cached": true
   },
   {
+    "slug": "cebbank",
+    "name": "CEB",
+    "nameZh": "光大银行",
+    "domain": "cebbank.com",
+    "industry": "金融",
+    "file": "assets/logos/cebbank.ico",
+    "bytes": null,
+    "cached": true
+  },
+  {
+    "slug": "cgb",
+    "name": "CGB",
+    "nameZh": "广发银行",
+    "domain": "cgb.cn",
+    "industry": "金融",
+    "file": null,
+    "bytes": null,
+    "cached": false
+  },
+  {
     "slug": "gf-securities",
     "name": "GF Securities",
     "nameZh": "广发证券",
@@ -520,14 +1320,24 @@
     "cached": true
   },
   {
+    "slug": "cdb",
+    "name": "China Development Bank",
+    "nameZh": "国家开发银行",
+    "domain": "cdb.com.cn",
+    "industry": "金融",
+    "file": null,
+    "bytes": null,
+    "cached": false
+  },
+  {
     "slug": "guotai-junan",
     "name": "Guotai Junan",
     "nameZh": "国泰君安证券",
     "domain": "gtja.com",
     "industry": "金融",
     "file": "assets/logos/guotai-junan.ico",
-    "bytes": 2239,
-    "cached": false
+    "bytes": null,
+    "cached": true
   },
   {
     "slug": "citi",
@@ -548,6 +1358,16 @@
     "file": "assets/logos/huatai.ico",
     "bytes": null,
     "cached": true
+  },
+  {
+    "slug": "hxb",
+    "name": "Huaxia Bank",
+    "nameZh": "华夏银行",
+    "domain": "hxb.com.cn",
+    "industry": "金融",
+    "file": null,
+    "bytes": null,
+    "cached": false
   },
   {
     "slug": "hsbc",
@@ -576,8 +1396,8 @@
     "domain": "ccb.com",
     "industry": "金融",
     "file": "assets/logos/ccb.ico",
-    "bytes": 1151,
-    "cached": false
+    "bytes": null,
+    "cached": true
   },
   {
     "slug": "bankcomm",
@@ -586,8 +1406,18 @@
     "domain": "bankcomm.com",
     "industry": "金融",
     "file": "assets/logos/bankcomm.ico",
-    "bytes": 1151,
-    "cached": false
+    "bytes": null,
+    "cached": true
+  },
+  {
+    "slug": "cmbc",
+    "name": "CMBC",
+    "nameZh": "民生银行",
+    "domain": "cmbc.com.cn",
+    "industry": "金融",
+    "file": "assets/logos/cmbc.ico",
+    "bytes": null,
+    "cached": true
   },
   {
     "slug": "jp-morgan",
@@ -620,6 +1450,56 @@
     "cached": true
   },
   {
+    "slug": "spdb",
+    "name": "SPD Bank",
+    "nameZh": "浦发银行",
+    "domain": "spdb.com.cn",
+    "industry": "金融",
+    "file": "assets/logos/spdb.ico",
+    "bytes": null,
+    "cached": true
+  },
+  {
+    "slug": "cpic",
+    "name": "CPIC",
+    "nameZh": "太平洋保险",
+    "domain": "cpic.com.cn",
+    "industry": "金融",
+    "file": "assets/logos/cpic.gif",
+    "bytes": null,
+    "cached": true
+  },
+  {
+    "slug": "taikang",
+    "name": "Taikang",
+    "nameZh": "泰康保险",
+    "domain": "taikang.com",
+    "industry": "金融",
+    "file": "assets/logos/taikang.png",
+    "bytes": null,
+    "cached": true
+  },
+  {
+    "slug": "mastercard",
+    "name": "Mastercard",
+    "nameZh": "万事达卡",
+    "domain": "mastercard.com",
+    "industry": "金融",
+    "file": "assets/logos/mastercard.png",
+    "bytes": null,
+    "cached": true
+  },
+  {
+    "slug": "cib",
+    "name": "CIB",
+    "nameZh": "兴业银行",
+    "domain": "cib.com.cn",
+    "industry": "金融",
+    "file": "assets/logos/cib.ico",
+    "bytes": null,
+    "cached": true
+  },
+  {
     "slug": "efunds",
     "name": "E Fund",
     "nameZh": "易方达基金",
@@ -630,12 +1510,32 @@
     "cached": true
   },
   {
+    "slug": "psbc",
+    "name": "PSBC",
+    "nameZh": "邮储银行",
+    "domain": "psbc.com",
+    "industry": "金融",
+    "file": "assets/logos/psbc.ico",
+    "bytes": null,
+    "cached": true
+  },
+  {
     "slug": "standardchartered",
     "name": "Standard Chartered",
     "nameZh": "渣打银行",
     "domain": "sc.com",
     "industry": "金融",
     "file": "assets/logos/standardchartered.png",
+    "bytes": null,
+    "cached": true
+  },
+  {
+    "slug": "cmhk",
+    "name": "China Merchants Group",
+    "nameZh": "招商局集团",
+    "domain": "cmhk.com",
+    "industry": "金融",
+    "file": "assets/logos/cmhk.ico",
     "bytes": null,
     "cached": true
   },
@@ -670,6 +1570,26 @@
     "cached": true
   },
   {
+    "slug": "picc",
+    "name": "PICC",
+    "nameZh": "中国人民保险",
+    "domain": "picc.com",
+    "industry": "金融",
+    "file": "assets/logos/picc.ico",
+    "bytes": null,
+    "cached": true
+  },
+  {
+    "slug": "chinalife",
+    "name": "China Life",
+    "nameZh": "中国人寿",
+    "domain": "chinalife.com.cn",
+    "industry": "金融",
+    "file": "assets/logos/chinalife.ico",
+    "bytes": null,
+    "cached": true
+  },
+  {
     "slug": "boc",
     "name": "Bank of China",
     "nameZh": "中国银行",
@@ -700,6 +1620,16 @@
     "cached": true
   },
   {
+    "slug": "citicgroup",
+    "name": "CITIC Group",
+    "nameZh": "中信集团",
+    "domain": "citic.com",
+    "industry": "金融",
+    "file": "assets/logos/citicgroup.ico",
+    "bytes": null,
+    "cached": true
+  },
+  {
     "slug": "csc",
     "name": "CSC Financial",
     "nameZh": "中信建投证券",
@@ -716,6 +1646,16 @@
     "domain": "citics.com",
     "industry": "金融",
     "file": "assets/logos/citic-securities.ico",
+    "bytes": null,
+    "cached": true
+  },
+  {
+    "slug": "visa",
+    "name": "Visa",
+    "nameZh": "Visa",
+    "domain": "visa.com",
+    "industry": "金融",
+    "file": "assets/logos/visa.svg",
     "bytes": null,
     "cached": true
   },
@@ -810,6 +1750,26 @@
     "cached": true
   },
   {
+    "slug": "adidas",
+    "name": "adidas",
+    "nameZh": "阿迪达斯",
+    "domain": "adidas.com",
+    "industry": "快消与零售",
+    "file": "assets/logos/adidas.svg",
+    "bytes": null,
+    "cached": true
+  },
+  {
+    "slug": "yumchina",
+    "name": "Yum China",
+    "nameZh": "百胜中国",
+    "domain": "yumchina.com",
+    "industry": "快消与零售",
+    "file": "assets/logos/yumchina.ico",
+    "bytes": null,
+    "cached": true
+  },
+  {
     "slug": "pepsico",
     "name": "PepsiCo",
     "nameZh": "百事",
@@ -826,6 +1786,26 @@
     "domain": "pg.com",
     "industry": "快消与零售",
     "file": "assets/logos/pg.png",
+    "bytes": null,
+    "cached": true
+  },
+  {
+    "slug": "danone",
+    "name": "Danone",
+    "nameZh": "达能",
+    "domain": "danone.com",
+    "industry": "快消与零售",
+    "file": "assets/logos/danone.ico",
+    "bytes": null,
+    "cached": true
+  },
+  {
+    "slug": "crc",
+    "name": "China Resources",
+    "nameZh": "华润集团",
+    "domain": "crc.com.hk",
+    "industry": "快消与零售",
+    "file": "assets/logos/crc.ico",
     "bytes": null,
     "cached": true
   },
@@ -860,12 +1840,112 @@
     "cached": true
   },
   {
+    "slug": "mcdonalds",
+    "name": "McDonald's China",
+    "nameZh": "麦当劳中国",
+    "domain": "mcdonalds.com.cn",
+    "industry": "快消与零售",
+    "file": "assets/logos/mcdonalds.ico",
+    "bytes": null,
+    "cached": true
+  },
+  {
+    "slug": "mengniu",
+    "name": "Mengniu",
+    "nameZh": "蒙牛",
+    "domain": "mengniu.cn",
+    "industry": "快消与零售",
+    "file": null,
+    "bytes": null,
+    "cached": false
+  },
+  {
+    "slug": "nike",
+    "name": "Nike",
+    "nameZh": "耐克",
+    "domain": "nike.com",
+    "industry": "快消与零售",
+    "file": "assets/logos/nike.png",
+    "bytes": null,
+    "cached": true
+  },
+  {
+    "slug": "nongfuspring",
+    "name": "Nongfu Spring",
+    "nameZh": "农夫山泉",
+    "domain": "nongfuspring.com",
+    "industry": "快消与零售",
+    "file": "assets/logos/nongfuspring.ico",
+    "bytes": null,
+    "cached": true
+  },
+  {
     "slug": "loreal",
     "name": "L'Oréal",
     "nameZh": "欧莱雅",
     "domain": "loreal.com",
     "industry": "快消与零售",
     "file": "assets/logos/loreal.jpg",
+    "bytes": null,
+    "cached": true
+  },
+  {
+    "slug": "nestle",
+    "name": "Nestlé",
+    "nameZh": "雀巢",
+    "domain": "nestle.com",
+    "industry": "快消与零售",
+    "file": null,
+    "bytes": null,
+    "cached": false
+  },
+  {
+    "slug": "walmart",
+    "name": "Walmart",
+    "nameZh": "沃尔玛",
+    "domain": "walmart.com",
+    "industry": "快消与零售",
+    "file": "assets/logos/walmart.png",
+    "bytes": null,
+    "cached": true
+  },
+  {
+    "slug": "newhope",
+    "name": "New Hope Group",
+    "nameZh": "新希望集团",
+    "domain": "newhopegroup.com",
+    "industry": "快消与零售",
+    "file": "assets/logos/newhope.ico",
+    "bytes": null,
+    "cached": true
+  },
+  {
+    "slug": "starbucks",
+    "name": "Starbucks China",
+    "nameZh": "星巴克中国",
+    "domain": "starbucks.com.cn",
+    "industry": "快消与零售",
+    "file": "assets/logos/starbucks.png",
+    "bytes": null,
+    "cached": true
+  },
+  {
+    "slug": "yili",
+    "name": "Yili Group",
+    "nameZh": "伊利集团",
+    "domain": "yili.com",
+    "industry": "快消与零售",
+    "file": "assets/logos/yili.ico",
+    "bytes": null,
+    "cached": true
+  },
+  {
+    "slug": "ikea",
+    "name": "IKEA",
+    "nameZh": "宜家",
+    "domain": "ikea.com",
+    "industry": "快消与零售",
+    "file": "assets/logos/ikea.jpg",
     "bytes": null,
     "cached": true
   },
@@ -878,6 +1958,26 @@
     "file": "assets/logos/astrazeneca.png",
     "bytes": null,
     "cached": true
+  },
+  {
+    "slug": "fosun",
+    "name": "Fosun",
+    "nameZh": "复星国际",
+    "domain": "fosun.com",
+    "industry": "医药与健康",
+    "file": "assets/logos/fosun.png",
+    "bytes": null,
+    "cached": true
+  },
+  {
+    "slug": "sinopharm",
+    "name": "Sinopharm",
+    "nameZh": "国药集团",
+    "domain": "sinopharm.com",
+    "industry": "医药与健康",
+    "file": null,
+    "bytes": null,
+    "cached": false
   },
   {
     "slug": "hengrui",

@@ -7,6 +7,7 @@
 ```
 fanke-research-hub/
 ├── index.html              # 网站入口（泛柯品牌 UI，单文件应用）
+├── jobs.html               # 实习·求职资源中心（设计稿 v0.1，204 家企业名录）
 ├── logos.html              # 公司 Logo 素材库预览页（实习/求职板块筹备）
 ├── assets/
 │   ├── fanke-logo.png      # 泛柯 logo（已内嵌进 index.html，此文件仅本地留存）
@@ -87,7 +88,7 @@ cd fanke-research-hub && python -m http.server 8080
 
 ## 公司 Logo 素材库（实习/求职板块筹备）
 
-`logos.html` 可预览已采集的 94 家公司标识（覆盖互联网、人工智能、游戏、硬件、新能源、国际科技、金融、咨询、四大、快消、医药等校招热门行业）。
+`logos.html` 可预览已采集的 94 家公司标识（已扩至世界500强/中国500强主力阵容：204 家企业（互联网、AI、硬件、能源化工、建筑基建、交通物流、汽车、金融、咨询、四大、快消、医药等 14 个行业）。
 
 - 采集来源：公司官网图标（自动解析 apple-touch-icon / favicon，取最大尺寸）为主，Simple Icons CDN 与手工指定地址兜底
 - 扩充方式：编辑 `scripts/companies.json` 增加公司（slug/name/nameZh/domain/industry）→ `node scripts/fetch-logos.mjs`

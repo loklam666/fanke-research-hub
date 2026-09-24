@@ -32,6 +32,9 @@
   .main-nav button{border:none;background:transparent;font-size:14px;font-weight:600;color:var(--ink-3);padding:8px 14px;border-radius:10px;transition:.18s}
   .main-nav button:hover{color:var(--ink);background:var(--orange-soft)}
   .main-nav button.active{color:var(--orange);background:var(--orange-soft)}
+  .main-nav .nav-ext{display:inline-flex;align-items:center;gap:5px;text-decoration:none;font-size:14px;font-weight:600;color:var(--ink-3);padding:8px 14px;border-radius:10px;transition:.18s}
+  .main-nav .nav-ext:hover{color:var(--orange);background:var(--orange-soft)}
+  .main-nav .nav-ext .soon{font-size:10px;font-weight:700;color:#fff;background:var(--orange);border-radius:999px;padding:1px 6px;line-height:1.5}
   .header-meta{margin-left:auto;font-size:12px;color:var(--ink-3);text-align:right;white-space:nowrap}
   .header-meta b{color:var(--orange);font-weight:700}
 
@@ -181,6 +184,7 @@
     <nav class="main-nav">
       <button id="nav-projects" class="active" data-view="projects">项目库</button>
       <button id="nav-summary" data-view="summary">汇总长图</button>
+      <a class="nav-ext" href="jobs.html">实习·求职<sup class="soon">筹备</sup></a>
     </nav>
     <div class="header-meta" id="header-meta"></div>
   </div>

@@ -65,7 +65,7 @@
   const $ = id => document.getElementById(id);
   const esc = s => String(s??'').replace(/[&<>"']/g, c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
   // 行业分组（保持固定顺序）
-  const order = ['互联网','人工智能','游戏','硬件与通信','新能源与汽车','国际科技','金融科技','金融','咨询','快消与零售','医药与健康'];
+  const order = ['互联网','人工智能','游戏','硬件与通信','新能源与汽车','交通与物流','建筑与基建','能源与化工','国际科技','金融科技','金融','咨询','快消与零售','医药与健康'];
   const groups = {};
   for(const c of L){ (groups[c.industry] = groups[c.industry] || []).push(c); }
   // 统计
