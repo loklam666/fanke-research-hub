@@ -73,12 +73,18 @@ npx serve .               # 本地预览；或 python -m http.server 8642
 ## 发布
 
 - **GitHub**：直接 `git push`；网络抖动时用 `scripts/push-retry.sh`（判断真实退出码）
+- **github.com:443 被代理阻断时**（报 `CONNECT tunnel failed, response 502` 或 `schannel: server closed abruptly`，但 `api.github.com` 仍 200）：
+  `node scripts/push-via-api.mjs "<commit message>"` 走 Git Data API 提交（blob → tree → commit → 移动分支）。
+  增量基准默认 `origin/main`；连续多次推送时用 `BASE=<上一次的本地 ref>` 控制比较基准。
+  脚本内容取自 `git cat-file blob`，不会把工作区 CRLF 带进仓库（否则远端 tree 会和本地不一致）。
+  这样产生的远端提交与本地提交 sha 不同但 tree 相同，网络恢复后执行 `git fetch origin && git reset --hard origin/main` 对齐即可
 - **EdgeOne**：`npm i -g edgeone@latest` → `edgeone makers deploy --name fanke-research-hub`（新机首次浏览器授权）；部署 URL 必须带完整 `?eo_token=...&eo_time=...` 参数
 - 本地 Node fetch 对部分主机 TLS 失败 → 脚本内已自动 curl 兜底，Windows 下 curl 已串行化避免 spawn 冲突
 
 ## 待办
 
 1. 招聘日历接真实批次、求职资源（简历/笔试/面经）落地（现为示例占位）
+1b. 竹石创研院小程序的科研专题：小程序内容无法从外部抓取，需要人工导出清单存成 `scripts/partner-src/专题清单.csv`（列见 `专题清单.example.csv`），再跑 `node scripts/build-partner-data.mjs`，导航会自动出现「合作科研专题」
 2. 名录可按 500 强排名排序 / 只看榜单公司（现在只能按行业筛 + 关键词搜）
 3. 缺图公司补 logo：把图片放到 `assets/logos/{slug}.png` 后重跑 `fetch-logos-bulk.mjs` 即自动索引；合作机构缺图 19 家（多为律所/本土 PE，官网有反爬）
 4. 远程岗位的 `title` 是模板化写法（多家券商都叫「投行/行研/量化」），后续可按 `org` 展开成各自的具体岗位名
