@@ -619,7 +619,12 @@
     // 内嵌视图首次激活再加载 iframe，避免首页一并拉取岗位/企业数据
     if(state.view==='jobs'||state.view==='winter'){
       const f=$('frame-'+state.view);
-      if(f && !f.dataset.loaded){ f.src=f.dataset.src; f.dataset.loaded='1'; }
+      if(f && !f.dataset.loaded){
+        // 托管环境下子路径必须带分享码，否则 403「链接不完整」
+        const sc=new URLSearchParams(location.search).get('sharecode');
+        f.src=f.dataset.src+(sc?('&sharecode='+encodeURIComponent(sc)):'');
+        f.dataset.loaded='1';
+      }
     }
     // 实习/寒假视图隐藏科研 hero，避免标题与统计错位
     const hero=document.querySelector('.hero');
