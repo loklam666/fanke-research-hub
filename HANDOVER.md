@@ -89,6 +89,14 @@ npx serve .               # 本地预览；或 python -m http.server 8642
   增量基准默认 `origin/main`；连续多次推送时用 `BASE=<上一次的本地 ref>` 控制比较基准。
   脚本内容取自 `git cat-file blob`，不会把工作区 CRLF 带进仓库（否则远端 tree 会和本地不一致）。
   这样产生的远端提交与本地提交 sha 不同但 tree 相同，网络恢复后执行 `git fetch origin && git reset --hard origin/main` 对齐即可
+- **WorkBuddy 托管（sites）**：`shareLink` 形如 `https://fanke-projects.app.workbuddy.host/?sharecode=XXXX`。
+  带 `sharecode` 首次访问会下发 `__wb_rsc` cookie，**此后同源所有 HTML 与 `assets/*.js` 都靠这个 cookie 放行**；
+  不带 sharecode 且无 cookie 的直连（curl / 新标签）一律 403「链接不完整」。
+  index.html 里两个内嵌 iframe 必须把父页 `location.search` 的 `sharecode` 透传到 `data-src` 上，否则换设备打开时子页可能拉不到。
+- **内嵌视图（jobs / winter）有一条硬约束**：`<main>` 必须是 `<body>` 的直接子级。
+  因为 `body.embed` 会 `display:none` 掉 `.site-header / .hero / .site-footer / footer`，
+  一旦 hero 没闭合把 main 包进去，正文会跟着一起消失（表现为「实习页面打不开了」的空白页，且控制台无报错）。
+  改完子页后用 `node scripts/embed-check.mjs` 复核：`textLen > 0`、`bodyH` 与 `scrollH` 相等且 > 1000 才算正常。
 - **EdgeOne**：`npm i -g edgeone@latest` → `edgeone makers deploy --name fanke-research-hub`（新机首次浏览器授权）；部署 URL 必须带完整 `?eo_token=...&eo_time=...` 参数
 - 本地 Node fetch 对部分主机 TLS 失败 → 脚本内已自动 curl 兜底，Windows 下 curl 已串行化避免 spawn 冲突
 
