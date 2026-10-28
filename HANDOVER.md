@@ -10,6 +10,7 @@
 - `index.html` — 科研主站（单文件 SPA，泛柯橙 `#F4532B`）：871 个科研项目（源站 2026-10 实时拉取，此前记录为 935），从 Path Academics 站点（sou-tools.gecacademy.cn）逆向同步，含搜索/筛选/详情弹窗/汇总长图；四个视图 = 项目库 / 汇总长图 / **科研培养体系**（合作渠道产品档位）/ **合作科研专题**（竹石创研院小程序专题，有数据才出现）
 - `jobs.html` — 实习·求职板块 v0.2（蓝色主题 `#2E6FF2`）：企业名录（934 家 logo 墙，2026 世界500强 + 中国500强全量）/ **实习岗位库（335 个真实岗位 · 90 家合作机构）** / **人才培养与求职服务（5 条路径）** / 招聘日历（示例占位）/ 资源精选（示例占位）
 - `logos.html` — logo 素材库预览页（按行业分组）
+- `winter.html` — 2027 寒假项目页（泛柯橙）：**41 个项目** = 义工游学 19（国内义工 8 / 国际义工 9 / 国际游学 2）+ 实习课程 22（名企实习实训 11 / 名校访学·大学班 8 / 名校访学·高中班 3）；标签页 + 分类筛选 + 关键词搜索；数据在 `assets/winter.js`（`window.__WINTER`）
 
 ## 新机器首次上手（必做）
 
@@ -64,6 +65,15 @@ npx serve .               # 本地预览；或 python -m http.server 8642
   3. 去重键 `org|title|group`，保留信息最全的一条（远程列表无 JD、远程 JD 表有 JD，靠这步合并）
 - 合作机构 logo 用 `p-` 前缀单独抓（`node scripts/fetch-partner-logos.mjs`），不污染企业名录；抓不到的降级字母徽标
 - 首页展示：`index.html` 第三视图「科研培养体系」渲染 `research` + `youth`、第四视图「合作科研专题」渲染 `topics`（数据来自 `专题清单.csv`，空则不显示）；`jobs.html` 渲染 `jobs` + `orgs` + `career`
+
+## 寒假项目（2027）
+
+- 页面 `winter.html`，数据 `assets/winter.js`（挂 `window.__WINTER`），源为用户提供的渠道 2027 寒假项目表（两批明细 + 两张官方汇总表）
+- 结构：`{ updated, source, groups[2], stats{total,volunteer,intern}, items[] }`
+  - `items[]`：`{ id, group(volunteer|intern), cat, name, place, duration, mode(线下|线上|远程), age, hours, minGroup, headcount, lang, batches[], outputs[], inc[], exc[], note }`
+  - 分类：义工游学 = 国内义工 / 国际义工 / 国际游学；实习课程 = 名企实习实训 / 名校访学·大学班 / 名校访学·高中班
+- **报价处理（重点）**：售价 / 底价 / 住宿费不入明文，统一编码成 base64 存 `window.__WINTER_PRICES_B64`；页面默认不显示，**按 `P` 键解码并显示到每张卡片的橙色价格行，按 `Esc` 关闭**。这是"默认隐藏 + 快捷键查看"，属于防随手查看的混淆，不是加密——明文在源码里不存在，但懂技术的人解码 base64 仍可还原，敏感程度高时不要上公开域名
+- 更新价格：改 winter.js 末尾的 base64 串（用 `Buffer.from(JSON.stringify({id:{s:售价,f:底价,l:住宿}})).toString('base64')` 重新生成）
 
 ## 设计规范（延续）
 

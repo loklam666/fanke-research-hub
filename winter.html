@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>2027 寒假项目 · 泛柯 Fanke</title>
+<meta name="description" content="泛柯 2027 寒假项目库：义工游学（国内 / 国际义工、国际游学）与实习课程（世界名企官方实训、世界名校境外访学），支持分类与关键词筛选。">
+<style>
+  :root{
+    --orange:#F4532B; --orange-dark:#D8431F; --orange-soft:#FEEFE9;
+    --ink:#1D1D1F; --ink-2:#4B4B50; --ink-3:#8A8A90;
+    --bg:#FAF8F6; --card:#FFFFFF; --line:#ECE8E4;
+    --radius:16px; --shadow:0 1px 2px rgba(29,29,31,.05),0 8px 24px rgba(29,29,31,.06);
+    --shadow-lift:0 2px 4px rgba(29,29,31,.06),0 16px 40px rgba(29,29,31,.12);
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{font-family:"PingFang SC","Microsoft YaHei","Noto Sans SC","Source Han Sans CN",system-ui,-apple-system,sans-serif;background:var(--bg);color:var(--ink);line-height:1.6}
+  a{color:inherit}
+  button{font-family:inherit;cursor:pointer}
+
+  /* Header */
+  .site-header{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.92);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+  .header-inner{max-width:1280px;margin:0 auto;padding:0 24px;height:64px;display:flex;align-items:center;gap:20px}
+  .brand{display:flex;align-items:center;gap:10px;text-decoration:none;flex-shrink:0}
+  .brand-mark{width:32px;height:32px;border-radius:9px;background:var(--orange);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:17px;letter-spacing:-1px}
+  .brand-name{font-size:17px;font-weight:800;letter-spacing:.5px}
+  .brand-name em{font-style:normal;color:var(--orange)}
+  .main-nav{display:flex;gap:4px;margin-left:8px}
+  .main-nav a{display:inline-flex;align-items:center;gap:5px;text-decoration:none;font-size:14px;font-weight:600;color:var(--ink-3);padding:8px 14px;border-radius:10px;transition:.18s}
+  .main-nav a:hover{color:var(--ink);background:var(--orange-soft)}
+  .main-nav a.active{color:var(--orange);background:var(--orange-soft)}
+  .header-meta{margin-left:auto;font-size:12px;color:var(--ink-3);text-align:right;white-space:nowrap}
+
+  /* Hero */
+  .hero{background:linear-gradient(120deg,#FFF7F3 0%,#FDEDE5 45%,#FBE3D8 100%);border-bottom:1px solid var(--line)}
+  .hero-inner{max-width:1280px;margin:0 auto;padding:40px 24px 36px}
+  .hero h1{font-size:32px;font-weight:900;letter-spacing:1px}
+  .hero h1 span{color:var(--orange)}
+  .hero p{margin-top:8px;color:var(--ink-2);font-size:15px;max-width:680px}
+  .hero-stats{display:flex;gap:12px;margin-top:20px;flex-wrap:wrap}
+  .stat-chip{background:var(--card);border:1px solid var(--line);border-radius:999px;padding:7px 17px;font-size:13px;color:var(--ink-2);box-shadow:var(--shadow)}
+  .stat-chip b{color:var(--orange);font-size:15px;margin-right:2px}
+
+  /* Toolbar */
+  .toolbar{position:sticky;top:64px;z-index:40;background:rgba(250,248,246,.95);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+  .toolbar-inner{max-width:1280px;margin:0 auto;padding:12px 24px;display:flex;flex-direction:column;gap:10px}
+  .search-row{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+  .tabs{display:flex;gap:6px;background:#F1ECE8;border-radius:12px;padding:4px}
+  .tab{border:none;background:transparent;font-size:14px;font-weight:700;color:var(--ink-2);padding:7px 16px;border-radius:9px;transition:.16s}
+  .tab.active{background:var(--card);color:var(--orange);box-shadow:0 1px 3px rgba(0,0,0,.08)}
+  .tab .n{font-size:12px;opacity:.6;margin-left:4px}
+  .search-box{flex:1;min-width:220px;display:flex;align-items:center;gap:9px;background:var(--card);border:1.5px solid var(--line);border-radius:12px;padding:9px 15px;transition:.18s}
+  .search-box:focus-within{border-color:var(--orange);box-shadow:0 0 0 3px var(--orange-soft)}
+  .search-box input{border:none;outline:none;background:transparent;flex:1;font-size:14px;color:var(--ink)}
+  .search-box input::placeholder{color:#B9B5B1}
+  .filter-row{display:flex;gap:8px;overflow-x:auto;padding-bottom:2px;scrollbar-width:none;mask-image:linear-gradient(90deg,#000 0,#000 calc(100% - 26px),transparent 100%)}
+  .filter-row::-webkit-scrollbar{display:none}
+  .chip{flex-shrink:0;border:1.5px solid var(--line);background:var(--card);color:var(--ink-2);border-radius:999px;padding:6px 14px;font-size:13px;font-weight:500;transition:.15s;white-space:nowrap}
+  .chip:hover{border-color:var(--orange);color:var(--orange)}
+  .chip.active{background:var(--orange);border-color:var(--orange);color:#fff;font-weight:600}
+  .chip .n{opacity:.65;font-size:12px;margin-left:3px}
+  .toolbar-foot{display:flex;align-items:center;justify-content:space-between;font-size:12.5px;color:var(--ink-3)}
+  .reset-btn{border:none;background:none;color:var(--orange);font-size:12.5px;font-weight:600}
+  .reset-btn:hover{text-decoration:underline}
+
+  /* Grid */
+  .container{max-width:1280px;margin:0 auto;padding:26px 24px 40px}
+  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:18px}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:20px;box-shadow:var(--shadow);transition:.2s;display:flex;flex-direction:column;gap:11px;position:relative}
+  .card:hover{transform:translateY(-3px);box-shadow:var(--shadow-lift);border-color:#F5C9B8}
+  .c-top{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+  .badge-cat{font-size:11.5px;font-weight:700;color:var(--orange);background:var(--orange-soft);border-radius:7px;padding:2px 9px}
+  .badge-mode{font-size:11.5px;font-weight:700;border-radius:7px;padding:2px 9px}
+  .mode-line{color:#1F7A4D;background:#E7F5EC}
+  .mode-on{color:#1B63C7;background:#E7F0FC}
+  .card h3{font-size:17px;font-weight:800;line-height:1.35}
+  .meta{display:flex;gap:14px;flex-wrap:wrap;font-size:13px;color:var(--ink-2)}
+  .meta b{color:var(--ink);font-weight:700}
+  .age{font-size:12.5px;color:var(--ink-3)}
+  .tags{display:flex;gap:6px;flex-wrap:wrap}
+  .tags span{font-size:12px;color:var(--ink-2);background:#F6F3F0;border:1px solid var(--line);border-radius:7px;padding:2px 9px}
+  details{border-top:1px dashed var(--line);padding-top:9px;margin-top:2px}
+  details summary{cursor:pointer;font-size:12.5px;font-weight:600;color:var(--orange);list-style:none;outline:none}
+  details summary::-webkit-details-marker{display:none}
+  details summary::before{content:"＋ "}
+  details[open] summary::before{content:"－ "}
+  .d-body{margin-top:9px;font-size:12.5px;color:var(--ink-2);line-height:1.7}
+  .d-body .h{font-weight:700;color:var(--ink);margin:7px 0 3px;font-size:12px}
+  .bch{display:flex;gap:6px;flex-wrap:wrap;margin-top:2px}
+  .bch span{font-size:11.5px;color:var(--ink-2);background:#FBF7F4;border:1px solid var(--line);border-radius:6px;padding:1px 7px}
+  .c-foot{display:flex;gap:12px;flex-wrap:wrap;font-size:12px;color:var(--ink-3);margin-top:auto}
+  .price-row{margin-top:10px;background:#FFF6F1;border:1px dashed #F3C3AE;border-radius:9px;padding:7px 10px;font-size:12.5px;color:#B4391C;font-weight:600;line-height:1.6}
+  .price-row b{color:var(--orange-dark)}
+  .price-row .sep{opacity:.45;margin:0 4px}
+  .price-flag{position:fixed;right:18px;bottom:18px;z-index:99;background:#1D1D1F;color:#fff;font-size:12.5px;font-weight:600;padding:8px 15px;border-radius:999px;box-shadow:0 8px 24px rgba(0,0,0,.28);opacity:.94}
+  .empty{grid-column:1/-1;text-align:center;padding:60px 0;color:var(--ink-3)}
+
+  .site-footer{border-top:1px solid var(--line);background:#fff}
+  .footer-inner{max-width:1280px;margin:0 auto;padding:20px 24px;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;font-size:12.5px;color:var(--ink-3)}
+  @media(max-width:760px){
+    .header-inner{padding:0 14px;height:56px}
+    .main-nav a{padding:8px 9px;font-size:13px}
+    .toolbar{top:56px}
+    .hero h1{font-size:25px}
+    .container{padding:20px 14px}
+    .grid{grid-template-columns:1fr}
+  }
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="header-inner">
+    <a class="brand" href="index.html">
+      <div class="brand-mark">F</div>
+      <div class="brand-name">泛柯<em>寒假项目</em></div>
+    </a>
+    <nav class="main-nav">
+      <a href="index.html">科研项目库</a>
+      <a href="jobs.html">实习·求职</a>
+      <a href="winter.html" class="active">寒假项目</a>
+    </nav>
+    <div class="header-meta" id="header-meta"></div>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="hero-inner">
+    <h1>2027 <span>寒假项目</span></h1>
+    <p>义工游学与世界名企 / 名校访学项目库。按赛道与分类逐层筛选，覆盖批次时间、适龄要求、产出与费用包含，方便按学生背景快速匹配。</p>
+    <div class="hero-stats" id="hero-stats"></div>
+  </div>
+</section>
+
+<div class="toolbar">
+  <div class="toolbar-inner">
+    <div class="search-row">
+      <div class="tabs" id="tabs"></div>
+      <div class="search-box">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#8A8A90" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
+        <input id="q" type="text" placeholder="搜索项目名称、地点、产出（如：支教、巴厘岛、英伟达、访学）">
+      </div>
+    </div>
+    <div class="filter-row" id="cats"></div>
+    <div class="toolbar-foot">
+      <span id="count"></span>
+      <button class="reset-btn" id="reset">重置筛选</button>
+    </div>
+  </div>
+</div>
+
+<main class="container">
+  <div class="grid" id="grid"></div>
+</main>
+
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div>© 泛柯教育 Fanke Education · 2027 寒假项目</div>
+    <div>数据来源：合作渠道 2027 寒假项目表 · 项目排期与产出以渠道最新简章为准</div>
+  </div>
+</footer>
+
+<script src="assets/winter.js"></script>
+<script>
+(function(){
+  const W = window.__WINTER || { items: [], groups: [] };
+  const items = W.items || [];
+  const esc = (s) => String(s == null ? '' : s).replace(/[&<>"']/g, (c) => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+
+  const st = { group: 'volunteer', cat: null, q: '' };
+
+  /* 报价：默认隐藏，按 P 键临时解码显示（Esc 关闭） */
+  let showPrice = false, PRICES = null;
+  function loadPrices(){
+    if (PRICES) return PRICES;
+    try {
+      const bin = atob(window.__WINTER_PRICES_B64 || '');
+      const bytes = Uint8Array.from(bin, (c) => c.charCodeAt(0));
+      PRICES = JSON.parse(new TextDecoder('utf-8').decode(bytes));
+    } catch (e) { PRICES = {}; }
+    return PRICES;
+  }
+  function priceBlock(x){
+    const p = loadPrices()[x.id];
+    if (!p) return '';
+    const parts = [];
+    if (p.s) parts.push('售价 <b>' + esc(p.s) + '</b>');
+    if (p.f) parts.push('底价 ' + esc(p.f));
+    if (p.l) parts.push('住宿 ' + esc(p.l));
+    return parts.length ? '<div class="price-row">' + parts.join('<span class="sep">·</span>') + '</div>' : '';
+  }
+  function priceFlag(){
+    let f = document.getElementById('price-flag');
+    if (showPrice) {
+      if (!f) { f = document.createElement('div'); f.id = 'price-flag'; f.className = 'price-flag'; document.body.appendChild(f); }
+      f.textContent = '价格显示中 · 按 P 或 Esc 关闭';
+    } else if (f) { f.remove(); }
+  }
+
+  // 顶部统计
+  document.getElementById('hero-stats').innerHTML =
+    `<span class="stat-chip">项目总数 <b>${items.length}</b></span>` +
+    `<span class="stat-chip">义工游学 <b>${W.stats.volunteer}</b></span>` +
+    `<span class="stat-chip">实习课程 <b>${W.stats.intern}</b></span>`;
+  document.getElementById('header-meta').innerHTML = `更新于 <b>${esc(W.updated || '2027 寒假')}</b>`;
+
+  // 主标签
+  const tabs = document.getElementById('tabs');
+  tabs.innerHTML = W.groups.map(g =>
+    `<button class="tab${st.group===g.key?' active':''}" data-g="${g.key}">${esc(g.name)}<span class="n">${items.filter(x=>x.group===g.key).length}</span></button>`
+  ).join('');
+
+  const catsOf = () => [...new Set(items.filter(x => x.group === st.group).map(x => x.cat))];
+
+  function chips(){
+    const cats = catsOf();
+    const cnt = (c) => items.filter(x => x.group === st.group && x.cat === c).length;
+    document.getElementById('cats').innerHTML =
+      `<button class="chip${!st.cat?' active':''}" data-c="">全部<span class="n">${items.filter(x=>x.group===st.group).length}</span></button>` +
+      cats.map(c => `<button class="chip${st.cat===c?' active':''}" data-c="${esc(c)}">${esc(c)}<span class="n">${cnt(c)}</span></button>`).join('');
+  }
+
+  function match(x){
+    if (x.group !== st.group) return false;
+    if (st.cat && x.cat !== st.cat) return false;
+    if (st.q){
+      const hay = [x.name, x.place, x.cat, x.age, x.duration, (x.outputs||[]).join(' '), (x.inc||[]).join(' ')].join(' ').toLowerCase();
+      if (!hay.includes(st.q)) return false;
+    }
+    return true;
+  }
+
+  function card(x){
+    const modeCls = /线上|远程/.test(x.mode) ? 'mode-on' : 'mode-line';
+    const modeTxt = x.mode || '线下';
+    const outTags = (x.outputs||[]).slice(0,4).map(o=>`<span>${esc(o)}</span>`).join('');
+    const bch = (x.batches||[]);
+    const batchBlock = bch.length
+      ? `<details><summary>共 ${bch.length} 期 · 查看批次</summary><div class="bch">${bch.map(b=>`<span>${esc(b)}</span>`).join('')}</div></details>`
+      : (x.note ? `<div class="age">${esc(x.note)}</div>` : '');
+    const incBlock = (x.inc && x.inc.length)
+      ? `<details><summary>费用包含 / 不含</summary>
+           <div class="d-body"><div class="h">包含</div>${x.inc.map(i=>'· '+esc(i)).join('<br>')}
+           ${(x.exc&&x.exc.length)?`<div class="h">不含</div>${x.exc.map(i=>'· '+esc(i)).join('<br>')}`:''}</div>
+         </details>`
+      : '';
+    const footParts = [];
+    if (x.minGroup) footParts.push(`最低成团 <b style="color:var(--ink-2)">${x.minGroup} 人</b>`);
+    if (x.headcount) footParts.push(esc(x.headcount));
+    if (x.lang) footParts.push(`语言 ${esc(x.lang)}`);
+    if (x.hours) footParts.push(`志愿时长 ${esc(x.hours)}`);
+    return `<div class="card">
+      <div class="c-top">
+        <span class="badge-cat">${esc(x.cat)}</span>
+        <span class="badge-mode ${modeCls}">${esc(modeTxt)}</span>
+      </div>
+      <h3>${esc(x.name)}</h3>
+      <div class="meta"><span><b>${esc(x.duration||'')}</b></span>${x.place?`<span>${esc(x.place)}</span>`:''}</div>
+      <div class="age">${esc(x.age||'')}</div>
+      ${outTags?`<div class="tags">${outTags}</div>`:''}
+      ${batchBlock}
+      ${incBlock}
+      ${footParts.length?`<div class="c-foot">${footParts.join('<span>·</span>')}</div>`:''}
+      ${showPrice?priceBlock(x):''}
+    </div>`;
+  }
+
+  function render(){
+    const list = items.filter(match);
+    document.getElementById('grid').innerHTML = list.length
+      ? list.map(card).join('')
+      : `<div class="empty">没有匹配的项目，换个关键词或分类试试</div>`;
+    const total = items.filter(x=>x.group===st.group).length;
+    document.getElementById('count').textContent =
+      (st.cat || st.q) ? `筛选出 ${list.length} / ${total} 个项目` : `共 ${total} 个项目`;
+  }
+
+  tabs.addEventListener('click', e=>{
+    const b = e.target.closest('.tab'); if(!b) return;
+    st.group = b.dataset.g; st.cat = null;
+    tabs.querySelectorAll('.tab').forEach(t=>t.classList.toggle('active', t.dataset.g===st.group));
+    chips(); render();
+  });
+  document.getElementById('cats').addEventListener('click', e=>{
+    const b = e.target.closest('.chip'); if(!b) return;
+    const v = b.dataset.c || null;
+    st.cat = (st.cat === v) ? null : v;
+    chips(); render();
+  });
+  let t;
+  document.getElementById('q').addEventListener('input', e=>{
+    clearTimeout(t);
+    t = setTimeout(()=>{ st.q = e.target.value.trim().toLowerCase(); render(); }, 120);
+  });
+  document.getElementById('reset').addEventListener('click', ()=>{
+    st.cat = null; st.q = ''; document.getElementById('q').value = '';
+    chips(); render();
+  });
+
+  chips(); render();
+
+  /* 快捷键：P 切换价格显示，Esc 关闭（输入框内不触发） */
+  document.addEventListener('keydown', (e)=>{
+    const t = e.target;
+    if (t && (t.tagName === 'INPUT' || t.tagName === 'TEXTAREA' || t.isContentEditable)) return;
+    if (e.metaKey || e.ctrlKey || e.altKey) return;
+    if (e.key === 'p' || e.key === 'P') { e.preventDefault(); showPrice = !showPrice; if (showPrice) loadPrices(); render(); priceFlag(); }
+    else if (e.key === 'Escape' && showPrice) { showPrice = false; render(); priceFlag(); }
+  });
+})();
+</script>
+</body>
+</html>
