@@ -97,6 +97,14 @@ npx serve .               # 本地预览；或 python -m http.server 8642
   因为 `body.embed` 会 `display:none` 掉 `.site-header / .hero / .site-footer / footer`，
   一旦 hero 没闭合把 main 包进去，正文会跟着一起消失（表现为「实习页面打不开了」的空白页，且控制台无报错）。
   改完子页后用 `node scripts/embed-check.mjs` 复核：`textLen > 0`、`bodyH` 与 `scrollH` 相等且 > 1000 才算正常。
+- **GitHub Pages（微信可开版本）**：`https://loklam666.github.io/fanke-research-hub/`
+  微信内置浏览器**打不开 WorkBuddy 托管链接**——`app.workbuddy.host` 网关看到 `MicroMessenger` UA 会直接返回「请在浏览器中打开」引导页（平台级拦截，改页面代码无效）。
+  因此仓库同时开一份 GitHub Pages 作为微信分发链接：推送 `main` 即自动重建，无需额外命令。
+  注意两点：① Pages 直接拿仓库内容发布，所以 `assets/data.js` / `assets/details.js` 必须入库（曾因 `.gitignore` 排除导致首页白页）；
+  ② `github.io` 在国内部分运营商可达性不稳，如发现打不开，改用腾讯云 EdgeOne / CloudBase（腾讯系域名微信最友好，需账号授权）。
+- **手机端约束**（2026-10 适配）：窄屏 `header` 为两行——品牌一行、`.main-nav` 一行横向滑动，按钮必须 `flex:0 0 auto; white-space:nowrap`，否则 flex 会把它压成竖排单字。
+  页头高度不固定，`.toolbar` 的 `top` 用 `var(--hdr-h)`，由各页 `syncHdr()` 在 load/resize 时写入。
+  `winter.html` 的价格除 `P` 键外，**双击「共 N 个项目」统计行**也能切换（手机没有物理键盘），`#count` 加 `touch-action:manipulation` 防双击缩放。
 - **EdgeOne**：`npm i -g edgeone@latest` → `edgeone makers deploy --name fanke-research-hub`（新机首次浏览器授权）；部署 URL 必须带完整 `?eo_token=...&eo_time=...` 参数
 - 本地 Node fetch 对部分主机 TLS 失败 → 脚本内已自动 curl 兜底，Windows 下 curl 已串行化避免 spawn 冲突
 
