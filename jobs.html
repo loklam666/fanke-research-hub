@@ -121,10 +121,15 @@
   @media (max-width:760px){
     .hero-inner{padding:30px 18px}
     .hero h1{font-size:24px}
-    .header-inner{padding:0 14px;height:56px}
-    .toolbar{top:56px}
-    .header-meta{display:none}
-    .brand-name{display:none}
+    /* 窄屏 header 拆两行：品牌一行，导航一行横向滑动，避免 flex 把链接压成竖排 */
+    .header-inner{flex-wrap:wrap;height:auto;padding:8px 14px 0;gap:0}
+    .brand{order:1;padding-bottom:4px}
+    .header-meta{order:2;display:none}
+    .main-nav{order:3;width:100%;margin-left:0;gap:2px;overflow-x:auto;scrollbar-width:none;padding-bottom:8px}
+    .main-nav::-webkit-scrollbar{display:none}
+    .main-nav a{flex:0 0 auto;white-space:nowrap;padding:7px 10px;font-size:13px}
+    .brand-name{font-size:15px}
+    .toolbar{top:var(--hdr-h,56px)}
     .toolbar-inner{padding:10px 14px}
     main{padding:20px 14px 50px}
     .jlist{grid-template-columns:1fr}
@@ -201,6 +206,7 @@
 
   /* ===== 内嵌到首页 iframe 时：隐藏自带页头 / hero / 页脚 ===== */
   body.embed .site-header,body.embed .hero,body.embed .site-footer,body.embed footer{display:none!important}
+  body.embed{overflow-x:hidden}   /* 宽屏下 4px 级溢出会在 iframe 里变成横向拖动，直接裁掉 */
   body.embed main{padding-top:18px}
   body.embed section{margin-bottom:36px;scroll-margin-top:12px}
 </style>
@@ -703,6 +709,18 @@
   window.addEventListener('load',send);
   if(window.ResizeObserver) new ResizeObserver(send).observe(document.body);
   var n=0, iv=setInterval(function(){ send(); if(++n>20) clearInterval(iv); }, 700);
+})();
+
+/* 页头高度写入 CSS 变量：窄屏 header 为两行、高度不固定，sticky 工具栏的 top 要跟着走 */
+(function(){
+  function syncHdr(){
+    var h=document.querySelector('.site-header');
+    if(!h || getComputedStyle(h).display==='none') return;
+    document.documentElement.style.setProperty('--hdr-h', h.offsetHeight+'px');
+  }
+  syncHdr();
+  window.addEventListener('resize', syncHdr);
+  window.addEventListener('load', syncHdr);
 })();
 </script>
 </body>

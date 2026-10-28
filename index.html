@@ -51,7 +51,7 @@
   .stat-chip b{color:var(--orange);font-size:15px;margin-right:2px}
 
   /* ===== Toolbar ===== */
-  .toolbar{position:sticky;top:64px;z-index:40;background:rgba(250,248,246,.94);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+  .toolbar{position:sticky;top:var(--hdr-h,64px);z-index:40;background:rgba(250,248,246,.94);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
   .toolbar-inner{max-width:1280px;margin:0 auto;padding:12px 24px;display:flex;flex-direction:column;gap:10px}
   .search-row{display:flex;gap:10px;align-items:center}
   .search-box{flex:1;display:flex;align-items:center;gap:10px;background:var(--card);border:1.5px solid var(--line);border-radius:12px;padding:10px 16px;transition:.18s}
@@ -166,12 +166,22 @@
   @media (max-width:760px){
     .hero-inner{padding:30px 18px}
     .hero h1{font-size:25px}
-    .header-inner{padding:0 14px;height:56px}
-    .toolbar{top:56px}
-    .header-meta{display:none}
-    .brand-name{display:none}
+    /* 窄屏 header 拆两行：第一行 logo，第二行导航横向滑动（否则 flex 会把按钮挤成竖排单字） */
+    .header-inner{flex-wrap:wrap;height:auto;padding:8px 14px 0;gap:0;row-gap:0}
+    .brand{order:1;padding-bottom:4px}
+    .header-meta{order:2;display:block;font-size:11px;margin-left:auto;padding-bottom:4px}
+    .main-nav{order:3;width:100%;margin-left:0;gap:2px;overflow-x:auto;scrollbar-width:none;padding-bottom:8px}
+    .main-nav::-webkit-scrollbar{display:none}
+    .main-nav button,.main-nav .nav-ext{flex:0 0 auto;white-space:nowrap;padding:7px 11px;font-size:13.5px}
+    .brand-name{font-size:15px}
     .toolbar-inner{padding:10px 14px}
     .container{padding:16px 14px}
+    .grid{grid-template-columns:1fr;gap:14px}
+    .hero-stats{gap:8px}
+    .hero-stats .hs{padding:7px 12px}
+    .search-row{gap:8px}
+    .search-box{padding:9px 13px}
+    .toolbar-foot{flex-wrap:wrap;gap:6px}
   }
 
   /* ===== 科研培养体系 ===== */
@@ -649,6 +659,16 @@
       if(f.contentWindow === e.source){ f.style.height = Math.max(600, d.h) + 'px'; }
     });
   });
+
+  /* 页头高度写入 CSS 变量：移动端 header 是两行、高度不固定，
+     工具栏 sticky 的 top 必须跟着走，否则筛选栏会被页头盖住或悬空 */
+  function syncHdr(){
+    const h=document.querySelector('.site-header');
+    if(h) document.documentElement.style.setProperty('--hdr-h', h.offsetHeight+'px');
+  }
+  syncHdr();
+  window.addEventListener('resize', syncHdr);
+  window.addEventListener('load', syncHdr);
 
   /* ---------- 初始化 ---------- */
   const meta=D.meta||{};

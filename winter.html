@@ -99,9 +99,14 @@
   .site-footer{border-top:1px solid var(--line);background:#fff}
   .footer-inner{max-width:1280px;margin:0 auto;padding:20px 24px;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;font-size:12.5px;color:var(--ink-3)}
   @media(max-width:760px){
-    .header-inner{padding:0 14px;height:56px}
-    .main-nav a{padding:8px 9px;font-size:13px}
-    .toolbar{top:56px}
+    /* 窄屏 header 拆两行：品牌一行，导航一行横向滑动；meta 隐藏（否则 nowrap 会把视口撑破） */
+    .header-inner{flex-wrap:wrap;height:auto;padding:8px 14px 0;gap:0}
+    .brand{order:1;padding-bottom:4px}
+    .header-meta{order:2;display:none}
+    .main-nav{order:3;width:100%;margin-left:0;gap:2px;overflow-x:auto;scrollbar-width:none;padding-bottom:8px}
+    .main-nav::-webkit-scrollbar{display:none}
+    .main-nav a{flex:0 0 auto;white-space:nowrap;padding:7px 10px;font-size:13px}
+    .toolbar{top:var(--hdr-h,56px)}
     .hero h1{font-size:25px}
     .container{padding:20px 14px}
     .grid{grid-template-columns:1fr}
@@ -109,6 +114,7 @@
 
   /* ===== 内嵌到首页 iframe 时：隐藏自带页头 / hero / 页脚 ===== */
   body.embed .site-header,body.embed .hero,body.embed .site-footer{display:none!important}
+  body.embed{overflow-x:hidden}   /* 避免 iframe 内出现横向拖动 */
   body.embed .toolbar{top:0!important}
   body.embed .container{padding-top:16px}
 </style>
@@ -149,7 +155,8 @@
     </div>
     <div class="filter-row" id="cats"></div>
     <div class="toolbar-foot">
-      <span id="count"></span>
+      <!-- 双击这行统计可切换价格显示（触屏设备的隐藏入口，配合 P 键） -->
+      <span id="count" style="touch-action:manipulation;-webkit-user-select:none;user-select:none"></span>
       <button class="reset-btn" id="reset">重置筛选</button>
     </div>
   </div>
@@ -199,8 +206,16 @@
     let f = document.getElementById('price-flag');
     if (showPrice) {
       if (!f) { f = document.createElement('div'); f.id = 'price-flag'; f.className = 'price-flag'; document.body.appendChild(f); }
-      f.textContent = '价格显示中 · 按 P 或 Esc 关闭';
+      // 触屏设备没有键盘，提示文案要跟着换
+      const touch = window.matchMedia && window.matchMedia('(hover:none)').matches;
+      f.textContent = touch ? '价格显示中 · 再双击统计行关闭' : '价格显示中 · 按 P 或 Esc 关闭';
     } else if (f) { f.remove(); }
+  }
+
+  function togglePrice(){
+    showPrice = !showPrice;
+    if (showPrice) loadPrices();
+    render(); priceFlag();
   }
 
   // 顶部统计
@@ -310,9 +325,24 @@
     const t = e.target;
     if (t && (t.tagName === 'INPUT' || t.tagName === 'TEXTAREA' || t.isContentEditable)) return;
     if (e.metaKey || e.ctrlKey || e.altKey) return;
-    if (e.key === 'p' || e.key === 'P') { e.preventDefault(); showPrice = !showPrice; if (showPrice) loadPrices(); render(); priceFlag(); }
+    if (e.key === 'p' || e.key === 'P') { e.preventDefault(); togglePrice(); }
     else if (e.key === 'Escape' && showPrice) { showPrice = false; render(); priceFlag(); }
   });
+
+  /* 触屏入口：手机没有物理键盘，P 键按不出来。
+     双击「共 N 个项目」这行统计文字同样切换价格（隐藏入口，不显眼）。
+     #count 只改 textContent 不重建元素，所以监听不会因 render 丢失。 */
+  (function(){
+    const c = document.getElementById('count');
+    if (!c) return;
+    c.addEventListener('dblclick', function(e){ e.preventDefault(); togglePrice(); });
+    let lastTap = 0;
+    c.addEventListener('touchend', function(e){
+      const now = Date.now();
+      if (now - lastTap < 420) { e.preventDefault(); togglePrice(); lastTap = 0; }
+      else { lastTap = now; }
+    }, { passive: false });
+  })();
 })();
 </script>
 
@@ -325,6 +355,18 @@
   window.addEventListener('load',send);
   if(window.ResizeObserver) new ResizeObserver(send).observe(document.body);
   var n=0, iv=setInterval(function(){ send(); if(++n>20) clearInterval(iv); }, 700);
+})();
+
+/* 页头高度写入 CSS 变量：窄屏 header 为两行、高度不固定，sticky 工具栏的 top 要跟着走 */
+(function(){
+  function syncHdr(){
+    var h=document.querySelector('.site-header');
+    if(!h || getComputedStyle(h).display==='none') return;
+    document.documentElement.style.setProperty('--hdr-h', h.offsetHeight+'px');
+  }
+  syncHdr();
+  window.addEventListener('resize', syncHdr);
+  window.addEventListener('load', syncHdr);
 })();
 </script>
 </body>
