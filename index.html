@@ -35,6 +35,8 @@
   .main-nav .nav-ext{display:inline-flex;align-items:center;gap:5px;text-decoration:none;font-size:14px;font-weight:600;color:var(--ink-3);padding:8px 14px;border-radius:10px;transition:.18s}
   .main-nav .nav-ext:hover{color:var(--orange);background:var(--orange-soft)}
   .main-nav .nav-ext .soon{font-size:10px;font-weight:700;color:#fff;background:var(--orange);border-radius:999px;padding:1px 6px;line-height:1.5}
+  .main-nav button .soon{font-size:10px;font-weight:700;color:#fff;background:var(--orange);border-radius:999px;padding:1px 6px;line-height:1.5;margin-left:4px}
+  .embed-frame{width:100%;border:none;display:block;background:var(--bg);min-height:70vh}
   .header-meta{margin-left:auto;font-size:12px;color:var(--ink-3);text-align:right;white-space:nowrap}
   .header-meta b{color:var(--orange);font-weight:700}
 
@@ -233,8 +235,8 @@
       <button id="nav-projects" class="active" data-view="projects">项目库</button>
       <button id="nav-summary" data-view="summary">汇总长图</button>
       <button id="nav-system" data-view="system">科研培养体系</button>
-      <a class="nav-ext" href="jobs.html">实习·求职<sup class="soon">新</sup></a>
-      <a class="nav-ext" href="winter.html">寒假项目</a>
+      <button id="nav-jobs" data-view="jobs">实习·求职<sup class="soon">新</sup></button>
+      <button id="nav-winter" data-view="winter">寒假项目</button>
     </nav>
     <div class="header-meta" id="header-meta"></div>
   </div>
@@ -319,6 +321,14 @@
       2. 课题研究档位为真实在研课题，署名位置分第一作者 / 共同一作 / 第二—四作者三档，按实际贡献确定。<br>
       3. 各档位具体排期、专题方向与费用按学员背景与目标单独沟通确认。
     </div>
+  </div>
+  <!-- 实习·求职（内嵌视图，首次激活才加载） -->
+  <div id="view-jobs" style="display:none">
+    <iframe id="frame-jobs" class="embed-frame" title="实习·求职" data-src="jobs.html?embed=1" src="about:blank"></iframe>
+  </div>
+  <!-- 寒假项目（内嵌视图，首次激活才加载） -->
+  <div id="view-winter" style="display:none">
+    <iframe id="frame-winter" class="embed-frame" title="寒假项目" data-src="winter.html?embed=1" src="about:blank"></iframe>
   </div>
 </main>
 
@@ -601,11 +611,19 @@
   function setView(v){
     state.view = v;
     document.querySelectorAll('.main-nav button').forEach(x=>x.classList.toggle('active', x.dataset.view===v));
-    ['projects','summary','system','topics'].forEach(k=>{
+    ['projects','summary','system','topics','jobs','winter'].forEach(k=>{
       const el=$('view-'+k);
       if(el) el.style.display = state.view===k ? '' : 'none';
     });
     $('toolbar').style.display = state.view==='projects' ? '' : 'none';
+    // 内嵌视图首次激活再加载 iframe，避免首页一并拉取岗位/企业数据
+    if(state.view==='jobs'||state.view==='winter'){
+      const f=$('frame-'+state.view);
+      if(f && !f.dataset.loaded){ f.src=f.dataset.src; f.dataset.loaded='1'; }
+    }
+    // 实习/寒假视图隐藏科研 hero，避免标题与统计错位
+    const hero=document.querySelector('.hero');
+    if(hero) hero.style.display=(state.view==='jobs'||state.view==='winter')?'none':'';
     window.scrollTo({top:0});
   }
   function bindNav(){
@@ -617,6 +635,15 @@
   }
   window.__bindNav = bindNav;
   bindNav();
+
+  /* 内嵌 iframe 自适应高度 */
+  window.addEventListener('message', function(e){
+    const d = e.data;
+    if(!d || d.type !== 'fanke-h') return;
+    document.querySelectorAll('.embed-frame').forEach(function(f){
+      if(f.contentWindow === e.source){ f.style.height = Math.max(600, d.h) + 'px'; }
+    });
+  });
 
   /* ---------- 初始化 ---------- */
   const meta=D.meta||{};

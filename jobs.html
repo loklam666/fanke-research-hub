@@ -198,6 +198,11 @@
   .svc-card li::before{content:"";position:absolute;left:0;top:8px;width:5px;height:5px;border-radius:50%;background:#C9D9F9}
   .svc-card:nth-child(3) li::before{background:#F8C4B2}
   .svc-foot{font-size:11.5px;color:var(--ink-3);margin-top:16px;line-height:1.7}
+
+  /* ===== 内嵌到首页 iframe 时：隐藏自带页头 / hero / 页脚 ===== */
+  body.embed .site-header,body.embed .hero,body.embed .site-footer,body.embed footer{display:none!important}
+  body.embed main{padding-top:18px}
+  body.embed section{margin-bottom:36px;scroll-margin-top:12px}
 </style>
 </head>
 <body>
@@ -686,6 +691,18 @@
     `<span class="stat-chip">合作机构 <b>${ORGS.length}</b></span>`);
 
   renderOrgs(); renderAll();
+})();
+</script>
+
+<script>
+/* 内嵌模式：隐藏页头并向父页上报内容高度，实现 iframe 自适应 */
+(function(){
+  if(new URLSearchParams(location.search).get('embed')!=='1') return;
+  document.body.classList.add('embed');
+  var send=function(){ try{ parent.postMessage({type:'fanke-h',h:document.documentElement.scrollHeight},'*'); }catch(e){} };
+  window.addEventListener('load',send);
+  if(window.ResizeObserver) new ResizeObserver(send).observe(document.body);
+  var n=0, iv=setInterval(function(){ send(); if(++n>20) clearInterval(iv); }, 700);
 })();
 </script>
 </body>

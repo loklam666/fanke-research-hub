@@ -106,6 +106,11 @@
     .container{padding:20px 14px}
     .grid{grid-template-columns:1fr}
   }
+
+  /* ===== 内嵌到首页 iframe 时：隐藏自带页头 / hero / 页脚 ===== */
+  body.embed .site-header,body.embed .hero,body.embed .site-footer{display:none!important}
+  body.embed .toolbar{top:0!important}
+  body.embed .container{padding-top:16px}
 </style>
 </head>
 <body>
@@ -308,6 +313,18 @@
     if (e.key === 'p' || e.key === 'P') { e.preventDefault(); showPrice = !showPrice; if (showPrice) loadPrices(); render(); priceFlag(); }
     else if (e.key === 'Escape' && showPrice) { showPrice = false; render(); priceFlag(); }
   });
+})();
+</script>
+
+<script>
+/* 内嵌模式：隐藏页头并向父页上报内容高度 */
+(function(){
+  if(new URLSearchParams(location.search).get('embed')!=='1') return;
+  document.body.classList.add('embed');
+  var send=function(){ try{ parent.postMessage({type:'fanke-h',h:document.documentElement.scrollHeight},'*'); }catch(e){} };
+  window.addEventListener('load',send);
+  if(window.ResizeObserver) new ResizeObserver(send).observe(document.body);
+  var n=0, iv=setInterval(function(){ send(); if(++n>20) clearInterval(iv); }, 700);
 })();
 </script>
 </body>
