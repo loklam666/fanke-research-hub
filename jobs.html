@@ -45,15 +45,15 @@
   .draft-badge{display:inline-flex;align-items:center;gap:6px;background:#FFF4E5;border:1px solid #F5D9A8;color:#9A6B1F;font-size:12px;font-weight:600;border-radius:999px;padding:4px 12px;margin-bottom:14px}
 
   /* ===== Toolbar ===== */
-  .toolbar{position:sticky;top:64px;z-index:40;background:rgba(250,248,246,.94);backdrop-filter:blur(10px);border-bottom:1px solid var(--line);transition:transform .25s ease,opacity .25s ease}
-  .toolbar.parked{transform:translateY(-140%);opacity:0;pointer-events:none}
   .toolbar-inner{max-width:1280px;margin:0 auto;padding:12px 24px;display:flex;flex-direction:column;gap:10px}
   .search-row{display:flex;gap:10px}
   .search-box{flex:1;display:flex;align-items:center;gap:10px;background:var(--card);border:1.5px solid var(--line);border-radius:12px;padding:10px 16px;transition:.18s}
   .search-box:focus-within{border-color:var(--blue);box-shadow:0 0 0 3px var(--blue-soft)}
   .search-box svg{flex-shrink:0;opacity:.45}
   .search-box input{border:none;outline:none;background:transparent;flex:1;font-size:14px;color:var(--ink)}
-  .filter-row{display:flex;gap:8px;overflow-x:auto;padding-bottom:2px;scrollbar-width:none}
+  .filter-row{display:flex;gap:8px;overflow-x:auto;padding-bottom:2px;scrollbar-width:none;
+    -webkit-mask-image:linear-gradient(90deg,#000 0,#000 calc(100% - 30px),transparent 100%);
+    mask-image:linear-gradient(90deg,#000 0,#000 calc(100% - 30px),transparent 100%)}
   .filter-row::-webkit-scrollbar{display:none}
   .chip{flex-shrink:0;border:1.5px solid var(--line);background:var(--card);color:var(--ink-2);border-radius:999px;padding:6px 14px;font-size:13px;font-weight:500;transition:.15s;white-space:nowrap}
   .chip:hover{border-color:var(--blue);color:var(--blue)}
@@ -148,8 +148,14 @@
   .orgcell .oc{font-size:10px;color:var(--ink-3);letter-spacing:.3px}
 
   /* ===== 岗位列表 ===== */
-  .jbar{display:flex;gap:10px;margin-bottom:12px}
-  .jsearch{flex:1;display:flex;align-items:center;gap:10px;background:var(--card);border:1.5px solid var(--line);border-radius:12px;padding:10px 16px;transition:.18s}
+  .jbar{display:flex;gap:10px;margin-bottom:12px;align-items:center;flex-wrap:wrap}
+  .jselect{border:1.5px solid var(--line);background:var(--card);border-radius:12px;padding:0 12px;height:44px;font-size:13.5px;color:var(--ink-2);font-family:inherit;cursor:pointer;outline:none;transition:.18s;flex-shrink:0}
+  .jselect:hover{border-color:#C9D9F9}
+  .jselect:focus{border-color:var(--blue);box-shadow:0 0 0 3px var(--blue-soft)}
+  .jstat{font-size:12.5px;color:var(--ink-3);margin-bottom:12px;min-height:18px;line-height:1.6}
+  .jstat b{color:var(--blue);font-weight:800}
+  .jstat .sep{display:inline-block;width:1px;height:10px;background:var(--line);margin:0 9px;vertical-align:-1px}
+  .jsearch{flex:1;min-width:240px;display:flex;align-items:center;gap:10px;background:var(--card);border:1.5px solid var(--line);border-radius:12px;padding:10px 16px;transition:.18s;height:44px}
   .jsearch:focus-within{border-color:var(--blue);box-shadow:0 0 0 3px var(--blue-soft)}
   .jsearch svg{flex-shrink:0;opacity:.45}
   .jsearch input{border:none;outline:none;background:transparent;flex:1;font-size:14px;color:var(--ink)}
@@ -213,45 +219,19 @@
 
 <section class="hero">
   <div class="hero-inner">
-    <span class="draft-badge">板块上线中 · v0.2（企业名录与实习岗位已接入真实数据，招聘日历与资源为示例占位）</span>
+    <span class="draft-badge">板块上线中 · v0.2（实习岗位与企业名录为真实数据，招聘日历与资源为示例占位）</span>
     <h1>实习与求职<span>资源中心</span></h1>
-    <p>汇聚世界 500 强与中国 500 强企业名录，直连科研院所、高校研究院与一线行业合作渠道的实习岗位，并提供从实训到定向输送的人才培养路径，帮助泛柯学员从科研走向职业。</p>
+    <p>直连科研院所、高校研究院与一线行业合作渠道的实习岗位，可按赛道、方向、地点逐层筛选；并配套从实训到定向输送的人才培养路径，帮助泛柯学员从科研走向职业。</p>
     <div class="hero-stats" id="hero-stats"></div>
   </div>
 </header>
 
-<div class="toolbar">
-  <div class="toolbar-inner">
-    <div class="search-row">
-      <div class="search-box">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#8A8A90" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
-        <input id="search" type="text" placeholder="搜索公司名称 / 英文名 / 行业…">
-      </div>
-    </div>
-    <div class="filter-row" id="row-industry"></div>
-    <div class="toolbar-foot">
-      <span id="result-count"></span>
-      <button class="reset-btn" id="reset">重置筛选</button>
-    </div>
-  </div>
-</div>
-
 <main>
-  <!-- 公司名录 -->
-  <section id="sec-companies">
-    <div class="sec-title">
-      <h2>企业名录</h2>
-      <span class="desc">点击公司卡片可查看详情（板块上线后开放）</span>
-    </div>
-    <div class="grid" id="grid"></div>
-    <div class="load-more-wrap"><button class="load-more" id="load-more">加载更多</button></div>
-  </section>
-
-  <!-- 实习岗位库 -->
+  <!-- 实习岗位库（主板块） -->
   <section id="sec-internship">
     <div class="sec-title">
       <h2>实习岗位库</h2>
-      <span class="desc">合作渠道岗位 · 点击卡片展开岗位说明</span>
+      <span class="desc">合作渠道真实岗位 · 点击卡片展开岗位说明</span>
     </div>
 
     <div class="orgbar" id="job-orgs"></div>
@@ -259,14 +239,20 @@
     <div class="jbar">
       <div class="jsearch">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#8A8A90" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
-        <input id="job-search" type="text" placeholder="搜索岗位 / 机构 / 方向 / 地点关键词…">
+        <input id="job-search" type="text" placeholder="搜索岗位 / 机构 / 方向 / 地点 / 岗位说明…">
       </div>
-      <button class="reset-btn" id="job-reset">重置</button>
+      <select class="jselect" id="job-sort">
+        <option value="default">默认排序</option>
+        <option value="org">按机构聚合</option>
+        <option value="place">按地点</option>
+      </select>
+      <button class="reset-btn" id="job-reset">重置筛选</button>
     </div>
 
-    <div class="filter-row" id="job-tabs" style="margin-bottom:14px"></div>
+    <div class="filter-row" id="job-tabs" style="margin-bottom:8px"></div>
+    <div class="filter-row" id="job-groups" style="margin-bottom:12px"></div>
 
-    <div class="sample-note">岗位来自合作渠道：中国科学院自动化研究所 · 复旦大学研究院 · 远程实习与远程 JD 岗位库，共 <b id="job-total">0</b> 个岗位</div>
+    <div class="jstat" id="job-stat"></div>
 
     <div class="jlist" id="job-list"></div>
     <div class="load-more-wrap" id="job-more-wrap"><button class="load-more" id="job-more">加载更多</button></div>
@@ -280,6 +266,35 @@
     </div>
     <div class="svc-grid" id="svc-grid"></div>
     <div class="svc-foot">路径可单段参与，也可按学年组合成四年长线规划；具体服务内容与产出以咨询沟通为准。</div>
+  </section>
+
+  <!-- 企业名录 -->
+  <section id="sec-companies">
+    <div class="sec-title">
+      <h2>企业名录</h2>
+      <span class="desc">2026《财富》世界 500 强 + 中国 500 强 · 共 934 家</span>
+    </div>
+
+    <div class="jbar">
+      <div class="jsearch">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#8A8A90" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
+        <input id="search" type="text" placeholder="搜索公司名称 / 英文名 / 官网 / 行业…">
+      </div>
+      <select class="jselect" id="co-sort">
+        <option value="rank">榜单排名优先</option>
+        <option value="name">按中文名</option>
+        <option value="industry">按行业</option>
+      </select>
+      <button class="reset-btn" id="reset">重置筛选</button>
+    </div>
+
+    <div class="filter-row" id="row-fortune" style="margin-bottom:8px"></div>
+    <div class="filter-row" id="row-industry" style="margin-bottom:12px"></div>
+
+    <div class="jstat" id="result-count"></div>
+
+    <div class="grid" id="grid"></div>
+    <div class="load-more-wrap"><button class="load-more" id="load-more">加载更多</button></div>
   </section>
 
   <!-- 招聘日历（示例设计） -->
@@ -368,7 +383,7 @@
   const $ = id => document.getElementById(id);
   const esc = s => String(s??'').replace(/[&<>"']/g, c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
   const PAGE = 48;
-  const state = { q:'', industry:null, shown:PAGE };
+  const state = { q:'', industry:null, fortune:null, sort:'rank', shown:PAGE };
 
   const order = ['互联网','人工智能','游戏','硬件与通信','新能源与汽车','交通与物流','建筑与基建','能源与化工','制造与材料','贸易与供应链','国际科技','金融科技','金融','咨询','快消与零售','医药与健康','综合集团'];
 
@@ -378,19 +393,36 @@
   function renderFilters(){
     const counts = {};
     L.forEach(c=>{ counts[c.industry]=(counts[c.industry]||0)+1; });
-    $('row-industry').innerHTML = order.filter(g=>counts[g]).map(g=>`<button class="chip ${state.industry===g?'active':''}" data-v="${esc(g)}">${esc(g)}<span class="n">${counts[g]}</span></button>`).join('');
+    $('row-industry').innerHTML = order.filter(g=>counts[g]).map(g=>
+      `<button class="chip ${state.industry===g?'active':''}" data-v="${esc(g)}">${esc(g)}<span class="n">${counts[g]}</span></button>`
+    ).join('');
+
+    const w = L.filter(c=>c.fortune==='世界500').length;
+    const cn = L.filter(c=>c.fortune==='中国500').length;
+    const list = [['全部企业',null,L.length],['世界 500 强','世界500',w],['中国 500 强','中国500',cn]];
+    $('row-fortune').innerHTML = list.map(([label,v,n])=>
+      `<button class="chip ${state.fortune===v?'active':''}" data-f="${v||''}">${label}<span class="n">${n}</span></button>`
+    ).join('');
   }
+
+  const rankOf = c => (c.fortune && Number(c.rank)) ? Number(c.rank) : 1e6;
+  const indIdx = c => { const i = order.indexOf(c.industry); return i < 0 ? 99 : i; };
 
   function filtered(){
     const q = state.q.trim().toLowerCase();
-    return L.filter(c=>{
+    const list = L.filter(c=>{
+      if(state.fortune && c.fortune!==state.fortune) return false;
       if(state.industry && c.industry!==state.industry) return false;
       if(q){
-        const hay = [c.nameZh,c.name,c.industry,c.domain].filter(Boolean).join(' ').toLowerCase();
+        const hay = [c.nameZh, c.name, c.industry, c.domain, c.fortune].filter(Boolean).join(' ').toLowerCase();
         if(!hay.includes(q)) return false;
       }
       return true;
     });
+    if(state.sort==='rank') list.sort((a,b)=> rankOf(a)-rankOf(b) || String(a.nameZh||'').localeCompare(String(b.nameZh||''),'zh'));
+    else if(state.sort==='name') list.sort((a,b)=> String(a.nameZh||a.name||'').localeCompare(String(b.nameZh||b.name||''),'zh'));
+    else if(state.sort==='industry') list.sort((a,b)=> indIdx(a)-indIdx(b) || rankOf(a)-rankOf(b));
+    return list;
   }
 
   function cardHTML(c,i){
@@ -413,7 +445,11 @@
       : `<div style="grid-column:1/-1;text-align:center;padding:60px 0;color:var(--ink-3)">没有匹配的公司</div>`;
     $('load-more').parentElement.style.display = list.length>state.shown ? 'flex':'none';
     $('load-more').textContent = `加载更多（已显示 ${Math.min(state.shown,list.length)} / ${list.length}）`;
-    $('result-count').textContent = `${list.length} 家公司`;
+    const w = list.filter(c=>c.fortune==='世界500').length;
+    const cn = list.filter(c=>c.fortune==='中国500').length;
+    $('result-count').innerHTML = list.length === L.length
+      ? `共 <b>${L.length}</b> 家企业<span class="sep"></span>世界 500 强 <b>${w}</b> · 中国 500 强 <b>${cn}</b>`
+      : `筛选出 <b>${list.length}</b> 家<span class="sep"></span>世界 500 强 <b>${w}</b> · 中国 500 强 <b>${cn}</b>`;
   }
 
   let timer;
@@ -422,7 +458,16 @@
     const b=e.target.closest('.chip'); if(!b) return;
     state.industry = state.industry===b.dataset.v ? null : b.dataset.v; state.shown=PAGE; renderFilters(); renderGrid();
   });
-  $('reset').addEventListener('click', ()=>{ state.q=''; state.industry=null; state.shown=PAGE; $('search').value=''; renderFilters(); renderGrid(); });
+  $('row-fortune').addEventListener('click', e=>{
+    const b=e.target.closest('.chip'); if(!b) return;
+    const v = b.dataset.f || null;
+    state.fortune = state.fortune===v ? null : v; state.shown=PAGE; renderFilters(); renderGrid();
+  });
+  $('co-sort').addEventListener('change', e=>{ state.sort = e.target.value; state.shown=PAGE; renderGrid(); });
+  $('reset').addEventListener('click', ()=>{
+    state.q=''; state.industry=null; state.fortune=null; state.sort='rank'; state.shown=PAGE;
+    $('search').value=''; $('co-sort').value='rank'; renderFilters(); renderGrid();
+  });
   $('load-more').addEventListener('click', ()=>{ state.shown += PAGE*2; renderGrid(); });
 
   // 统计
@@ -449,7 +494,6 @@
   const esc = s => String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
   const PAGE = 24;
 
-  const JOBS0 = (P.jobs||[]).slice();
   /* 科研实习两家机构按条轮转打散；远程实习保持按行业分组，便于整体阅读 */
   const JOBS = (function(list){
     const res = list.filter(j=>j.track==='科研实习');
@@ -464,11 +508,15 @@
       i++;
     }
     return out.concat(rem);
-  })(JOBS0);
+  })((P.jobs||[]).slice());
+
   const ORGS = (P.orgs||[]).slice().sort((a,b)=>b.n-a.n);
   const orgLogo = {};
-  ORGS.forEach(o=>{ orgLogo[o.org]=o.logo||null; });
+  ORGS.forEach(o=>{ orgLogo[o.org] = o.logo || null; });
   const grp = j => j.group || '其他方向';
+  const placeOf = j => j.place || '不限';
+
+  const state = { q:'', track:null, group:null, place:null, org:null, sort:'default', shown:PAGE };
 
   /* 无 logo 机构的字母/汉字缩写徽标 */
   function mono(name){
@@ -480,8 +528,6 @@
     }
     return n.slice(0,2) || String(name).slice(0,2);
   }
-
-  const state = { q:'', track:null, group:null, org:null, shown:PAGE };
 
   /* 合作机构条 */
   function renderOrgs(){
@@ -495,39 +541,55 @@
       </div>`).join('');
   }
 
-  /* 筛选条：赛道 + 方向/行业 */
-  function groupsFor(){
-    const pool = JOBS.filter(j=>!state.track || j.track===state.track);
-    const m = {};
-    pool.forEach(j=>{ const g=grp(j); m[g]=(m[g]||0)+1; });
-    return Object.entries(m).sort((a,b)=>b[1]-a[1]);
-  }
+  /* 第一行：赛道 + 地点 */
   function renderTabs(){
-    const tcount = t => t ? JOBS.filter(j=>j.track===t).length : JOBS.length;
-    const tracks = [['全部岗位',null],['科研实习','科研实习'],['远程实习','远程实习']];
-    let h = tracks.map(([label,v])=>
-      `<button class="chip${state.track===v?' active':''}" data-track="${v||''}">${label}<span class="n">${tcount(v)}</span></button>`
+    const pool = JOBS.filter(j=>!state.group || grp(j)===state.group);
+    const tcount = t => JOBS.filter(j=>j.track===t).length;
+    let h = [['全部岗位',null],['科研实习','科研实习'],['远程实习','远程实习']].map(([label,v])=>
+      `<button class="chip${state.track===v?' active':''}" data-track="${v||''}">${label}<span class="n">${v?tcount(v):JOBS.length}</span></button>`
     ).join('');
-    h += `<span style="width:1px;background:var(--line);margin:2px 4px;flex-shrink:0"></span>`;
-    h += `<button class="chip${!state.group?' active':''}" data-group="">全部方向</button>`;
-    h += groupsFor().map(([g,n])=>
-      `<button class="chip${state.group===g?' active':''}" data-group="${esc(g)}">${esc(g)}<span class="n">${n}</span></button>`
+    h += `<span style="width:1px;background:var(--line);margin:2px 6px;flex-shrink:0"></span>`;
+    const pc = {};
+    pool.forEach(j=>{ const p=placeOf(j); pc[p]=(pc[p]||0)+1; });
+    const pOrder = ['北京','上海/远程','香港','南京','远程','不限'];
+    h += `<button class="chip${!state.place?' active':''}" data-place="">全部地点</button>`;
+    h += pOrder.filter(p=>pc[p]).map(p=>
+      `<button class="chip${state.place===p?' active':''}" data-place="${esc(p)}">${esc(p)}<span class="n">${pc[p]}</span></button>`
     ).join('');
     $('job-tabs').innerHTML = h;
   }
 
+  /* 第二行：方向 / 行业 */
+  function renderGroups(){
+    const pool = JOBS.filter(j=>!state.track || j.track===state.track);
+    const m = {};
+    pool.forEach(j=>{ const g=grp(j); m[g]=(m[g]||0)+1; });
+    const rows = Object.entries(m).sort((a,b)=>b[1]-a[1]);
+    $('job-groups').innerHTML =
+      `<button class="chip${!state.group?' active':''}" data-group="">全部方向</button>` +
+      rows.map(([g,n])=>`<button class="chip${state.group===g?' active':''}" data-group="${esc(g)}">${esc(g)}<span class="n">${n}</span></button>`).join('');
+  }
+
   function filtered(){
     const q = state.q.trim().toLowerCase();
-    return JOBS.filter(j=>{
+    const out = JOBS.filter(j=>{
       if(state.track && j.track!==state.track) return false;
       if(state.group && grp(j)!==state.group) return false;
+      if(state.place && placeOf(j)!==state.place) return false;
       if(state.org && j.org!==state.org) return false;
       if(q){
-        const hay = [j.title,j.org,j.group,j.place,j.duration,j.type,j.jd].filter(Boolean).join(' ').toLowerCase();
+        const hay = [j.title, j.org, j.group, j.place, j.duration, j.type, j.jd].filter(Boolean).join(' ').toLowerCase();
         if(!hay.includes(q)) return false;
       }
       return true;
     });
+    if(state.sort==='org'){
+      const idx = {}; ORGS.forEach((o,i)=>idx[o.org]=i);
+      out.sort((a,b)=> (idx[a.org]??99)-(idx[b.org]??99) || String(a.title).localeCompare(String(b.title),'zh'));
+    }else if(state.sort==='place'){
+      out.sort((a,b)=> String(placeOf(a)).localeCompare(String(placeOf(b)),'zh'));
+    }
+    return out;
   }
 
   function cardHTML(j){
@@ -551,7 +613,7 @@
         </div>
         <span class="jchev">›</span>
       </summary>
-      <div class="jbody"><span class="jd-label">岗位说明</span>${esc(j.jd||'岗位说明待补充，可咨询泛柯顾问获取详细信息。')}</div>
+      <div class="jbody"><span class="jd-label">岗位说明</span>${esc(j.jd||'该岗位的详细说明可咨询泛柯顾问获取。')}</div>
     </details>`;
   }
 
@@ -559,12 +621,18 @@
     const list = filtered();
     $('job-list').innerHTML = list.length
       ? list.slice(0,state.shown).map(cardHTML).join('')
-      : `<div class="jempty">没有匹配的岗位，试试换个关键词</div>`;
+      : `<div class="jempty">没有匹配的岗位 —— 试试换关键词，或点「重置筛选」</div>`;
     $('job-more-wrap').style.display = list.length>state.shown ? 'flex' : 'none';
     $('job-more').textContent = `加载更多（已显示 ${Math.min(state.shown,list.length)} / ${list.length}）`;
+
+    const active = [state.track, state.group, state.place, state.org, state.q.trim()].filter(Boolean);
+    const shown = Math.min(state.shown, list.length);
+    $('job-stat').innerHTML = active.length
+      ? `筛选出 <b>${list.length}</b> 个岗位（已显示 ${shown}）<span class="sep"></span>条件：${active.map(a=>esc(a)).join(' · ')}`
+      : `共 <b>${JOBS.length}</b> 个岗位<span class="sep"></span>合作机构 <b>${ORGS.length}</b> 家<span class="sep"></span>科研实习 ${JOBS.filter(j=>j.track==='科研实习').length} · 远程实习 ${JOBS.filter(j=>j.track==='远程实习').length}`;
   }
 
-  function renderAll(){ renderTabs(); renderList(); }
+  function renderAll(){ renderTabs(); renderGroups(); renderList(); }
 
   /* 事件 */
   let t;
@@ -577,10 +645,16 @@
       const v = b.dataset.track || null;
       state.track = (state.track===v) ? null : v;
       state.group = null;
-    }else if(b.hasAttribute('data-group')){
-      const v = b.dataset.group || null;
-      state.group = (state.group===v) ? null : v;
+    }else if(b.hasAttribute('data-place')){
+      const v = b.dataset.place || null;
+      state.place = (state.place===v) ? null : v;
     }
+    state.shown = PAGE; renderAll();
+  });
+  $('job-groups').addEventListener('click', e=>{
+    const b = e.target.closest('.chip'); if(!b) return;
+    const v = b.dataset.group || null;
+    state.group = (state.group===v) ? null : v;
     state.shown = PAGE; renderAll();
   });
   $('job-orgs').addEventListener('click', e=>{
@@ -588,11 +662,12 @@
     const v = c.dataset.org;
     state.org = (state.org===v) ? null : v;
     state.shown = PAGE; renderOrgs(); renderList();
-    if(state.org) document.getElementById('sec-internship').scrollIntoView({behavior:'smooth',block:'start'});
   });
+  $('job-sort').addEventListener('change', e=>{ state.sort = e.target.value; state.shown = PAGE; renderList(); });
   $('job-reset').addEventListener('click', ()=>{
-    state.q=''; state.track=null; state.group=null; state.org=null; state.shown=PAGE;
-    $('job-search').value=''; renderOrgs(); renderAll();
+    state.q=''; state.track=null; state.group=null; state.place=null; state.org=null; state.sort='default'; state.shown=PAGE;
+    $('job-search').value=''; $('job-sort').value='default';
+    renderOrgs(); renderAll();
   });
   $('job-more').addEventListener('click', ()=>{ state.shown += PAGE*2; renderList(); });
 
@@ -604,29 +679,12 @@
       <ul>${(c.points||[]).map(p=>`<li>${esc(p)}</li>`).join('')}</ul>
     </div>`).join('');
 
-  /* 计数与 hero 补充 */
-  $('job-total').textContent = JOBS.length;
+  /* hero 统计补充 */
   $('hero-stats').insertAdjacentHTML('beforeend',
     `<span class="stat-chip">合作渠道岗位 <b>${JOBS.length}</b></span>` +
     `<span class="stat-chip">合作机构 <b>${ORGS.length}</b></span>`);
 
   renderOrgs(); renderAll();
-
-  /* 企业名录工具栏：滚出企业名录区块后自动收起，避免与岗位搜索混淆 */
-  (function(){
-    const tb = document.querySelector('.toolbar');
-    const sec = document.getElementById('sec-companies');
-    if(!tb || !sec) return;
-    let raf = 0;
-    const header = document.querySelector('.site-header');
-    const sync = ()=>{
-      raf = 0;
-      const lim = (header ? header.offsetHeight : 64) + tb.offsetHeight;
-      tb.classList.toggle('parked', sec.getBoundingClientRect().bottom < lim);
-    };
-    addEventListener('scroll', ()=>{ if(!raf) raf = requestAnimationFrame(sync); }, { passive:true });
-    sync();
-  })();
 })();
 </script>
 </body>
