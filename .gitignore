@@ -1,7 +1,9 @@
-# 生成文件（由 scripts/sync.mjs 同步生成，不入库）
+# 生成文件
+# 注意：data/ 与 assets/details.js 仍不入库（体积大、可由 scripts/sync.mjs 重抓），
+# 但 assets/data.js 必须入库——GitHub Pages 直接拿仓库内容对外发布，
+# 缺了它首页就没有项目数据（白页）。同理 details.js 缺了会导致详情弹窗空白，
+# 因此 GitHub Pages 版本要求两者都在仓库里。
 data/
-assets/data.js
-assets/details.js
 
 # 本地资源（logo 已内嵌进 index.html）
 assets/fanke-logo.png
