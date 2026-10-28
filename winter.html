@@ -113,11 +113,13 @@
   }
 
   /* ===== 内嵌到首页 iframe 时：隐藏自带页头 / hero / 页脚 ===== */
-  body.embed .site-header,body.embed .hero,body.embed .site-footer{display:none!important}
-  body.embed{overflow-x:hidden}   /* 避免 iframe 内出现横向拖动 */
-  body.embed .toolbar{top:0!important}
-  body.embed .container{padding-top:16px}
+  html.embed .site-header,html.embed .hero,html.embed .site-footer{display:none!important}
+  html.embed{overflow-x:hidden}   /* 避免 iframe 内出现横向拖动 */
+  html.embed .toolbar{top:0!important}
+  html.embed .container{padding-top:16px}
 </style>
+<!-- 内嵌判定抢在首屏绘制前，避免微信里先闪一下双页头 + hero -->
+<script>if(new URLSearchParams(location.search).get('embed')==='1')document.documentElement.classList.add('embed');</script>
 </head>
 <body>
 
