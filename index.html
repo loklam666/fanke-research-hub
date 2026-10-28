@@ -672,8 +672,17 @@
 
   /* ---------- 初始化 ---------- */
   const meta=D.meta||{};
-  $('header-meta').innerHTML = `<b>${projects.length}</b> 个项目 · 同步于 ${(meta.lastSync||'').slice(0,10)}`;
-  $('footer-sync').textContent = (meta.lastSync||'—').replace('T',' ').slice(0,16);
+  /* lastSync 是 UTC 的 ISO 串，直接截字符会差 8 小时（凌晨同步显示成前一天），统一转本地时区 */
+  function fmtSync(iso, withTime){
+    if(!iso) return '—';
+    const d=new Date(iso);
+    if(isNaN(d.getTime())) return '—';
+    const p=n=>String(n).padStart(2,'0');
+    const day=`${d.getFullYear()}-${p(d.getMonth()+1)}-${p(d.getDate())}`;
+    return withTime ? `${day} ${p(d.getHours())}:${p(d.getMinutes())}` : day;
+  }
+  $('header-meta').innerHTML = `<b>${projects.length}</b> 个项目 · 同步于 ${fmtSync(meta.lastSync)}`;
+  $('footer-sync').textContent = fmtSync(meta.lastSync, true);
   const dirStats = {};
   projects.forEach(p=>{ if(p.direction) dirStats[p.direction]=(dirStats[p.direction]||0)+1; });
   $('hero-stats').innerHTML =
