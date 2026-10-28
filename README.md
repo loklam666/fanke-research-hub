@@ -95,10 +95,12 @@ cd fanke-research-hub && python -m http.server 8080
 | 科研培养体系 | `index.html` → 顶部导航「科研培养体系」 | 4 个科研档位（人文社科×自然科学 / Nova / Pro / 课题研究 SCI·CCF）+ 5 档青少年科研营 |
 | 实习岗位库 | `jobs.html` → 实习岗位库 | 335 个岗位、90 家合作机构（中科院自动化所 35 / 复旦研究院 172 / 远程实习 128） |
 | 人才培养 | `jobs.html` → 人才培养与求职服务 | 单段实训 → 专业领航 → 管培生 → 求职陪跑 → 定向输送 |
+| 合作科研专题 | `index.html` → 顶部导航「合作科研专题」 | 竹石创研院小程序在库专题（学科 / 方向标签 / 状态 / 参与方式）；数据为空时该视图不出现 |
 
 - 岗位卡片支持关键词搜索（岗位名 / 机构 / 方向 / 地点 / JD 全文）、赛道与方向双维筛选、合作机构 logo 条点选，`<details>` 原生折叠展开岗位说明
 - 生产流程：原始 xlsx/PDF 导出为 CSV → 放入 `scripts/partner-src/`（已随仓库提交 4 张表）→ `node scripts/build-partner-data.mjs` 生成 `assets/partner.js`（`ALIAS` 简称映射 + `CANON` 全称合并 + `org|title|group` 去重）。换新一期物料时用 `PARTNER_SRC=/path/to/csv` 指向新目录
 - **价格不上站**：三组内容只写课时、技能数与可交付产出，不含任何报价
+- 专题数据：把清单存成 `scripts/partner-src/专题清单.csv`（列见 `专题清单.example.csv`）后重跑 `node scripts/build-partner-data.mjs`，导航会自动出现「合作科研专题」视图并生成学科/状态筛选
 
 ## 图片清晰度说明
 

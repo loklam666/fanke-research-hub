@@ -203,6 +203,22 @@
   .sys-y .t{font-size:11.5px;color:var(--ink-3);margin-top:5px;line-height:1.65}
   .sys-note{margin-top:28px;font-size:12.5px;color:var(--ink-3);line-height:1.9;border-left:3px solid #F0EBE7;padding-left:15px;max-width:900px}
   .sys-note b{color:var(--ink-2)}
+
+  .jstat{font-size:12.5px;color:var(--ink-3);margin-bottom:12px;min-height:18px;line-height:1.6}
+  .jstat b{color:var(--orange);font-weight:800}
+  .jstat .sep{display:inline-block;width:1px;height:10px;background:var(--line);margin:0 9px;vertical-align:-1px}
+
+  /* ===== 合作科研专题 ===== */
+  .tp-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(302px,1fr));gap:16px}
+  .tp-card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);padding:20px;transition:.18s;position:relative;display:flex;flex-direction:column;gap:9px}
+  .tp-card:hover{transform:translateY(-3px);box-shadow:var(--shadow-lift);border-color:#F8C4B2}
+  .tp-card .st{align-self:flex-start;font-size:10.5px;font-weight:700;border-radius:999px;padding:2px 9px;background:#EAF7EF;color:#2E7D4F}
+  .tp-card .st.lock{background:#F3F1EF;color:var(--ink-3)}
+  .tp-card h3{font-size:15px;font-weight:800;line-height:1.5}
+  .tp-card .tags{display:flex;flex-wrap:wrap;gap:5px}
+  .tp-card .tags span{font-size:10.5px;color:var(--orange-dark);background:var(--orange-soft);border-radius:6px;padding:2px 8px}
+  .tp-card .ds{font-size:12.5px;color:var(--ink-2);line-height:1.7}
+  .tp-card .ft{margin-top:auto;padding-top:10px;border-top:1px dashed var(--line);display:flex;justify-content:space-between;font-size:11.5px;color:var(--ink-3);gap:8px}
 </style>
 </head>
 <body>
@@ -265,6 +281,20 @@
     <h2>学科汇总长图</h2>
     <div class="sub" id="summary-sub">按学科分类的全景项目汇总图，点击可放大查看。</div>
     <div class="summary-grid" id="summary-grid"></div>
+  </div>
+
+
+  <!-- 合作科研专题视图（有数据时才出现） -->
+  <div id="view-topics" style="display:none">
+    <div class="sys-head">
+      <h2>合作科研专题</h2>
+      <span class="desc" id="tp-source">合作渠道在库专题</span>
+    </div>
+    <p class="sys-lead">按学科与专题状态筛选，每个专题对应一段可参与的科研训练；状态与开课节奏以渠道最新排期为准。</p>
+    <div class="filter-row" id="tp-subjects" style="margin-bottom:8px"></div>
+    <div class="filter-row" id="tp-status" style="margin-bottom:12px"></div>
+    <div class="jstat" id="tp-stat"></div>
+    <div class="tp-grid" id="tp-grid"></div>
   </div>
 
   <!-- 科研培养体系视图（合作渠道 · 竹石创新研究院 4.0） -->
@@ -567,19 +597,25 @@
   $('lightbox').addEventListener('click', e=>{ if(e.target.id==='lightbox'){ $('lightbox').classList.remove('open'); document.body.style.overflow=''; } });
 
   /* ---------- 视图切换 ---------- */
-  document.querySelectorAll('.main-nav button').forEach(b=>{
-    b.addEventListener('click', ()=>{
-      document.querySelectorAll('.main-nav button').forEach(x=>x.classList.remove('active'));
-      b.classList.add('active');
-      state.view=b.dataset.view;
-      ['projects','summary','system'].forEach(v=>{
-        const el=$('view-'+v);
-        if(el) el.style.display = state.view===v ? '' : 'none';
-      });
-      $('toolbar').style.display = state.view==='projects' ? '' : 'none';
-      window.scrollTo({top:0});
+  function setView(v){
+    state.view = v;
+    document.querySelectorAll('.main-nav button').forEach(x=>x.classList.toggle('active', x.dataset.view===v));
+    ['projects','summary','system','topics'].forEach(k=>{
+      const el=$('view-'+k);
+      if(el) el.style.display = state.view===k ? '' : 'none';
     });
-  });
+    $('toolbar').style.display = state.view==='projects' ? '' : 'none';
+    window.scrollTo({top:0});
+  }
+  function bindNav(){
+    document.querySelectorAll('.main-nav button').forEach(b=>{
+      if(b.dataset.bound) return;
+      b.dataset.bound = '1';
+      b.addEventListener('click', ()=>setView(b.dataset.view));
+    });
+  }
+  window.__bindNav = bindNav;
+  bindNav();
 
   /* ---------- 初始化 ---------- */
   const meta=D.meta||{};
@@ -613,6 +649,55 @@
       <div class="lab">可交付产出</div>
       <div class="sys-out">${(r.outputs||[]).map(o=>`<span>${esc(o)}</span>`).join('')}</div>
     </div>`).join('');
+
+  /* 合作科研专题（竹石创研院小程序）：有数据才注册视图与导航 */
+  (function(){
+    const T = P.topics || [];
+    if(!T.length) return;
+    const nav = document.querySelector('.main-nav');
+    const btn = document.createElement('button');
+    btn.id = 'nav-topics'; btn.dataset.view = 'topics'; btn.textContent = '合作科研专题';
+    nav.insertBefore(btn, document.getElementById('nav-system'));
+    if(window.__bindNav) window.__bindNav();
+
+    const st = { subject:null, status:null };
+    const subjects = [...new Set(T.map(t=>t.subject).filter(Boolean))];
+    const statuses = [...new Set(T.map(t=>t.status).filter(Boolean))];
+    const cnt = (k,v) => T.filter(t=>t[k]===v).length;
+
+    function chips(){
+      $('tp-subjects').innerHTML =
+        `<button class="chip${!st.subject?' active':''}" data-s="">全部学科<span class="n">${T.length}</span></button>` +
+        subjects.map(x=>`<button class="chip${st.subject===x?' active':''}" data-s="${esc(x)}">${esc(x)}<span class="n">${cnt('subject',x)}</span></button>`).join('');
+      $('tp-status').innerHTML =
+        `<button class="chip${!st.status?' active':''}" data-t="">全部状态</button>` +
+        statuses.map(x=>`<button class="chip${st.status===x?' active':''}" data-t="${esc(x)}">${esc(x)}<span class="n">${cnt('status',x)}</span></button>`).join('');
+    }
+    function list(){
+      const out = T.filter(t=>(!st.subject||t.subject===st.subject)&&(!st.status||t.status===st.status));
+      $('tp-grid').innerHTML = out.length ? out.map(t=>`
+        <div class="tp-card">
+          ${t.status?`<span class="st${/锁定|截止|结束/.test(t.status)?' lock':''}">${esc(t.status)}</span>`:''}
+          <h3>${esc(t.title)}</h3>
+          ${(t.tags||[]).length?`<div class="tags">${t.tags.map(g=>`<span>${esc(g)}</span>`).join('')}</div>`:''}
+          ${t.desc?`<div class="ds">${esc(t.desc)}</div>`:''}
+          <div class="ft"><span>${esc(t.rhythm||'')}</span><span>${esc(t.mode||'')}</span></div>
+        </div>`).join('') : `<div style="grid-column:1/-1;text-align:center;padding:60px 0;color:var(--ink-3)">没有匹配的专题</div>`;
+      $('tp-stat').innerHTML = out.length===T.length
+        ? `共 <b>${T.length}</b> 个专题<span class="sep"></span>覆盖学科 <b>${subjects.length}</b> 个`
+        : `筛选出 <b>${out.length}</b> 个专题`;
+    }
+    $('tp-subjects').addEventListener('click', e=>{
+      const b=e.target.closest('.chip'); if(!b) return;
+      const v=b.dataset.s||null; st.subject = st.subject===v?null:v; chips(); list();
+    });
+    $('tp-status').addEventListener('click', e=>{
+      const b=e.target.closest('.chip'); if(!b) return;
+      const v=b.dataset.t||null; st.status = st.status===v?null:v; chips(); list();
+    });
+    $('tp-source').textContent = `合作渠道在库专题 · 共 ${T.length} 个`;
+    chips(); list();
+  })();
 
   $('sys-youth').innerHTML = (P.youth||[]).map(y=>`
     <div class="sys-y">

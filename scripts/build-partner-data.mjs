@@ -279,6 +279,28 @@ jdRows.forEach((r) => {
   });
 });
 
+/* ---------- 合作渠道科研专题（竹石创研院小程序，可选） ----------
+   放入 scripts/partner-src/专题清单.csv 即自动收录；文件不存在则 topics 为空，前端不渲染该板块。
+   列：学科,专题名称,方向标签(用｜分隔),状态,参与方式,开课节奏,简介
+*/
+const TOPIC_CSV = path.join(SRC, '专题清单.csv');
+let topics = [];
+if (fs.existsSync(TOPIC_CSV)) {
+  const rows = parseCSV(TOPIC_CSV).slice(1);
+  topics = rows
+    .filter((r) => (r[1] || '').trim())
+    .map((r, i) => ({
+      id: `tp-${i + 1}`,
+      subject: (r[0] || '').trim(),
+      title: r[1].trim(),
+      tags: (r[2] || '').split(/[｜|]/).map((t) => t.trim()).filter(Boolean),
+      status: (r[3] || '').trim(),
+      mode: (r[4] || '').trim(),
+      rhythm: (r[5] || '').trim(),
+      desc: (r[6] || '').trim(),
+    }));
+}
+
 /* ---------- 产品体系（价格不上站，只留档位描述） ---------- */
 const research = [
   {
@@ -374,11 +396,12 @@ const orgs = Object.entries(orgCount)
 const payload = {
   updated: '2026-10',
   source: '竹石创新研究院 4.0（BamRock）',
-  stats: { total: all.length, orgs: orgs.length, ia: iaJobs.length, fd: fdJobs.length, remote: rmJobs.length + jdJobs.length },
+  stats: { total: all.length, orgs: orgs.length, ia: iaJobs.length, fd: fdJobs.length, remote: rmJobs.length + jdJobs.length, topics: topics.length },
   orgs,
   research,
   youth,
   career,
+  topics,
   jobs: all.map((j) => ({ ...j, logo: logoOf(j.key) })),
 };
 
