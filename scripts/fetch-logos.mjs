@@ -208,10 +208,14 @@ async function main() {
   await Promise.all(Array.from({ length: 6 }, worker));
 
   // 排序：按行业分组内按名称
-  const order = ['互联网','人工智能','游戏','硬件与通信','新能源与汽车','交通与物流','建筑与基建','能源与化工','国际科技','金融科技','金融','咨询','快消与零售','医药与健康'];
+  const order = ['互联网','人工智能','游戏','硬件与通信','新能源与汽车','交通与物流','建筑与基建','能源与化工','制造与材料','贸易与供应链','国际科技','金融科技','金融','咨询','快消与零售','医药与健康','综合集团'];
   results.sort((a, b) => (order.indexOf(a.industry) - order.indexOf(b.industry)) || a.nameZh.localeCompare(b.nameZh, 'zh'));
 
-  const index = results.map(({ slug, name, nameZh, domain, industry, file, bytes, skipped }) => ({ slug, name, nameZh, domain, industry, file, bytes: bytes ?? null, cached: !!skipped }));
+  const index = results.map(({ slug, name, nameZh, domain, industry, file, bytes, skipped, fortune, rank, country }) => ({
+    slug, name, nameZh, domain, industry, file, bytes: bytes ?? null, cached: !!skipped,
+    ...(fortune ? { fortune, rank } : {}),
+    ...(country ? { country } : {}),
+  }));
   writeFileSync(join(LOGO_DIR, 'index.json'), JSON.stringify(index, null, 2));
   writeFileSync(join(ROOT, 'assets', 'logos.js'), '/* 由 scripts/fetch-logos.mjs 自动生成 */\nwindow.__LOGOS = ' + JSON.stringify(index) + ';\n');
 

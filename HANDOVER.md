@@ -7,8 +7,8 @@
 
 **fanke-research-hub**（泛柯科研库 + 求职板块），GitHub: `loklam666/fanke-research-hub`（main 分支）
 
-- `index.html` — 科研主站（单文件 SPA，泛柯橙 `#F4532B`）：935 个科研项目，从 Path Academics 站点（sou-tools.gecacademy.cn）逆向同步，含搜索/筛选/详情弹窗/汇总长图
-- `jobs.html` — 实习·求职板块设计稿 v0.1（蓝色主题 `#2E6FF2`）：企业名录（204 家 logo 墙）/ 招聘日历（示例占位）/ 资源精选（示例占位），主站导航已加入口
+- `index.html` — 科研主站（单文件 SPA，泛柯橙 `#F4532B`）：871 个科研项目（源站 2026-10 实时拉取，此前记录为 935），从 Path Academics 站点（sou-tools.gecacademy.cn）逆向同步，含搜索/筛选/详情弹窗/汇总长图；三个视图 = 项目库 / 汇总长图 / **科研培养体系**（合作渠道产品档位）
+- `jobs.html` — 实习·求职板块 v0.2（蓝色主题 `#2E6FF2`）：企业名录（934 家 logo 墙，2026 世界500强 + 中国500强全量）/ **实习岗位库（335 个真实岗位 · 90 家合作机构）** / **人才培养与求职服务（5 条路径）** / 招聘日历（示例占位）/ 资源精选（示例占位）
 - `logos.html` — logo 素材库预览页（按行业分组）
 
 ## 新机器首次上手（必做）
@@ -33,23 +33,36 @@ npx serve .               # 本地预览；或 python -m http.server 8642
 
 ## 公司 logo 库（求职板块用）
 
-- 清单：`scripts/companies.json`（204 家，已含部分世界/中国 500 强）。字段：`slug / name / nameZh / domain / industry`，可选 `source:"url:..."` 或 `source:"simpleicons:slug"`，可选 `skip:true`
-- 采集：`node scripts/fetch-logos.mjs`（优先级 source > simpleicons > 官网图标解析；失败自动 monogram 文字徽标占位；已成功的 slug 自动跳过，增量安全）
-- 新增公司：companies.json 追加条目 → 重跑 fetch-logos.mjs
-- 注意：jobs.html / logos.html / fetch-logos.mjs 三处的行业 `order` 数组要保持一致
-- 16 家 monogram 占位待手工补图：华电/中冶/中交/中远海运/国药/华夏银行/国开行/台积电/雀巢/安联/中车/广发银行/蒙牛/科大讯飞/OpenAI/中金
+- 清单：`scripts/companies.json`（**934 家** = 2026《财富》世界500强 + 中国500强并集 876 家 + 原有 204 家中非榜单公司 58 家）
+- 字段：`slug / name / nameZh / domain / industry`；榜单公司额外带 `fortune`（`世界500`/`中国500`）与 `rank`（榜内排名），前端卡片右上角渲染排名角标
+- 行业 17 类：互联网、人工智能、游戏、硬件与通信、新能源与汽车、交通与物流、建筑与基建、能源与化工、制造与材料、贸易与供应链、国际科技、金融科技、金融、咨询、快消与零售、医药与健康、综合集团
+- 采集：`node scripts/fetch-logos-bulk.mjs`（curl 并发，`LOGO_CONCURRENCY`/`LOGO_TIMEOUT` 可调，强制 `-4` IPv4——本机 IPv6 会挂死）；少量新增用 `node scripts/fetch-logos.mjs`（增量）
+- 三处行业 `order` 数组必须同步：`jobs.html` / `logos.html` / `fetch-logos.mjs`（`fetch-logos-bulk.mjs` 里也有一份）
+- 抓不到官网图标的自动降级首字徽标（monogram），不影响页面；缺图清单在 `.fortune-cache/logo-missing.txt`
 
-## 【进行中】500 强全量扩充（未完成，数据源已探明）
+### 500 强名单抓取要点（已跑通，年度更新照做）
 
-用户要求把公司库扩成**全量世界 500 强 + 中国 500 强**（现仅 204 家）。已踩通的路径：
+- 财富中文网**列表落地页有反爬 JS 守卫，内容详情页 curl 可直取**（带浏览器 UA）
+- 中国 500 强全表：`/fortune500/c/2026-07/21/content_475324.htm`（500 行静态表格 → `/china500/{id}/2026` 详情页含中文名 + 官网 `www.xxx.com`）
+- 世界 500 强全表：`/fortune500/c/2026-07/28/content_475298.htm`（表格已含中英文名 + 国家 + 营收利润；**详情页有 JS 守卫不可直取**）
+- 世界榜官网域名 → Clearbit 名称补全 `https://autocomplete.clearbit.com/v1/companies/suggest?query=名称`（免鉴权，命中率 ~93%，剩余手工补在脚本 `DOMAIN_FIX`）
+- Wikidata（wikipedia/wikidata API）本机不稳定、批量会被限速，仅作备选
+- 去重：公司名归一化（去「集团/股份/有限公司/holdings/inc」等）后比对，中国榜优先（有官网字段）；两榜自身重叠 124 家
+- 分类：关键词规则 + `scripts/fortune-industry-map.json` 人工校订（295 条，主要覆盖外企与投资控股类）
 
-- 财富中文网（fortunechina.com）**列表落地页有反爬 JS 守卫，但内容详情页 curl 可直取**（需带浏览器 UA）
-- 2026《财富》中国 500 强全表（500 行静态 HTML，含排名/英文名/营收/利润/详情页链接 `/china500/{id}/2026`）：
-  `https://www.fortunechina.com/fortune500/c/2026-07/21/content_475324.htm`
-- 公司详情页含：**中文名 + 英文名 + 官网地址（`<div class="value"><a href='www.xxx.com'>`）**，官网正是 logo 采集要的 domain
-- 2026《财富》世界 500 强（2026-07-28 发布，亚马逊第一）列表页 URL 待定位，模式应类似 `/global500/c/2026-07/28/content_XXXXXX.htm`，可 WebSearch「2026年财富世界500强 财富中文网」找到
-- 维基百科在本机不可达（直连和本地代理均失败），国内新闻源可用
-- 与现有 204 家去重：按 nameZh 归一化（去掉"股份有限公司/集团/有限公司"后比对）
+## 合作渠道数据（竹石 4.0）
+
+- 数据包 `assets/partner.js`（挂 `window.__PARTNER`，约 196 KB）由 `node scripts/build-partner-data.mjs` 生成，输入是 `scripts/partner-src/*.csv`（源表：中科院自动化所 / 复旦研究院 / 远程实习列表 / 远程岗位 JD，共 351 行；换新一期物料用 `PARTNER_SRC` 指向新目录）
+- 结构：`{ updated, source, stats, orgs, research, youth, career, jobs }`
+  - `jobs[]`：`{ org, key, track(科研实习|远程实习), group(方向或行业), title, place, duration, type, jd, id, logo }`
+  - `orgs[]`：`{ org, n, key, logo }`，**90 家**（按岗位数降序）
+  - `research[]` 四档科研体系、`youth[]` 五档青少年营、`career[]` 五条求职路径 —— **只写课时与产出，不写价格**
+- 生成时的三个关键处理：
+  1. `ALIAS` 把简称/复合名映射成 logo slug（`腾讯游戏运营 → tencent`、`古驰市场部意大利 → p-gucci`）
+  2. `CANON` 把简称补成全称并合并同义机构（`招商 → 招商证券`、`中信/中信投行 → 中信证券`、`LV/LVMH → LVMH`）
+  3. 去重键 `org|title|group`，保留信息最全的一条（远程列表无 JD、远程 JD 表有 JD，靠这步合并）
+- 合作机构 logo 用 `p-` 前缀单独抓（`node scripts/fetch-partner-logos.mjs`），不污染企业名录；抓不到的降级字母徽标
+- 首页展示：`index.html` 第三视图「科研培养体系」渲染 `research` + `youth`；`jobs.html` 渲染 `jobs` + `orgs` + `career`
 
 ## 设计规范（延续）
 
@@ -65,6 +78,7 @@ npx serve .               # 本地预览；或 python -m http.server 8642
 
 ## 待办
 
-1. 完成 500 强全量扩充（见上节）
-2. 求职板块接真实数据：岗位列表、真实招聘日历、简历/笔试/面经资源（现为示例占位）
-3. （可选）16 家占位 logo 补图：放 `assets/logos/{slug}.png` 后从 companies.json 去掉 skip 标记重跑
+1. 招聘日历接真实批次、求职资源（简历/笔试/面经）落地（现为示例占位）
+2. 名录可按 500 强排名排序 / 只看榜单公司（现在只能按行业筛 + 关键词搜）
+3. 缺图公司补 logo：把图片放到 `assets/logos/{slug}.png` 后重跑 `fetch-logos-bulk.mjs` 即自动索引；合作机构缺图 19 家（多为律所/本土 PE，官网有反爬）
+4. 远程岗位的 `title` 是模板化写法（多家券商都叫「投行/行研/量化」），后续可按 `org` 展开成各自的具体岗位名

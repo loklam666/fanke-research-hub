@@ -17,3 +17,6 @@ node_modules/
 _d*.png
 _cred*.txt
 *.pyc
+
+# 财富500强抓取缓存（含 500 个公司详情页，可随时重抓）
+.fortune-cache/

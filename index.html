@@ -171,6 +171,38 @@
     .toolbar-inner{padding:10px 14px}
     .container{padding:16px 14px}
   }
+
+  /* ===== 科研培养体系 ===== */
+  .sys-head{display:flex;align-items:baseline;gap:12px;margin-bottom:6px;flex-wrap:wrap}
+  .sys-head h2{font-size:21px;font-weight:900;display:flex;align-items:center;gap:10px}
+  .sys-head h2::before{content:"";width:5px;height:21px;background:var(--orange);border-radius:3px}
+  .sys-head .desc{font-size:12.5px;color:var(--ink-3)}
+  .sys-lead{font-size:13.5px;color:var(--ink-2);max-width:800px;margin:8px 0 24px;line-height:1.85}
+  .sys-lead b{color:var(--orange-dark)}
+  .sys-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(268px,1fr));gap:16px}
+  .sys-card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);padding:22px 22px 20px;display:flex;flex-direction:column;transition:.18s;position:relative;overflow:hidden}
+  .sys-card:hover{transform:translateY(-3px);box-shadow:var(--shadow-lift);border-color:#F8C4B2}
+  .sys-card::after{content:"";position:absolute;left:0;right:0;top:0;height:3px;background:linear-gradient(90deg,var(--orange),#F79A7C)}
+  .sys-card .tier{font-size:16.5px;font-weight:900;letter-spacing:.2px;line-height:1.4}
+  .sys-card .tagline{display:inline-block;margin-top:9px;font-size:11.5px;font-weight:700;color:var(--orange-dark);background:var(--orange-soft);border-radius:999px;padding:3px 11px;align-self:flex-start}
+  .sys-card .aud{font-size:12px;color:var(--ink-3);margin-top:11px;padding-bottom:13px;border-bottom:1px dashed var(--line)}
+  .sys-card .lab{font-size:10.5px;font-weight:800;letter-spacing:1.2px;color:var(--ink-3);margin:15px 0 8px}
+  .sys-card ul{list-style:none;display:flex;flex-direction:column;gap:7px}
+  .sys-card li{font-size:12.5px;color:var(--ink-2);padding-left:13px;position:relative;line-height:1.7}
+  .sys-card li::before{content:"";position:absolute;left:0;top:8px;width:5px;height:5px;border-radius:50%;background:#F8C4B2}
+  .sys-out{display:flex;flex-wrap:wrap;gap:6px}
+  .sys-out span{font-size:11px;color:var(--ink-2);background:#F7F4F2;border:1px solid #F0EBE7;border-radius:6px;padding:3px 9px;line-height:1.55}
+  .sys-sec{margin-top:36px}
+  .sys-sub{font-size:15px;font-weight:800;margin-bottom:14px;display:flex;align-items:center;gap:9px}
+  .sys-sub .dot{width:6px;height:6px;border-radius:50%;background:var(--orange)}
+  .sys-youth{display:grid;grid-template-columns:repeat(auto-fit,minmax(172px,1fr));gap:12px}
+  .sys-y{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px 18px 18px;box-shadow:var(--shadow);transition:.18s}
+  .sys-y:hover{transform:translateY(-2px);box-shadow:var(--shadow-lift);border-color:#F8C4B2}
+  .sys-y .d{font-size:21px;font-weight:900;color:var(--orange);line-height:1.2}
+  .sys-y .n{font-size:13.5px;font-weight:800;margin-top:7px}
+  .sys-y .t{font-size:11.5px;color:var(--ink-3);margin-top:5px;line-height:1.65}
+  .sys-note{margin-top:28px;font-size:12.5px;color:var(--ink-3);line-height:1.9;border-left:3px solid #F0EBE7;padding-left:15px;max-width:900px}
+  .sys-note b{color:var(--ink-2)}
 </style>
 </head>
 <body>
@@ -184,7 +216,8 @@
     <nav class="main-nav">
       <button id="nav-projects" class="active" data-view="projects">项目库</button>
       <button id="nav-summary" data-view="summary">汇总长图</button>
-      <a class="nav-ext" href="jobs.html">实习·求职<sup class="soon">筹备</sup></a>
+      <button id="nav-system" data-view="system">科研培养体系</button>
+      <a class="nav-ext" href="jobs.html">实习·求职<sup class="soon">新</sup></a>
     </nav>
     <div class="header-meta" id="header-meta"></div>
   </div>
@@ -233,6 +266,29 @@
     <div class="sub" id="summary-sub">按学科分类的全景项目汇总图，点击可放大查看。</div>
     <div class="summary-grid" id="summary-grid"></div>
   </div>
+
+  <!-- 科研培养体系视图（合作渠道 · 竹石创新研究院 4.0） -->
+  <div id="view-system" style="display:none">
+    <div class="sys-head">
+      <h2>科研培养体系</h2>
+      <span class="desc">合作渠道 · 竹石创新研究院 4.0 · 覆盖 80+ 理工细分专题</span>
+    </div>
+    <p class="sys-lead">四个档位按<b>课时量、实验技能数与成果层级</b>递进：从跨学科入门到独立完成 SCI / CCF 课题，每一档都对应明确的能力边界与可交付成果。同一档位内可按 80+ 理工细分专题与 20+ 青少年专题自由选题。</p>
+
+    <div class="sys-grid" id="sys-grid"></div>
+
+    <div class="sys-sec">
+      <div class="sys-sub"><span class="dot"></span>青少年科研启蒙 · 科学营</div>
+      <div class="sys-youth" id="sys-youth"></div>
+    </div>
+
+    <div class="sys-note">
+      <b>体系说明</b><br>
+      1. 档位差异体现在课时、实验技能数量、后续学术支持年限与成果级别，不体现在「是否包结果」。<br>
+      2. 课题研究档位为真实在研课题，署名位置分第一作者 / 共同一作 / 第二—四作者三档，按实际贡献确定。<br>
+      3. 各档位具体排期、专题方向与费用按学员背景与目标单独沟通确认。
+    </div>
+  </div>
 </main>
 
 <footer class="site-footer">
@@ -254,6 +310,7 @@
 </div>
 
 <script src="assets/data.js"></script>
+<script src="assets/partner.js"></script>
 <script>
 (function(){
   const D = window.__FANKE_DATA || { projects: [], taxonomy: {types:[],directions:[]}, summaryImages: [], meta: {} };
@@ -515,10 +572,11 @@
       document.querySelectorAll('.main-nav button').forEach(x=>x.classList.remove('active'));
       b.classList.add('active');
       state.view=b.dataset.view;
-      const isProj = state.view==='projects';
-      $('view-projects').style.display=isProj?'':'none';
-      $('view-summary').style.display=isProj?'none':'';
-      $('toolbar').style.display=isProj?'':'none';
+      ['projects','summary','system'].forEach(v=>{
+        const el=$('view-'+v);
+        if(el) el.style.display = state.view===v ? '' : 'none';
+      });
+      $('toolbar').style.display = state.view==='projects' ? '' : 'none';
       window.scrollTo({top:0});
     });
   });
@@ -534,6 +592,34 @@
     Object.entries(dirStats).map(([k,v])=>`<span class="stat-chip">${esc(k)} <b>${v}</b></span>`).join('') +
     `<span class="stat-chip">竞赛 <b>${projects.filter(p=>/竞赛/.test(p.type)).length}</b></span>`;
   renderFilters(); renderGrid(); renderSummary();
+})();
+</script>
+
+<script>
+/* 科研培养体系（合作渠道 · 竹石 4.0） */
+(function(){
+  const P = window.__PARTNER;
+  const $ = id => document.getElementById(id);
+  if(!P || !$('sys-grid')) return;
+  const esc = s => String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+
+  $('sys-grid').innerHTML = (P.research||[]).map(r=>`
+    <div class="sys-card">
+      <div class="tier">${esc(r.tier)}</div>
+      <span class="tagline">${esc(r.tagline)}</span>
+      <div class="aud">适合：${esc(r.audience)}</div>
+      <div class="lab">培养内容</div>
+      <ul>${(r.points||[]).map(p=>`<li>${esc(p)}</li>`).join('')}</ul>
+      <div class="lab">可交付产出</div>
+      <div class="sys-out">${(r.outputs||[]).map(o=>`<span>${esc(o)}</span>`).join('')}</div>
+    </div>`).join('');
+
+  $('sys-youth').innerHTML = (P.youth||[]).map(y=>`
+    <div class="sys-y">
+      <div class="d">${esc(y.days)}</div>
+      <div class="n">${esc(y.name)}</div>
+      <div class="t">${esc(y.note)}</div>
+    </div>`).join('');
 })();
 </script>
 </body>
