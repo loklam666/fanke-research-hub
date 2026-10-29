@@ -66,6 +66,29 @@ npx serve .               # 本地预览；或 python -m http.server 8642
 - 合作机构 logo 用 `p-` 前缀单独抓（`node scripts/fetch-partner-logos.mjs`），不污染企业名录；抓不到的降级字母徽标
 - 首页展示：`index.html` 第三视图「科研培养体系」渲染 `research` + `youth`、第四视图「合作科研专题」渲染 `topics`（数据来自 `专题清单.csv`，空则不显示）；`jobs.html` 渲染 `jobs` + `orgs` + `career`
 
+## 竹石官网在库内容（328 项，2026-10 抓取）
+
+- 数据包 `assets/zhushi.js`（挂 `window.__ZHUSHI`，约 445 KB）由 `node scripts/build-zhushi.mjs "<抓取目录>"` 生成，输入是合作方官网抓取的 `all_items.json`（`C:/Users/lok/WorkBuddy/2026-10-29-10-58-21/zhushi_data`，1.9 GB，含本地图片与 PDF 副本）
+- 六个频道原始 330 条 → **去重后 327 条**（跨频道同标题合并，优先级 special > topic > talent > platform > news > video）：
+  | 频道 | 条数 | 前端去向 |
+  |---|---|---|
+  | special 科研专题 | 164 | 「合作科研专题」视图 |
+  | topic 前沿课题 | 58 | 同上（与 special 合计 **222**）|
+  | platform 开放平台 | 51 | 「实验平台」视图（独立导航）|
+  | talent 人才培养 | 42 | 「科研培养体系」视图底部区块 |
+  | news 资讯 / video 视频 | 9 / 3 | **已入库未展示**，需要时再挂 UI |
+- 封面必须本地化：官网封面单张 160 KB–960 KB 且不支持 OSS 缩略参数（试过 `x-oss-process` / `imageView2` 均原样返回），列表页直接引用会拖垮手机。
+  流程：`python scripts/build-zhushi-covers.py "<抓取目录>"` → 读 `_local.cover` 压到宽 480 / JPEG q80 → 输出 `assets/zhushi/c/<channel>_<id>.jpg`
+  （实测 330 张 42.9 MB → **10.6 MB**，平均 33 KB；全部 330 张本地副本都在，无缺失）
+- 正文是图片长图（`content` 里 1039 个 `<img>`，指向 `briwmp.bamrock.cn`，实测无防盗链、无 Referer 也可访问），所以：
+  1. 正文原样内嵌进数据包（4 个主频道合计仅 212 KB，因为都是 img 标签）
+  2. 渲染前过 `zhSafe()` 净化（去 script/iframe 与 `on*` 事件），并强制 `loading="lazy"` —— 正文单图可达 1 MB+，不懒加载会让弹窗一开就卡
+  3. 附件 PDF 走远程直链（单份可达 13 MB），不下载入库
+- 字段映射：`title / intro / cover / poster / tags[] / cycle(kkTime 开课节奏) / attach(fujian PDF) / content(HTML)`
+- **注意**：`index.html` 有两个 `<script>` 块，`$` / `esc` 各自重新定义过，但 `safeHTML` / `closeModal` 只在第一块里。
+  第二块（培养体系 / 专题 / 平台 / 人才培养）用的是本块自己定义的 `zhSafe()` 与 `zhClose()`，改代码时别混用，否则报 `ReferenceError`。
+- 价格：这批官网数据**不含任何价格字段**，符合「对外不露价」的要求
+
 ## 寒假项目（2027）
 
 - 页面 `winter.html`，数据 `assets/winter.js`（挂 `window.__WINTER`），源为用户提供的渠道 2027 寒假项目表（两批明细 + 两张官方汇总表）
