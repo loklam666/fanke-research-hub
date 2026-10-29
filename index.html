@@ -231,6 +231,36 @@
   .tp-card .tags span{font-size:10.5px;color:var(--orange-dark);background:var(--orange-soft);border-radius:6px;padding:2px 8px}
   .tp-card .ds{font-size:12.5px;color:var(--ink-2);line-height:1.7}
   .tp-card .ft{margin-top:auto;padding-top:10px;border-top:1px dashed var(--line);display:flex;justify-content:space-between;font-size:11.5px;color:var(--ink-3);gap:8px}
+
+  /* ===== 竹石专题卡（带封面 + 详情弹窗） ===== */
+  .zh-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:18px}
+  .zh-card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow);transition:.2s;display:flex;flex-direction:column;cursor:pointer}
+  .zh-card:hover{transform:translateY(-3px);box-shadow:var(--shadow-lift);border-color:#F8C4B2}
+  /* 用 padding 撑比例而不是 aspect-ratio，兼容微信较旧内核 */
+  .zh-cover{position:relative;padding-top:56.25%;background:#F3F1EF;overflow:hidden}
+  .zh-cover img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;transition:.35s}
+  .zh-card:hover .zh-cover img{transform:scale(1.05)}
+  .zh-cover .badge{position:absolute;left:10px;top:10px;font-size:10.5px;font-weight:700;color:#fff;background:rgba(0,0,0,.5);border-radius:999px;padding:3px 9px;letter-spacing:.3px}
+  .zh-cover .haspdf{position:absolute;right:10px;top:10px;font-size:10px;font-weight:700;color:#fff;background:rgba(232,85,42,.92);border-radius:5px;padding:3px 7px}
+  .zh-body{padding:14px 16px 15px;display:flex;flex-direction:column;gap:8px;flex:1}
+  .zh-body h3{font-size:14.5px;font-weight:800;line-height:1.55;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+  .zh-body .tags{display:flex;flex-wrap:wrap;gap:5px}
+  .zh-body .tags span{font-size:10.5px;color:var(--orange-dark);background:var(--orange-soft);border-radius:6px;padding:2px 8px}
+  .zh-body .intro{font-size:12px;color:var(--ink-3);line-height:1.7;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+  .zh-body .ft{margin-top:auto;padding-top:9px;border-top:1px dashed var(--line);font-size:11.5px;color:var(--ink-3);display:flex;justify-content:space-between;gap:8px}
+  .zh-more{display:block;margin:24px auto 4px;padding:11px 32px;border:1.5px solid var(--line);background:var(--card);border-radius:12px;font-size:14px;font-weight:700;color:var(--ink-2);cursor:pointer;transition:.18s}
+  .zh-more:hover{border-color:var(--orange);color:var(--orange)}
+  .zh-empty{grid-column:1/-1;text-align:center;padding:56px 0;color:var(--ink-3);font-size:13.5px}
+  /* 弹窗正文 */
+  .zh-content{padding:4px 26px 18px;font-size:13.5px;color:var(--ink-2);line-height:1.9}
+  .zh-content img{max-width:100%;border-radius:10px;display:block;margin:12px auto}
+  .zh-content p{margin:9px 0}
+  .zh-content table{width:100%;border-collapse:collapse;font-size:12.5px;margin:10px 0}
+  .zh-content td,.zh-content th{border:1px solid var(--line);padding:6px 9px}
+  .zh-attach{margin:0 26px 18px;padding:12px 14px;background:var(--orange-soft);border-radius:12px;display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
+  .zh-attach span{font-size:12.5px;color:var(--orange-dark);font-weight:700}
+  .zh-attach a{font-size:12.5px;font-weight:700;color:#fff;background:var(--orange);border-radius:8px;padding:7px 14px;text-decoration:none}
+  .zh-attach a:hover{background:var(--orange-dark)}
 </style>
 </head>
 <body>
@@ -297,17 +327,24 @@
   </div>
 
 
-  <!-- 合作科研专题视图（有数据时才出现） -->
+  <!-- 合作科研专题视图（竹石创研院官网在库专题，有数据才出现） -->
   <div id="view-topics" style="display:none">
     <div class="sys-head">
       <h2>合作科研专题</h2>
-      <span class="desc" id="tp-source">合作渠道在库专题</span>
+      <span class="desc" id="tp-source">竹石创新研究院 · 官网在库</span>
     </div>
-    <p class="sys-lead">按学科与专题状态筛选，每个专题对应一段可参与的科研训练；状态与开课节奏以渠道最新排期为准。</p>
-    <div class="filter-row" id="tp-subjects" style="margin-bottom:8px"></div>
-    <div class="filter-row" id="tp-status" style="margin-bottom:12px"></div>
+    <p class="sys-lead">合作渠道在研的科研专题与课题，按学科方向逐级筛选。每个专题对应一段可参与的实验训练，详情页含研究内容与官方附件。</p>
+    <div class="search-row" style="margin-bottom:12px">
+      <div class="search-box">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#8A8A90" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
+        <input id="zh-q" type="text" placeholder="搜索专题名称、方向或技能（如 甲基化、CAR-T、柔性传感）…">
+      </div>
+    </div>
+    <div class="filter-row" id="zh-ch" style="margin-bottom:8px"></div>
+    <div class="filter-row" id="tp-subjects" style="margin-bottom:12px"></div>
     <div class="jstat" id="tp-stat"></div>
-    <div class="tp-grid" id="tp-grid"></div>
+    <div class="zh-grid" id="zh-grid"></div>
+    <button class="zh-more" id="zh-more" style="display:none">加载更多</button>
   </div>
 
   <!-- 科研培养体系视图（合作渠道 · 竹石创新研究院 4.0） -->
@@ -331,6 +368,29 @@
       2. 课题研究档位为真实在研课题，署名位置分第一作者 / 共同一作 / 第二—四作者三档，按实际贡献确定。<br>
       3. 各档位具体排期、专题方向与费用按学员背景与目标单独沟通确认。
     </div>
+
+    <!-- 人才培养专题（竹石 talent 频道，42 项） -->
+    <div class="sys-sec" id="tl-sec" style="display:none">
+      <div class="sys-sub"><span class="dot"></span>人才培养专题 <span id="tl-count" style="font-weight:600;color:var(--ink-3);font-size:12.5px"></span></div>
+      <div class="tp-grid" id="tl-grid"></div>
+      <button class="zh-more" id="tl-more" style="display:none">加载更多</button>
+    </div>
+  </div>
+  <!-- 实验平台视图（竹石自有实验室、仪器设备与自研系统） -->
+  <div id="view-platform" style="display:none">
+    <div class="sys-head">
+      <h2>实验平台</h2>
+      <span class="desc" id="pf-source">竹石创新研究院 · 自有实验室与设备</span>
+    </div>
+    <p class="sys-lead">合作方自有的实验室、仪器设备与自研系统。科研专题里的实验环节在这些平台上完成，这也是「能上手做」与纯线上项目的差别所在。</p>
+    <div class="search-row" style="margin-bottom:12px">
+      <div class="search-box">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#8A8A90" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
+        <input id="pf-q" type="text" placeholder="搜索平台或设备（如 测序、流式、纯水、成像）…">
+      </div>
+    </div>
+    <div class="jstat" id="pf-stat"></div>
+    <div class="zh-grid" id="pf-grid"></div>
   </div>
   <!-- 实习·求职（内嵌视图，首次激活才加载） -->
   <div id="view-jobs" style="display:none">
@@ -362,6 +422,7 @@
 
 <script src="assets/data.js"></script>
 <script src="assets/partner.js"></script>
+<script src="assets/zhushi.js"></script>
 <script>
 (function(){
   const D = window.__FANKE_DATA || { projects: [], taxonomy: {types:[],directions:[]}, summaryImages: [], meta: {} };
@@ -621,7 +682,7 @@
   function setView(v){
     state.view = v;
     document.querySelectorAll('.main-nav button').forEach(x=>x.classList.toggle('active', x.dataset.view===v));
-    ['projects','summary','system','topics','jobs','winter'].forEach(k=>{
+    ['projects','summary','system','topics','platform','jobs','winter'].forEach(k=>{
       const el=$('view-'+k);
       if(el) el.style.display = state.view===k ? '' : 'none';
     });
@@ -638,7 +699,7 @@
     }
     // 实习/寒假视图隐藏科研 hero，避免标题与统计错位
     const hero=document.querySelector('.hero');
-    if(hero) hero.style.display=(state.view==='jobs'||state.view==='winter')?'none':'';
+    if(hero) hero.style.display=(state.view==='jobs'||state.view==='winter'||state.view==='topics'||state.view==='platform')?'none':'';
     window.scrollTo({top:0});
   }
   function bindNav(){
@@ -701,6 +762,29 @@
   if(!P || !$('sys-grid')) return;
   const esc = s => String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 
+  /* 本 script 块独立定义，避免跨块引用第一块的 safeHTML / closeModal */
+  function zhSafe(html){
+    if(!html) return '';
+    const d = document.createElement('div');
+    d.innerHTML = html;
+    d.querySelectorAll('script,style,iframe,object,embed,link,meta').forEach(e=>e.remove());
+    d.querySelectorAll('*').forEach(e=>{
+      [...e.attributes].forEach(a=>{ if(/^on/i.test(a.name)||/javascript:/i.test(a.value)) e.removeAttribute(a.name); });
+    });
+    // 竹石正文是图片长图（单张可达 1MB+），不懒加载会让弹窗一开就卡
+    d.querySelectorAll('img').forEach(img=>{
+      img.setAttribute('loading','lazy');
+      img.setAttribute('decoding','async');
+      if(!img.getAttribute('alt')) img.setAttribute('alt','');
+    });
+    return d.innerHTML;
+  }
+  function zhClose(){
+    const m = document.getElementById('modal-mask');
+    if(m) m.classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
   $('sys-grid').innerHTML = (P.research||[]).map(r=>`
     <div class="sys-card">
       <div class="tier">${esc(r.tier)}</div>
@@ -712,53 +796,255 @@
       <div class="sys-out">${(r.outputs||[]).map(o=>`<span>${esc(o)}</span>`).join('')}</div>
     </div>`).join('');
 
-  /* 合作科研专题（竹石创研院小程序）：有数据才注册视图与导航 */
+  /* 合作科研专题（竹石创研院官网在库数据）：科研专题 special + 前沿课题 topic
+     带封面卡片、频道/学科双层筛选、关键词搜索、分批加载与详情弹窗 */
   (function(){
-    const T = P.topics || [];
+    const Z = window.__ZHUSHI || {};
+    const T = (Z.items||[]).filter(x=>x.ch==='special'||x.ch==='topic');
     if(!T.length) return;
     const nav = document.querySelector('.main-nav');
-    const btn = document.createElement('button');
-    btn.id = 'nav-topics'; btn.dataset.view = 'topics'; btn.textContent = '合作科研专题';
-    nav.insertBefore(btn, document.getElementById('nav-system'));
-    if(window.__bindNav) window.__bindNav();
+    if(!document.getElementById('nav-topics')){
+      const btn = document.createElement('button');
+      btn.id = 'nav-topics'; btn.dataset.view = 'topics'; btn.textContent = '合作科研专题';
+      nav.insertBefore(btn, document.getElementById('nav-system'));
+      if(window.__bindNav) window.__bindNav();
+    }
 
-    const st = { subject:null, status:null };
-    const subjects = [...new Set(T.map(t=>t.subject).filter(Boolean))];
-    const statuses = [...new Set(T.map(t=>t.status).filter(Boolean))];
-    const cnt = (k,v) => T.filter(t=>t[k]===v).length;
+    const PAGE = 24;
+    const CH = { special:'科研专题', topic:'前沿课题' };
+    const st = { ch:null, tag:null, q:'', shown:PAGE };
 
-    function chips(){
+    function chChips(){
+      const n = k => T.filter(x=>x.ch===k).length;
+      $('zh-ch').innerHTML =
+        `<button class="chip${!st.ch?' active':''}" data-c="">全部<span class="n">${T.length}</span></button>` +
+        `<button class="chip${st.ch==='special'?' active':''}" data-c="special">科研专题<span class="n">${n('special')}</span></button>` +
+        `<button class="chip${st.ch==='topic'?' active':''}" data-c="topic">前沿课题<span class="n">${n('topic')}</span></button>`;
+    }
+    function tagChips(){
+      const scope = T.filter(x=>!st.ch||x.ch===st.ch);
+      const m = {};
+      scope.forEach(x=>(x.tags||[]).forEach(t=>m[t]=(m[t]||0)+1));
+      const list = Object.entries(m).filter(([,n])=>n>=3).sort((a,b)=>b[1]-a[1]).slice(0,16);
       $('tp-subjects').innerHTML =
-        `<button class="chip${!st.subject?' active':''}" data-s="">全部学科<span class="n">${T.length}</span></button>` +
-        subjects.map(x=>`<button class="chip${st.subject===x?' active':''}" data-s="${esc(x)}">${esc(x)}<span class="n">${cnt('subject',x)}</span></button>`).join('');
-      $('tp-status').innerHTML =
-        `<button class="chip${!st.status?' active':''}" data-t="">全部状态</button>` +
-        statuses.map(x=>`<button class="chip${st.status===x?' active':''}" data-t="${esc(x)}">${esc(x)}<span class="n">${cnt('status',x)}</span></button>`).join('');
+        `<button class="chip${!st.tag?' active':''}" data-t="">全部学科<span class="n">${scope.length}</span></button>` +
+        list.map(([t,n])=>`<button class="chip${st.tag===t?' active':''}" data-t="${esc(t)}">${esc(t)}<span class="n">${n}</span></button>`).join('');
+    }
+    function card(x){
+      return `<div class="zh-card" data-id="${esc(x.id)}">
+        <div class="zh-cover">
+          ${x.cover?`<img src="${esc(x.cover)}" alt="" loading="lazy" decoding="async">`:''}
+          <span class="badge">${CH[x.ch]||'专题'}</span>
+          ${x.attach?'<span class="haspdf">附件</span>':''}
+        </div>
+        <div class="zh-body">
+          <h3>${esc(x.title)}</h3>
+          ${(x.tags||[]).length?`<div class="tags">${x.tags.slice(0,4).map(t=>`<span>${esc(t)}</span>`).join('')}</div>`:''}
+          ${x.intro?`<div class="intro">${esc(x.intro)}</div>`:''}
+          <div class="ft"><span>${esc(x.cycle||'按渠道排期')}</span><span>查看详情</span></div>
+        </div>
+      </div>`;
+    }
+    function match(x){
+      if(st.ch && x.ch!==st.ch) return false;
+      if(st.tag && !(x.tags||[]).includes(st.tag)) return false;
+      if(st.q){
+        const hay = (x.title+' '+(x.intro||'')+' '+(x.tags||[]).join(' ')).toLowerCase();
+        if(hay.indexOf(st.q)<0) return false;
+      }
+      return true;
     }
     function list(){
-      const out = T.filter(t=>(!st.subject||t.subject===st.subject)&&(!st.status||t.status===st.status));
-      $('tp-grid').innerHTML = out.length ? out.map(t=>`
-        <div class="tp-card">
-          ${t.status?`<span class="st${/锁定|截止|结束/.test(t.status)?' lock':''}">${esc(t.status)}</span>`:''}
-          <h3>${esc(t.title)}</h3>
-          ${(t.tags||[]).length?`<div class="tags">${t.tags.map(g=>`<span>${esc(g)}</span>`).join('')}</div>`:''}
-          ${t.desc?`<div class="ds">${esc(t.desc)}</div>`:''}
-          <div class="ft"><span>${esc(t.rhythm||'')}</span><span>${esc(t.mode||'')}</span></div>
-        </div>`).join('') : `<div style="grid-column:1/-1;text-align:center;padding:60px 0;color:var(--ink-3)">没有匹配的专题</div>`;
+      const out = T.filter(match);
+      const show = out.slice(0, st.shown);
+      $('zh-grid').innerHTML = show.length
+        ? show.map(card).join('')
+        : `<div class="zh-empty">没有匹配的专题，换个关键词或学科试试</div>`;
+      const more = out.length - show.length;
+      $('zh-more').style.display = more>0 ? '' : 'none';
+      $('zh-more').textContent = `加载更多（还有 ${more} 个）`;
+      const allTags = new Set();
+      T.forEach(x=>(x.tags||[]).forEach(t=>allTags.add(t)));
       $('tp-stat').innerHTML = out.length===T.length
-        ? `共 <b>${T.length}</b> 个专题<span class="sep"></span>覆盖学科 <b>${subjects.length}</b> 个`
+        ? `共 <b>${T.length}</b> 个专题<span class="sep"></span>覆盖学科方向 <b>${allTags.size}</b> 个`
         : `筛选出 <b>${out.length}</b> 个专题`;
     }
+    function openZh(x){
+      const tags = (x.tags||[]).map(t=>`<span class="tag">${esc(t)}</span>`).join('');
+      $('modal').innerHTML = `
+        <div class="modal-head">
+          <h3>${esc(x.title)}</h3>
+          <button class="modal-close" id="modal-close">✕</button>
+        </div>
+        ${tags?`<div class="modal-info">${tags}</div>`:''}
+        <div class="modal-meta">
+          ${x.intro?`<div class="meta-item"><span class="k">研究方向</span><b>${esc(x.intro)}</b></div>`:''}
+          ${x.cycle?`<div class="meta-item"><span class="k">开课节奏</span><b>${esc(x.cycle)}</b></div>`:''}
+          <div class="meta-item"><span class="k">类别</span><b>${CH[x.ch]||x.ch}</b></div>
+        </div>
+        ${x.cover?`<div class="modal-img"><img src="${esc(x.cover)}" alt="" referrerpolicy="no-referrer"></div>`:''}
+        ${x.content
+          ? `<div class="zh-content">${zhSafe(x.content)}</div>`
+          : `<div class="zh-content"><p style="color:var(--ink-3)">该专题暂无详细正文，可联系顾问获取完整资料。</p></div>`}
+        ${x.attach?`<div class="zh-attach"><span>官方项目附件（PDF）</span><a href="${esc(x.attach)}" target="_blank" rel="noopener">打开附件 ↗</a></div>`:''}
+        <div class="modal-foot"><span style="font-size:12px;color:var(--ink-3)">数据来源：竹石创新研究院官网 · 排期与名额以渠道实时为准</span></div>`;
+      $('modal-mask').classList.add('open');
+      $('modal').scrollTop = 0;
+      document.body.style.overflow = 'hidden';
+      $('modal-close').onclick = zhClose;
+    }
+
+    $('zh-ch').addEventListener('click', e=>{
+      const b = e.target.closest('.chip'); if(!b) return;
+      st.ch = b.dataset.c||null; st.tag = null; st.shown = PAGE;
+      chChips(); tagChips(); list();
+    });
     $('tp-subjects').addEventListener('click', e=>{
-      const b=e.target.closest('.chip'); if(!b) return;
-      const v=b.dataset.s||null; st.subject = st.subject===v?null:v; chips(); list();
+      const b = e.target.closest('.chip'); if(!b) return;
+      const v = b.dataset.t||null; st.tag = st.tag===v?null:v; st.shown = PAGE;
+      tagChips(); list();
     });
-    $('tp-status').addEventListener('click', e=>{
-      const b=e.target.closest('.chip'); if(!b) return;
-      const v=b.dataset.t||null; st.status = st.status===v?null:v; chips(); list();
+    $('zh-grid').addEventListener('click', e=>{
+      const c = e.target.closest('.zh-card'); if(!c) return;
+      const x = T.find(y=>y.id===c.dataset.id);
+      if(x) openZh(x);
     });
-    $('tp-source').textContent = `合作渠道在库专题 · 共 ${T.length} 个`;
-    chips(); list();
+    $('zh-more').addEventListener('click', ()=>{ st.shown += PAGE; list(); });
+    // 点遮罩空白处关闭弹窗
+    $('modal-mask').addEventListener('click', e=>{ if(e.target.id==='modal-mask') zhClose(); });
+    let qt;
+    $('zh-q').addEventListener('input', e=>{
+      clearTimeout(qt);
+      qt = setTimeout(()=>{ st.q = e.target.value.trim().toLowerCase(); st.shown = PAGE; list(); }, 140);
+    });
+
+    $('tp-source').textContent = `竹石创新研究院 · 官网在库 ${T.length} 个专题`;
+    chChips(); tagChips(); list();
+  })();
+
+  /* 实验平台（platform 频道）：合作方自有实验室、仪器与自研系统 */
+  (function(){
+    const Z = window.__ZHUSHI || {};
+    const L = (Z.items||[]).filter(x=>x.ch==='platform');
+    if(!L.length || !$('pf-grid')) return;
+    const nav = document.querySelector('.main-nav');
+    if(!document.getElementById('nav-platform')){
+      const btn = document.createElement('button');
+      btn.id = 'nav-platform'; btn.dataset.view = 'platform'; btn.textContent = '实验平台';
+      nav.insertBefore(btn, document.getElementById('nav-jobs'));
+      if(window.__bindNav) window.__bindNav();
+    }
+
+    function card(x){
+      return `<div class="zh-card" data-id="${esc(x.id)}">
+        <div class="zh-cover">
+          ${x.cover?`<img src="${esc(x.cover)}" alt="" loading="lazy" decoding="async">`:''}
+          <span class="badge">实验平台</span>
+        </div>
+        <div class="zh-body">
+          <h3>${esc(x.title)}</h3>
+          ${x.intro?`<div class="intro">${esc(x.intro)}</div>`:''}
+          <div class="ft"><span>自有平台</span><span>查看详情</span></div>
+        </div>
+      </div>`;
+    }
+    function render(){
+      const q = (($('pf-q')||{}).value||'').trim().toLowerCase();
+      const out = L.filter(x=>!q || (x.title+' '+(x.intro||'')).toLowerCase().indexOf(q)>=0);
+      $('pf-grid').innerHTML = out.length
+        ? out.map(card).join('')
+        : `<div class="zh-empty">没有匹配的平台，换个关键词试试</div>`;
+      $('pf-stat').innerHTML = out.length===L.length
+        ? `共 <b>${L.length}</b> 项自有平台与设备`
+        : `筛选出 <b>${out.length}</b> 项`;
+    }
+    function open(x){
+      $('modal').innerHTML = `
+        <div class="modal-head">
+          <h3>${esc(x.title)}</h3>
+          <button class="modal-close" id="modal-close">✕</button>
+        </div>
+        <div class="modal-meta">
+          ${x.intro?`<div class="meta-item"><span class="k">用途</span><b>${esc(x.intro)}</b></div>`:''}
+          <div class="meta-item"><span class="k">类别</span><b>自有实验平台</b></div>
+        </div>
+        ${x.cover?`<div class="modal-img"><img src="${esc(x.cover)}" alt="" referrerpolicy="no-referrer"></div>`:''}
+        ${x.content
+          ? `<div class="zh-content">${zhSafe(x.content)}</div>`
+          : `<div class="zh-content"><p style="color:var(--ink-3)">暂无详细说明，可联系顾问了解平台配置。</p></div>`}
+        <div class="modal-foot"><span style="font-size:12px;color:var(--ink-3)">数据来源：竹石创新研究院官网</span></div>`;
+      $('modal-mask').classList.add('open');
+      $('modal').scrollTop = 0;
+      document.body.style.overflow = 'hidden';
+      $('modal-close').onclick = zhClose;
+    }
+
+    $('pf-grid').addEventListener('click', e=>{
+      const c = e.target.closest('.zh-card'); if(!c) return;
+      const x = L.find(y=>y.id===c.dataset.id);
+      if(x) open(x);
+    });
+    let pt;
+    $('pf-q').addEventListener('input', ()=>{ clearTimeout(pt); pt = setTimeout(render, 140); });
+    $('pf-source').textContent = `竹石创新研究院 · 自有实验室与设备 ${L.length} 项`;
+    render();
+  })();
+
+  /* 人才培养专题（talent 频道）：并入培养体系视图底部，紧凑文字卡 */
+  (function(){
+    const Z = window.__ZHUSHI || {};
+    const L = (Z.items||[]).filter(x=>x.ch==='talent');
+    if(!L.length || !$('tl-grid')) return;
+    $('tl-sec').style.display = '';
+
+    const PAGE = 9;
+    let shown = PAGE;
+
+    function card(x){
+      return `<div class="tp-card" data-id="${esc(x.id)}" style="cursor:pointer">
+        <h3>${esc(x.title)}</h3>
+        ${x.intro?`<div class="ds">${esc(x.intro)}</div>`:''}
+        <div class="ft"><span>${esc(x.cycle||'按渠道排期')}</span><span>查看详情 ›</span></div>
+      </div>`;
+    }
+    function render(){
+      const show = L.slice(0, shown);
+      $('tl-grid').innerHTML = show.map(card).join('');
+      const more = L.length - show.length;
+      $('tl-more').style.display = more>0 ? '' : 'none';
+      $('tl-more').textContent = `加载更多（还有 ${more} 个）`;
+      $('tl-count').textContent = `· 共 ${L.length} 项`;
+    }
+    function open(x){
+      $('modal').innerHTML = `
+        <div class="modal-head">
+          <h3>${esc(x.title)}</h3>
+          <button class="modal-close" id="modal-close">✕</button>
+        </div>
+        <div class="modal-meta">
+          ${x.intro?`<div class="meta-item"><span class="k">内容</span><b>${esc(x.intro)}</b></div>`:''}
+          ${x.cycle?`<div class="meta-item"><span class="k">开课节奏</span><b>${esc(x.cycle)}</b></div>`:''}
+          <div class="meta-item"><span class="k">类别</span><b>人才培养专题</b></div>
+        </div>
+        ${x.cover?`<div class="modal-img"><img src="${esc(x.cover)}" alt="" referrerpolicy="no-referrer"></div>`:''}
+        ${x.content
+          ? `<div class="zh-content">${zhSafe(x.content)}</div>`
+          : `<div class="zh-content"><p style="color:var(--ink-3)">暂无详细正文，可联系顾问获取完整资料。</p></div>`}
+        ${x.attach?`<div class="zh-attach"><span>官方项目附件（PDF）</span><a href="${esc(x.attach)}" target="_blank" rel="noopener">打开附件 ↗</a></div>`:''}
+        <div class="modal-foot"><span style="font-size:12px;color:var(--ink-3)">数据来源：竹石创新研究院官网</span></div>`;
+      $('modal-mask').classList.add('open');
+      $('modal').scrollTop = 0;
+      document.body.style.overflow = 'hidden';
+      $('modal-close').onclick = zhClose;
+    }
+
+    $('tl-grid').addEventListener('click', e=>{
+      const c = e.target.closest('.tp-card'); if(!c) return;
+      const x = L.find(y=>y.id===c.dataset.id);
+      if(x) open(x);
+    });
+    $('tl-more').addEventListener('click', ()=>{ shown += PAGE; render(); });
+    render();
   })();
 
   $('sys-youth').innerHTML = (P.youth||[]).map(y=>`
