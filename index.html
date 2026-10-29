@@ -142,7 +142,8 @@
   .attach-item:hover{border-color:var(--orange);background:var(--orange-soft)}
   .attach-item svg{flex-shrink:0}
   .modal-img{padding:16px 26px 8px}
-  .modal-img img{width:100%;border-radius:12px;border:1px solid var(--line);cursor:zoom-in}
+  /* max-width 而不是 width:100%：封面压缩后只有 480px 宽，撑满 828px 容器会被放大 1.7 倍发虚 */
+  .modal-img img{max-width:100%;width:auto;height:auto;display:block;margin:0 auto;border-radius:12px;border:1px solid var(--line);cursor:zoom-in}
   .modal-img .cap{font-size:12px;color:var(--ink-3);text-align:center;margin-top:8px}
   .modal-foot{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:14px 26px 22px;flex-wrap:wrap}
   .origin-link{font-size:13px;color:var(--orange);font-weight:600;text-decoration:none;border:1.5px solid var(--orange);border-radius:999px;padding:8px 18px;transition:.15s}
@@ -152,9 +153,16 @@
   @keyframes blink{50%{opacity:.3}}
 
   /* ===== Lightbox ===== */
-  .lightbox{position:fixed;inset:0;background:rgba(15,14,13,.9);z-index:120;display:none;align-items:center;justify-content:center;padding:24px}
+  .lightbox{position:fixed;inset:0;background:rgba(15,14,13,.94);z-index:120;display:none;align-items:center;justify-content:center;padding:24px;overflow:auto;-webkit-overflow-scrolling:touch}
   .lightbox.open{display:flex}
-  .lightbox img{max-width:100%;max-height:92vh;border-radius:8px}
+  .lightbox img{max-width:100%;max-height:92vh;border-radius:8px;cursor:zoom-in}
+  /* 超长竖图（汇总长图宽高比常到 1:7）：适配窗口会被压成一条细线，
+     改为按容器宽度铺满、纵向滚动，才能真正看清 */
+  .lightbox.long{align-items:flex-start;padding:16px 12px 64px}
+  .lightbox.long img{max-width:none;width:100%;max-height:none;border-radius:6px}
+  /* 点击切换到原始像素尺寸（可横向滚动看细节） */
+  .lightbox img.zoom{max-width:none;max-height:none;width:auto;height:auto;cursor:zoom-out}
+  .lightbox .lb-tip{position:fixed;left:50%;bottom:18px;transform:translateX(-50%);color:rgba(255,255,255,.72);font-size:12px;background:rgba(0,0,0,.45);padding:6px 14px;border-radius:999px;white-space:nowrap;pointer-events:none;transition:opacity .4s ease}
   .lightbox .lb-close{position:fixed;top:18px;right:22px;background:rgba(255,255,255,.14);border:none;color:#fff;font-size:15px;padding:9px 16px;border-radius:999px}
   .lightbox .lb-close:hover{background:var(--orange)}
 
@@ -418,6 +426,7 @@
 <div class="lightbox" id="lightbox">
   <button class="lb-close" id="lb-close">关闭 ✕</button>
   <img id="lb-img" alt="汇总长图">
+  <div class="lb-tip">点击图片可放大到原始尺寸 · 再点还原</div>
 </div>
 
 <script src="assets/data.js"></script>
@@ -674,7 +683,35 @@
     const c=e.target.closest('.summary-card'); if(!c) return;
     openLightbox(summaryImages[+c.dataset.i].url);
   });
-  function openLightbox(url){ $('lb-img').src=url; $('lightbox').classList.add('open'); document.body.style.overflow='hidden'; }
+  function openLightbox(url){
+    const img=$('lb-img'), box=$('lightbox');
+    const fit=()=>{
+      if(!img.naturalWidth) return;
+      // 宽高比 >= 1.6 视为长图，否则 max-height 会把它缩成一条细线
+      box.classList.toggle('long', img.naturalHeight/img.naturalWidth >= 1.6);
+    };
+    img.classList.remove('zoom');
+    box.classList.remove('long');
+    img.onload=fit;          // 必须挂在 src 之前：命中缓存时不会再有 load 事件
+    img.src=url;
+    box.classList.add('open');
+    document.body.style.overflow='hidden';
+    if(img.complete && img.naturalWidth) fit();
+    // 提示条 2.6s 后自行淡出，免得一直压在长图上挡字
+    const tip=box.querySelector('.lb-tip');
+    if(tip){
+      tip.style.opacity='1';
+      clearTimeout(window.__lbTipT);
+      window.__lbTipT=setTimeout(()=>{ tip.style.opacity='0'; }, 2600);
+    }
+  }
+  /* 点图片在原尺寸与适配之间切换 */
+  $('lb-img').addEventListener('click', ()=>{
+    const img=$('lb-img'), box=$('lightbox');
+    const zooming = img.classList.toggle('zoom');
+    if(zooming) box.classList.remove('long');
+    else if(img.naturalWidth) box.classList.toggle('long', img.naturalHeight/img.naturalWidth >= 1.6);
+  });
   $('lb-close').addEventListener('click', ()=>{ $('lightbox').classList.remove('open'); document.body.style.overflow=''; });
   $('lightbox').addEventListener('click', e=>{ if(e.target.id==='lightbox'){ $('lightbox').classList.remove('open'); document.body.style.overflow=''; } });
 
@@ -882,7 +919,7 @@
           ${x.cycle?`<div class="meta-item"><span class="k">开课节奏</span><b>${esc(x.cycle)}</b></div>`:''}
           <div class="meta-item"><span class="k">类别</span><b>${CH[x.ch]||x.ch}</b></div>
         </div>
-        ${x.cover?`<div class="modal-img"><img src="${esc(x.cover)}" alt="" referrerpolicy="no-referrer"></div>`:''}
+        ${(x.pic||x.cover)?`<div class="modal-img"><img src="${esc(x.pic||x.cover)}" alt="" referrerpolicy="no-referrer"${x.cover?` onerror="this.onerror=null;this.src='${esc(x.cover)}'"`:''}></div>`:''}
         ${x.content
           ? `<div class="zh-content">${zhSafe(x.content)}</div>`
           : `<div class="zh-content"><p style="color:var(--ink-3)">该专题暂无详细正文，可联系顾问获取完整资料。</p></div>`}
@@ -968,7 +1005,7 @@
           ${x.intro?`<div class="meta-item"><span class="k">用途</span><b>${esc(x.intro)}</b></div>`:''}
           <div class="meta-item"><span class="k">类别</span><b>自有实验平台</b></div>
         </div>
-        ${x.cover?`<div class="modal-img"><img src="${esc(x.cover)}" alt="" referrerpolicy="no-referrer"></div>`:''}
+        ${(x.pic||x.cover)?`<div class="modal-img"><img src="${esc(x.pic||x.cover)}" alt="" referrerpolicy="no-referrer"${x.cover?` onerror="this.onerror=null;this.src='${esc(x.cover)}'"`:''}></div>`:''}
         ${x.content
           ? `<div class="zh-content">${zhSafe(x.content)}</div>`
           : `<div class="zh-content"><p style="color:var(--ink-3)">暂无详细说明，可联系顾问了解平台配置。</p></div>`}
@@ -1026,7 +1063,7 @@
           ${x.cycle?`<div class="meta-item"><span class="k">开课节奏</span><b>${esc(x.cycle)}</b></div>`:''}
           <div class="meta-item"><span class="k">类别</span><b>人才培养专题</b></div>
         </div>
-        ${x.cover?`<div class="modal-img"><img src="${esc(x.cover)}" alt="" referrerpolicy="no-referrer"></div>`:''}
+        ${(x.pic||x.cover)?`<div class="modal-img"><img src="${esc(x.pic||x.cover)}" alt="" referrerpolicy="no-referrer"${x.cover?` onerror="this.onerror=null;this.src='${esc(x.cover)}'"`:''}></div>`:''}
         ${x.content
           ? `<div class="zh-content">${zhSafe(x.content)}</div>`
           : `<div class="zh-content"><p style="color:var(--ink-3)">暂无详细正文，可联系顾问获取完整资料。</p></div>`}

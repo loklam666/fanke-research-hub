@@ -47,6 +47,8 @@ const items = kept.map(it => {
     title: String(it.title || '').trim(),
     intro: String(it.intro || '').trim() || null,
     cover: existsSync(coverFile) ? `assets/zhushi/c/${ch}_${it._id}.jpg` : null,
+    // 远程原图：列表用压缩封面（省流量），弹窗用原图（480px 撑满弹窗会发虚）
+    pic: it.pic || null,
     poster: it.poster || null,
     tags,
     cycle: String(it.kkTime || '').trim() || null,
